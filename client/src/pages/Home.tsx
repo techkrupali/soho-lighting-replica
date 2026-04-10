@@ -172,7 +172,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative h-[90vh] overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover scale-105"
           style={{ objectPosition: "center center" }}
