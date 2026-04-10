@@ -191,9 +191,9 @@ export default function Home() {
           <p className="text-sm md:text-base mb-8 tracking-wide">
             Engineered by experts | Handcrafted by artisans
           </p>
-          <button className="px-8 py-3 border-2 border-white text-white hover:bg-white hover:text-[#373A36] transition-all duration-300 font-medium tracking-widest text-sm">
-            SHOP THE COLLECTION
-          </button>
+          <a href="https://www.youtube.com/watch?v=jhpxzG74XOM" target="_blank" rel="noopener noreferrer" className="px-8 py-3 border-2 border-white text-white hover:bg-white hover:text-[#373A36] transition-all duration-300 font-medium tracking-widest text-sm">
+            WATCH FULL VIDEO
+          </a>
         </div>
       </section>
 
