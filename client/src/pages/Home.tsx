@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, Search, User, ShoppingCart, Menu, Zap, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 /**
  * Design Philosophy: Luxury Craft
@@ -11,6 +11,13 @@ import { useState } from "react";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [activeAbout, setActiveAbout] = useState(0);
 
@@ -114,7 +121,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#F7F7F0]">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-[#F7F7F0] border-b border-[#E8E8E0]">
+      <header className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${scrolled ? "bg-[#F7F7F0] border-[#E8E8E0]" : "bg-transparent border-transparent"}`}>
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -128,37 +135,27 @@ export default function Home() {
           </div>
 
           <nav className="hidden md:flex gap-8 flex-1 ml-12">
-            <a href="#" className="text-[#373A36] hover:text-[#6B8E7F] transition">
-              Home
-            </a>
-            <a href="#" className="text-[#373A36] hover:text-[#6B8E7F] transition">
-              About Us
-            </a>
-            <a href="#" className="text-[#373A36] hover:text-[#6B8E7F] transition">
-              Products
-            </a>
-            <a href="#" className="text-[#373A36] hover:text-[#6B8E7F] transition">
-              Contact Us
-            </a>
-            <a href="#" className="text-[#373A36] hover:text-[#6B8E7F] transition">
-              More
-            </a>
+            <a href="#" className={`transition ${scrolled ? "text-[#373A36] hover:text-[#6B8E7F]" : "text-white hover:text-white/70"}`}>Home</a>
+            <a href="#" className={`transition ${scrolled ? "text-[#373A36] hover:text-[#6B8E7F]" : "text-white hover:text-white/70"}`}>About Us</a>
+            <a href="#" className={`transition ${scrolled ? "text-[#373A36] hover:text-[#6B8E7F]" : "text-white hover:text-white/70"}`}>Products</a>
+            <a href="#" className={`transition ${scrolled ? "text-[#373A36] hover:text-[#6B8E7F]" : "text-white hover:text-white/70"}`}>Contact Us</a>
+            <a href="#" className={`transition ${scrolled ? "text-[#373A36] hover:text-[#6B8E7F]" : "text-white hover:text-white/70"}`}>More</a>
           </nav>
 
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center bg-white border border-[#E8E8E0] rounded px-3 py-2">
+            <div className={`hidden md:flex items-center border rounded px-3 py-2 transition-all duration-300 ${scrolled ? "bg-white border-[#E8E8E0]" : "bg-white/10 border-white/40"}`}>
               <input
                 type="text"
                 placeholder="Search for products"
-                className="outline-none text-sm text-[#373A36] placeholder-[#999] flex-1"
+                className={`outline-none text-sm placeholder-[#999] flex-1 bg-transparent ${scrolled ? "text-[#373A36]" : "text-white placeholder-white/60"}`}
               />
-              <Search size={18} className="text-[#999]" />
+              <Search size={18} className={scrolled ? "text-[#999]" : "text-white/70"} />
             </div>
             <button className="p-2">
-              <User size={20} className="text-[#373A36]" />
+              <User size={20} className={scrolled ? "text-[#373A36]" : "text-white"} />
             </button>
             <button className="p-2">
-              <ShoppingCart size={20} className="text-[#373A36]" />
+              <ShoppingCart size={20} className={scrolled ? "text-[#373A36]" : "text-white"} />
             </button>
           </div>
         </div>
@@ -177,8 +174,8 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen overflow-hidden">
         <video
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "center 60%" }}
+          className="absolute inset-0 w-full h-full object-cover scale-105"
+          style={{ objectPosition: "center center" }}
           src="https://res.cloudinary.com/diint5cus/video/upload/v1775817581/Magik_Video_Low_2_1_1_k0dl6a.mp4"
           autoPlay
           muted
