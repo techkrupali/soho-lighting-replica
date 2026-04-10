@@ -122,7 +122,7 @@ export default function Home() {
     <div className="min-h-screen bg-[#F7F7F0]">
       {/* Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${scrolled ? "bg-[#F7F7F0] border-[#E8E8E0]" : "bg-transparent border-transparent"}`}>
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 py-2 flex items-center justify-between">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden p-2"
@@ -131,7 +131,7 @@ export default function Home() {
           </button>
 
           <div className="flex items-center gap-2 md:gap-4">
-            <img src="/companylogo.png" alt="Soho Lighting" className="h-20 w-auto object-contain" />
+            <img src="/companylogo.png" alt="Soho Lighting" className="h-12 w-auto object-contain" />
           </div>
 
           <nav className="hidden md:flex gap-8 flex-1 ml-12">
