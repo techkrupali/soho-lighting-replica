@@ -20,35 +20,35 @@ export default function Home() {
       heading: "Made in India",
       description:
         "In just a few years, MAGIK has established itself as a reputed and trusted brand with a pan-India footprint. Its product range encompasses solutions for Home, Office, Industry, Infrastructure, Retail and Hospitality. With a network of 300+ distributors and 15,000+ retailers, MAGIK is there to serve you anywhere.",
-      image: "/companyprofiledark.png",
+      image: "/century house.jpeg",
     },
     {
       title: "Factory and Machinery",
       heading: "World-Class Manufacturing",
       description:
         "Our state-of-the-art factory is equipped with advanced automated machinery and rigorous quality control processes. Every product is crafted with precision to meet international standards and ensure long-lasting performance.",
-      image: "/magikphoto.png",
+      image: "/century house.jpeg",
     },
     {
       title: "Certificates",
       heading: "Certified Excellence",
       description:
         "Magiklight holds multiple international certifications including ISO, CE, and RoHS, reflecting our unwavering commitment to quality, safety, and environmental responsibility in every product we manufacture.",
-      image: "/magikphoto.png",
+      image: "/century house.jpeg",
     },
     {
       title: "Company Deck",
       heading: "Our Vision & Mission",
       description:
         "We envision a brighter, more sustainable world powered by intelligent lighting. Our mission is to innovate continuously, reduce energy consumption, and provide lighting solutions that enhance lives and spaces.",
-      image: "/magikphoto.png",
+      image: "/century house.jpeg",
     },
     {
       title: "Brochures",
       heading: "Explore Our Range",
       description:
         "Browse our comprehensive product brochures covering our full range of LED panels, street lights, solar lights, architectural lighting, and more — designed for every application and environment.",
-      image: "/magikphoto.png",
+      image: "/century house.jpeg",
     },
   ];
   const shopCategoryList = [
