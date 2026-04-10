@@ -12,13 +12,45 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [currentProductIndex, setCurrentProductIndex] = useState(0);
+
+  const heroSlides = [
+    {
+      type: "video" as const,
+      src: "https://res.cloudinary.com/diint5cus/video/upload/v1775817581/Magik_Video_Low_2_1_1_k0dl6a.mp4",
+      heading: "It's in the detail",
+      sub: "Engineered by experts | Handcrafted by artisans",
+      btn: true,
+    },
+    {
+      type: "image" as const,
+      src: "/banner-1.jpeg",
+      heading: "",
+      sub: "",
+      btn: false,
+    },
+    {
+      type: "image" as const,
+      src: "/banner-2.jpeg",
+      heading: "",
+      sub: "",
+      btn: false,
+    },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  const [currentProductIndex, setCurrentProductIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
   const [activeAbout, setActiveAbout] = useState(0);
 
   const aboutItems = [
@@ -173,27 +205,50 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative h-[90vh] overflow-hidden">
-        <video
-          className="absolute inset-0 w-full h-full object-cover scale-105"
-          style={{ objectPosition: "center center" }}
-          src="https://res.cloudinary.com/diint5cus/video/upload/v1775817581/Magik_Video_Low_2_1_1_k0dl6a.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-        />
-        <div className="absolute inset-0 bg-black/30"></div>
-
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white">
-          <h1 className="text-4xl md:text-7xl font-serif font-light mb-4 tracking-tight">
-            It's in the detail
-          </h1>
-          <p className="text-sm md:text-base mb-8 tracking-wide">
-            Engineered by experts | Handcrafted by artisans
-          </p>
-          <a href="https://www.youtube.com/watch?v=jhpxzG74XOM" target="_blank" rel="noopener noreferrer" className="px-8 py-3 border-2 border-white text-white hover:bg-white hover:text-[#373A36] transition-all duration-300 font-medium tracking-widest text-sm">
-            WATCH FULL VIDEO
-          </a>
+        {heroSlides.map((slide, idx) => (
+          <div
+            key={idx}
+            className={`absolute inset-0 transition-opacity duration-1000 ${idx === heroIndex ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+          >
+            {slide.type === "video" ? (
+              <video
+                className="w-full h-full object-cover scale-105"
+                style={{ objectPosition: "center center" }}
+                src={slide.src}
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+            ) : (
+              <img src={slide.src} alt={slide.heading} className="w-full h-full object-cover" />
+            )}
+            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4">
+              <h1 className="text-4xl md:text-7xl font-serif font-light mb-4 tracking-tight">{slide.heading}</h1>
+              <p className="text-sm md:text-base mb-8 tracking-wide">{slide.sub}</p>
+              {slide.btn && (
+                <a
+                  href="https://www.youtube.com/watch?v=jhpxzG74XOM"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-3 border-2 border-white text-white hover:bg-white hover:text-[#373A36] transition-all duration-300 font-medium tracking-widest text-sm"
+                >
+                  WATCH FULL VIDEO
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+        {/* Dots */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          {heroSlides.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setHeroIndex(idx)}
+              className={`h-2 rounded-full transition-all duration-300 ${idx === heroIndex ? "bg-white w-6" : "bg-white/50 w-2"}`}
+            />
+          ))}
         </div>
       </section>
 
