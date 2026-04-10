@@ -175,11 +175,11 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative h-96 md:h-[500px] overflow-hidden">
+      <section className="relative h-screen overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition: "center 60%" }}
-          src="/Magik Video Low 2.mp4"
+          src="https://res.cloudinary.com/diint5cus/video/upload/v1775817581/Magik_Video_Low_2_1_1_k0dl6a.mp4"
           autoPlay
           muted
           loop
