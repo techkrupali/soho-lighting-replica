@@ -175,6 +175,21 @@
     min-width: 0;
   }
 
+  .animate-fadeSlideIn {
+    animation: fadeSlideIn 0.5s ease forwards;
+  }
+
+  @keyframes fadeSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
 
 
   @media (min-width: 640px) {

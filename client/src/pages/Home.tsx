@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Search, User, ShoppingCart, Menu } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search, User, ShoppingCart, Menu, Zap, ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 /**
@@ -259,16 +259,26 @@ export default function Home() {
 
         {/* Left: Dynamic Text */}
         <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "5%", paddingRight: "42%" }}>
-          <div>
-            <p className="text-[#C9A961] text-sm md:text-lg tracking-widest uppercase mb-6">About Us</p>
-            <h2 className="text-white text-4xl md:text-6xl font-serif font-light mb-8 leading-tight">
+          <div key={activeAbout} className="animate-fadeSlideIn">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-9 h-9 rounded-full bg-[#C9A961]/20 border border-[#C9A961]/50 flex items-center justify-center">
+                <Zap size={16} className="text-[#C9A961]" fill="#C9A961" />
+              </div>
+              <p className="text-[#C9A961] text-sm md:text-lg tracking-widest uppercase">About Us</p>
+            </div>
+            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-8 leading-tight">
               {aboutItems[activeAbout].heading}
             </h2>
-            <div className="text-white text-xl md:text-2xl leading-relaxed space-y-4">
+            <div className="text-white text-lg md:text-xl leading-relaxed space-y-0" style={{ maxWidth: "50%" }}>
               {aboutItems[activeAbout].description.split("\n\n").map((para, i) => (
                 <p key={i}>{para}</p>
               ))}
             </div>
+            <button className="group mt-8 relative flex items-center gap-2 text-sm tracking-widest uppercase px-6 py-3 border border-white/40 overflow-hidden isolate">
+              <span className="absolute inset-0 bg-[#C9A961] z-0 translate-y-full transition-transform duration-300 ease-in-out group-hover:translate-y-0"></span>
+              <span className="relative z-10 text-white">Read More</span>
+              <ArrowRight size={16} className="relative z-10 text-white transition-all duration-300 group-hover:translate-x-2" />
+            </button>
           </div>
         </div>
 
@@ -280,20 +290,23 @@ export default function Home() {
                 key={idx}
                 onMouseEnter={() => setActiveAbout(idx)}
                 onClick={() => setActiveAbout(idx)}
-                className={`py-6 cursor-pointer flex items-center justify-between group transition-colors duration-200 ${
+                className={`py-6 cursor-pointer flex items-center justify-between group transition-all duration-300 ${
                   idx < aboutItems.length - 1 ? `border-b ${activeAbout === idx ? "border-[#C9A961]" : "border-white/40"}` : ""
                 }`}
               >
                 <span
-                  className={`text-xl md:text-2xl font-light tracking-widest transition-colors duration-300 ${
-                    activeAbout === idx ? "text-[#C9A961]" : "text-white group-hover:text-[#C9A961]"
+                  className={`text-xl md:text-2xl font-light tracking-widest transition-all duration-300 ${
+                    activeAbout === idx ? "text-[#C9A961] translate-x-2" : "text-white group-hover:text-[#C9A961] group-hover:translate-x-2"
                   }`}
                 >
                   {item.title}
                 </span>
-                {activeAbout === idx && (
-                  <ChevronRight size={18} className="text-[#C9A961]" />
-                )}
+                <ChevronRight
+                  size={18}
+                  className={`transition-all duration-300 ${
+                    activeAbout === idx ? "text-[#C9A961] opacity-100 translate-x-0" : "text-[#C9A961] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
+                  }`}
+                />
               </div>
             ))}
           </div>
