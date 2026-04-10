@@ -283,8 +283,8 @@ export default function Home() {
         </div>
 
         {/* Right: List — original position */}
-        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "62%" }}>
-          <div className="w-full max-w-xs">
+        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "62%", pointerEvents: "none" }}>
+          <div className="w-full max-w-xs" style={{ pointerEvents: "auto" }}>
             {aboutItems.map((item, idx) => (
               <div
                 key={idx}
