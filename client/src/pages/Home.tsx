@@ -258,7 +258,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/40"></div>
 
         {/* Left: Dynamic Text */}
-        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "5%", paddingRight: "42%" }}>
+        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "10%", paddingRight: "42%" }}>
           <div key={activeAbout} className="animate-fadeSlideIn">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-9 h-9 rounded-full bg-[#C9A961]/20 border border-[#C9A961]/50 flex items-center justify-center">
