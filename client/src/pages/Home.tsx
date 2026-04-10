@@ -366,6 +366,53 @@ export default function Home() {
 
       </section>
 
+      {/* B2B Solutions */}
+      <section className="py-16 md:py-24 bg-[#F7F7F0]">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+
+            {/* Left: sticky text */}
+            <div className="md:sticky md:top-24">
+              <p className="text-[#C9A961] text-sm tracking-widest uppercase mb-3">B2B Solutions</p>
+              <h2 className="text-4xl md:text-5xl font-serif font-light text-[#373A36] mb-6 leading-tight">
+                B2B Project <strong className="font-bold">Showcase</strong>
+              </h2>
+              <div className="h-1 w-16 bg-[#C9A961] rounded-full mb-6"></div>
+              <p className="text-[#666] text-lg leading-relaxed">
+                Trusted by builders, contractors, and enterprises across India. From large-scale commercial fit-outs to industrial installations — we deliver end-to-end lighting solutions.
+              </p>
+            </div>
+
+            {/* Right: stacking cards */}
+            <div className="flex flex-col gap-6">
+              {[
+                { img: "/indorr lighting.png", title: "Eden Garden Club House", desc: "Kolkata" },
+                { img: "/towerimage.png", title: "Air Traffic Control", desc: "Bhubaneswar" },
+                { img: "/The Agri Horticulture, Kolkata.jpeg", title: "The Agri Horticulture", desc: "Kolkata" },
+                { img: "/starcementplant.png", title: "Star Cement Plant", desc: "Meghalaya" },
+                { img: "/Durgapur Steel Plant, West Bengal.jpeg", title: "Durgapur Steel Plant", desc: "West Bengal" },
+                { img: "/Kolkata Airport.jpeg", title: "Kolkata Airport", desc: "Kolkata" },
+              ].map((card, idx) => (
+                <div
+                  key={idx}
+                  className="sticky bg-white rounded-xl overflow-hidden shadow-md"
+                  style={{ top: `${96 + idx * 16}px` }}
+                >
+                  <div className="h-72 overflow-hidden">
+                    <img src={card.img} alt={card.title} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-[#373A36] mb-2 tracking-wide">{card.title}</h3>
+                    <p className="text-[#666] text-sm leading-relaxed">{card.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Sockets & Switches Featured */}
       <section className="py-16 md:py-24 bg-[#F7F7F0]">
         <div className="container mx-auto px-4">
