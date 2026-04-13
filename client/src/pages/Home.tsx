@@ -25,7 +25,7 @@ export default function Home() {
     },
     {
       type: "image" as const,
-      src: "/banner-1.jpeg",
+      src: "/banner2.png",
       heading: "",
       sub: "",
       btn: false,
@@ -59,42 +59,42 @@ export default function Home() {
       heading: "Made in India",
       description:
         "In just a few years, MAGIK has established itself as a reputed and trusted brand with a pan-India footprint. Its product range encompasses solutions for Home, Office, Industry, Infrastructure, Retail and Hospitality. With a network of 300+ distributors and 15,000+ retailers, MAGIK is there to serve you anywhere.",
-      image: "/century house.jpeg",
+      image: "/centuryhousehdimage.png",
     },
     {
       title: "Factory and Machinery",
       heading: "World-Class Manufacturing",
       description:
         "Our state-of-the-art factory is equipped with advanced automated machinery and rigorous quality control processes. Every product is crafted with precision to meet international standards and ensure long-lasting performance.",
-      image: "/century house.jpeg",
+      image: "/centuryhousehdimage.png",
     },
     {
       title: "Certificates",
       heading: "Certified Excellence",
       description:
         "Magiklight holds multiple international certifications including ISO, CE, and RoHS, reflecting our unwavering commitment to quality, safety, and environmental responsibility in every product we manufacture.",
-      image: "/century house.jpeg",
+      image: "/centuryhousehdimage.png",
     },
     {
       title: "Company Deck",
       heading: "Our Vision & Mission",
       description:
         "We envision a brighter, more sustainable world powered by intelligent lighting. Our mission is to innovate continuously, reduce energy consumption, and provide lighting solutions that enhance lives and spaces.",
-      image: "/century house.jpeg",
+      image: "/centuryhousehdimage.png",
     },
     {
       title: "Brochures",
       heading: "Explore Our Range",
       description:
         "Browse our comprehensive product brochures covering our full range of LED panels, street lights, solar lights, architectural lighting, and more — designed for every application and environment.",
-      image: "/century house.jpeg",
+      image: "/centuryhousehdimage.png",
     },
   ];
   const shopCategoryList = [
     { name: "PANEL & SPOTLIGHT", image: "/panel.png", objectPosition: "center top" },
-    { name: "OUTDOOR LIGHTS", image: "/outdoorlights.png" },
+    { name: "OUTDOOR LIGHTS", image: "/outdorr lightsss.png", objectPosition: "center top" },
     { name: "TABLE LAMPS", image: "/Sidelamp 2.png", objectPosition: "85% 0%" },
-    { name: "LAMPS", image: "/lamp2.png" },
+    { name: "LAMPS", image: "/lampssss.png", objectPosition: "center top" },
     { name: "BATTEN", image: "/Batten.png", objectPosition: "center top" },
     { name: "ACCESSORIES", image: "/accessries.png", objectPosition: "center top" },
     { name: "STREET LIGHTING", image: "/Streetlightss.png", objectPosition: "center top" },
@@ -223,7 +223,7 @@ export default function Home() {
             ) : (
               <img src={slide.src} alt={slide.heading} className="w-full h-full object-cover" />
             )}
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="" />
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4">
               <h1 className="text-4xl md:text-7xl font-serif font-light mb-4 tracking-tight">{slide.heading}</h1>
               <p className="text-sm md:text-base mb-8 tracking-wide">{slide.sub}</p>
@@ -375,19 +375,37 @@ export default function Home() {
             <div className="md:sticky md:top-24">
               <p className="text-[#C9A961] text-sm tracking-widest uppercase mb-3">B2B Solutions</p>
               <h2 className="text-4xl md:text-5xl font-serif font-light text-[#373A36] mb-6 leading-tight">
-                B2B Project <strong className="font-bold">Showcase</strong>
+                B2B Project <strong className="font-bold font-serif">Showcase</strong>
               </h2>
               <div className="h-1 w-16 bg-[#C9A961] rounded-full mb-6"></div>
-              <p className="text-[#666] text-lg leading-relaxed">
+              <p className="text-[#666] text-lg leading-relaxed font-serif">
                 Trusted by builders, contractors, and enterprises across India. From large-scale commercial fit-outs to industrial installations — we deliver end-to-end lighting solutions.
               </p>
+              <div className="mt-8 grid grid-cols-2 gap-4">
+                <div className="border-l-2 border-[#C9A961] pl-4">
+                  <p className="text-2xl font-bold font-serif text-[#373A36]">300+</p>
+                  <p className="text-sm text-[#666] font-serif">Projects Completed</p>
+                </div>
+                <div className="border-l-2 border-[#C9A961] pl-4">
+                  <p className="text-2xl font-bold font-serif text-[#373A36]">15,000+</p>
+                  <p className="text-sm text-[#666] font-serif">Retailers Nationwide</p>
+                </div>
+                <div className="border-l-2 border-[#C9A961] pl-4">
+                  <p className="text-2xl font-bold font-serif text-[#373A36]">Pan-India</p>
+                  <p className="text-sm text-[#666] font-serif">Distribution Network</p>
+                </div>
+                <div className="border-l-2 border-[#C9A961] pl-4">
+                  <p className="text-2xl font-bold font-serif text-[#373A36]">ISO Certified</p>
+                  <p className="text-sm text-[#666] font-serif">Quality Assured</p>
+                </div>
+              </div>
             </div>
 
             {/* Right: stacking cards */}
             <div className="flex flex-col gap-6">
               {[
                 { img: "/indorr lighting.png", title: "Eden Garden Club House", desc: "Kolkata" },
-                { img: "/towerimage.png", title: "Air Traffic Control", desc: "Bhubaneswar" },
+                { img: "/towerimage.png", title: "Air Traffic Control", desc: "Bhubaneswar", objectPosition: "center 40%" },
                 { img: "/The Agri Horticulture, Kolkata.jpeg", title: "The Agri Horticulture", desc: "Kolkata" },
                 { img: "/starcementplant.png", title: "Star Cement Plant", desc: "Meghalaya" },
                 { img: "/Durgapur Steel Plant, West Bengal.jpeg", title: "Durgapur Steel Plant", desc: "West Bengal" },
@@ -398,12 +416,12 @@ export default function Home() {
                   className="sticky bg-white rounded-xl overflow-hidden shadow-md"
                   style={{ top: `${96 + idx * 16}px` }}
                 >
-                  <div className="h-72 overflow-hidden">
-                    <img src={card.img} alt={card.title} className="w-full h-full object-cover" />
+                  <div className="overflow-hidden h-96">
+                    <img src={card.img} alt={card.title} className="w-full h-full object-cover" style={{ objectPosition: (card as any).objectPosition || "center" }} />
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-[#373A36] mb-2 tracking-wide">{card.title}</h3>
-                    <p className="text-[#666] text-sm leading-relaxed">{card.desc}</p>
+                  <div className="p-3">
+                    <h3 className="text-sm font-semibold text-[#373A36] mb-1 tracking-wide">{card.title}</h3>
+                    <p className="text-[#666] text-xs leading-relaxed">{card.desc}</p>
                   </div>
                 </div>
               ))}
