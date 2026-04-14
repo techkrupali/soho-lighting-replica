@@ -1,5 +1,169 @@
-import { ChevronLeft, ChevronRight, Search, User, ShoppingCart, Menu, Zap, ArrowRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight, Search, User, ShoppingCart, Menu, ArrowRight, Zap, Factory, Award, Globe, Wrench, Leaf } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+
+const testimonials = [
+  { name: "Rajesh Mehta", role: "Architect, Mumbai", text: "Magik Lighting transformed our commercial project completely. The quality and finish are unmatched — every client who visits is impressed.", avatar: "RM" },
+  { name: "Priya Sharma", role: "Interior Designer, Delhi", text: "I've worked with many lighting brands, but Magik stands out for its consistency and innovation. My go-to for every premium project.", avatar: "PS" },
+  { name: "Anil Gupta", role: "Contractor, Kolkata", text: "Pan-India delivery, dedicated support, and products that never fail. Magik is the only brand I recommend to my clients.", avatar: "AG" },
+  { name: "Sunita Patel", role: "Hotel Owner, Ahmedabad", text: "We installed Magik LEDs across our entire hotel. Energy savings are remarkable and the ambiance is exactly what we envisioned.", avatar: "SP" },
+  { name: "Vikram Nair", role: "Project Manager, Bangalore", text: "From street lights to industrial fixtures — Magik delivered on time and within budget. Exceptional B2B experience.", avatar: "VN" },
+  { name: "Deepa Joshi", role: "Retail Chain Owner, Pune", text: "Our stores look stunning with Magik retail lighting. Footfall has increased and customers always comment on the atmosphere.", avatar: "DJ" },
+  { name: "Suresh Reddy", role: "Civil Engineer, Hyderabad", text: "ISO certified quality you can actually feel. Every product is built to last — we've had zero failures across 3 large projects.", avatar: "SR" },
+  { name: "Meena Kapoor", role: "Landscape Designer, Chennai", text: "The landscape lighting range is breathtaking. Magik understands outdoor aesthetics like no other brand in India.", avatar: "MK" },
+];
+
+function ClientLove() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const animRef = useRef<number>(0);
+  const posRef = useRef(0);
+  const pausedRef = useRef(false);
+  const doubled = [...testimonials, ...testimonials];
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const cardWidth = 320 + 24; // w-80 + gap-6
+    const totalWidth = cardWidth * testimonials.length;
+
+    const step = () => {
+      if (!pausedRef.current) {
+        posRef.current += 0.5;
+        if (posRef.current >= totalWidth) posRef.current = 0;
+        track.style.transform = `translateX(-${posRef.current}px)`;
+      }
+      animRef.current = requestAnimationFrame(step);
+    };
+    animRef.current = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animRef.current);
+  }, []);
+
+  return (
+    <section className="py-16 bg-white overflow-hidden">
+      <div className="container mx-auto px-4 mb-10 text-center">
+        <p className="text-[#C9A961] text-xs tracking-widest uppercase font-sans mb-1">Client Love</p>
+        <h2 className="text-3xl md:text-4xl font-serif font-light tracking-widest text-[#373A36]">
+          Magik <strong className="font-bold">Voices</strong>
+        </h2>
+        <div className="flex justify-center mt-3 mb-4">
+          <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
+        </div>
+        <p className="text-[#666] text-sm max-w-xl mx-auto">
+          Hear from the visionaries who have transformed their spaces with Magik Lighting.
+        </p>
+      </div>
+
+      {/* Autoscroll track */}
+      <div
+        className="relative"
+        onMouseEnter={() => { pausedRef.current = true; }}
+        onMouseLeave={() => { pausedRef.current = false; }}
+      >
+        <div ref={trackRef} className="flex gap-6 w-max">
+          {doubled.map((t, idx) => (
+            <div
+              key={idx}
+              className="w-80 flex-shrink-0 bg-[#F7F7F0] rounded-2xl p-6 border border-[#E8E8E0] hover:border-[#6B8E7F] hover:shadow-md transition-all duration-300"
+            >
+              {/* Quote mark */}
+              <div className="text-[#C9A961] text-5xl font-serif leading-none mb-2">"</div>
+              <p className="text-[#444] text-sm leading-relaxed mb-6">{t.text}</p>
+              <div className="flex items-center gap-3 mt-auto">
+                <div className="w-10 h-10 rounded-full bg-[#6B8E7F] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                  {t.avatar}
+                </div>
+                <div>
+                  <p className="text-[#373A36] text-sm font-semibold">{t.name}</p>
+                  <p className="text-[#999] text-xs">{t.role}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const videos = [
+  { id: 'jhpxzG74XOM', category: 'BRAND',      title: 'Magik Brand Story',        subtitle: 'Our Journey',      duration: '3:42' },
+  { id: 'tNFuuZqOto0', category: 'FACTORY',    title: 'Manufacturing Excellence', subtitle: 'Behind the Scenes', duration: '5:18' },
+  { id: 'vwPxVQ6_1og', category: 'TECHNOLOGY', title: 'Smart LED Technology',     subtitle: 'Innovation',        duration: '4:07' },
+  { id: 'atZ1rTuyxfE', category: 'PRODUCT',    title: 'CONNECT — IoT Lighting',   subtitle: 'Smart Solutions',   duration: '2:55' },
+  { id: 'dOPRrnumq9w', category: 'B2B',        title: 'B2B Solutions Overview',   subtitle: 'Partner With Us',   duration: '6:12' },
+];
+
+function CorporateVideos() {
+  const [playing, setPlaying] = useState<string | null>(null);
+  const [featured, setFeatured] = useState(videos[0]);
+
+  return (
+    <section className="py-10 px-6 bg-[#EEF3F1]">
+      <div className="container mx-auto">
+        <div className="mb-6 text-center">
+          <p className="text-[#6B8E7F] text-xs tracking-widest uppercase font-sans mb-1">Watch & Explore</p>
+          <h2 className="text-[#373A36] text-3xl md:text-4xl font-bold font-serif uppercase tracking-wide">Corporate Videos</h2>
+          <div className="flex justify-center mt-3">
+            <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
+          </div>
+        </div>
+        <div className="flex flex-col lg:flex-row gap-4">
+          <div className="flex-1 rounded-2xl overflow-hidden relative" style={{ minHeight: 380 }}>
+            {playing === featured.id ? (
+              <iframe
+                src={`https://www.youtube.com/embed/${featured.id}?autoplay=1&rel=0`}
+                title={featured.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full"
+                style={{ height: 380, display: 'block' }}
+              />
+            ) : (
+              <button onClick={() => setPlaying(featured.id)} className="w-full h-full absolute inset-0 group cursor-pointer text-left">
+                <img src={`https://img.youtube.com/vi/${featured.id}/maxresdefault.jpg`} alt={featured.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110 bg-[#6B8E7F]">
+                    <svg className="w-8 h-8 ml-1" viewBox="0 0 10 10" fill="white"><polygon points="2,1 9,5 2,9" /></svg>
+                  </div>
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <p className="text-xs tracking-widest uppercase font-sans mb-1 text-[#C9A961]">{featured.category}</p>
+                  <h3 className="text-white text-2xl font-bold font-serif mb-1">{featured.title}</h3>
+                  <p className="text-white/60 text-sm font-sans">{featured.subtitle} &bull; {featured.duration}</p>
+                </div>
+              </button>
+            )}
+          </div>
+          <div className="lg:w-96 flex flex-col gap-3">
+            {videos.map((v) => {
+              const isActive = v.id === featured.id;
+              return (
+                <button key={v.id} onClick={() => { setFeatured(v); setPlaying(null); }}
+                  className={`flex items-center gap-3 rounded-xl p-3 text-left transition-all duration-200 ${isActive ? 'border border-[#6B8E7F] bg-[#6B8E7F]/10' : 'border border-[#E8E8E0] bg-white hover:bg-[#F7F7F0]'}`}
+                >
+                  <div className="relative w-28 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                    <img src={`https://img.youtube.com/vi/${v.id}/mqdefault.jpg`} alt={v.title} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                      <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: isActive ? '#6B8E7F' : 'rgba(255,255,255,0.85)' }}>
+                        <svg className="w-3 h-3 ml-0.5" viewBox="0 0 10 10" fill={isActive ? 'white' : '#373A36'}><polygon points="2,1 9,5 2,9" /></svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs tracking-widest uppercase font-sans mb-0.5 text-[#C9A961]">{v.category}</p>
+                    <p className="text-[#373A36] text-sm font-semibold font-sans truncate">{v.title}</p>
+                    <p className="text-[#999] text-xs font-sans mt-0.5">{v.duration}</p>
+                  </div>
+                  {isActive && <div className="w-1 h-10 rounded-full flex-shrink-0 bg-[#6B8E7F]" />}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 /**
  * Design Philosophy: Luxury Craft
@@ -102,11 +266,11 @@ export default function Home() {
     { name: "AREA LIGHTING", image: "/arealighting.png", objectPosition: "center 50%" },
     { name: "INDUSTRIAL LIGHTING", image: "/starcementplant.png", objectPosition: "center 80%" },
     { name: "LANDSCAPE LIGHTING", image: "/The Agri Horticulture, Kolkata.jpeg", objectPosition: "center top" },
-    { name: "RETAIL LIGHTING", image: "/retailllll.png", objectPosition: "center top" },
+    { name: "RETAIL LIGHTING", image: "/retailllhdimage.png", objectPosition: "center top" },
     { name: "INDOOR LIGHTING", image: "/indorr lighting.png", objectPosition: "center top" },
     { name: "ARCHITECTURAL LIGHTING", image: "/towerimage.png", objectPosition: "center top" },
     { name: "SMART LIGHTING", image: "/smartlights.png" },
-    { name: "WIRE", image: "/wire.png" },
+    { name: "WIRE", image: "/wirehdimage.png", objectPosition: "center 20%" },
   ];
 
   const products = [
@@ -255,7 +419,7 @@ export default function Home() {
       {/* Shop By Category */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-light text-[#373A36] mb-2 text-center tracking-widest">
+          <h2 className="text-3xl md:text-4xl font-serif font-light text-[#373A36] mb-2 text-center tracking-widest">
             SHOP BY <strong className="font-bold">CATEGORY</strong>
           </h2>
           <div className="flex justify-center mb-12">
@@ -277,8 +441,9 @@ export default function Home() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       style={{ objectPosition: cat.objectPosition || "center" }}
                     />
-                    <div className="absolute inset-0 transition-all flex items-end p-4">
-                      <span className="text-white text-sm font-semibold tracking-widest leading-tight">{cat.name}</span>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                    <div className="absolute inset-0 flex items-end justify-center p-4">
+                      <span className="text-white text-sm font-semibold tracking-widest leading-tight text-center">{cat.name}</span>
                     </div>
                   </div>
                 ))}
@@ -307,7 +472,7 @@ export default function Home() {
           className="w-full h-full object-cover transition-all duration-700"
           style={{ objectPosition: "20% 30%" }}
         />
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
 
         {/* Left: Dynamic Text */}
         <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "10%", paddingRight: "42%" }}>
@@ -316,21 +481,24 @@ export default function Home() {
               <div className="w-9 h-9 rounded-full bg-[#C9A961]/20 border border-[#C9A961]/50 flex items-center justify-center">
                 <Zap size={16} className="text-[#C9A961]" fill="#C9A961" />
               </div>
-              <p className="text-[#C9A961] text-sm md:text-lg tracking-widest uppercase">About Us</p>
+              <p className="text-white font-sans tracking-widest uppercase" style={{ fontSize: "21px", paddingLeft: "0px", marginBottom: "0px" }}>About Us</p>
             </div>
-            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-8 leading-tight">
+            <h2 className="text-white text-5xl md:text-7xl font-light mb-8 leading-tight"
+                style={{ fontFamily: "'Playfair Display', serif", paddingTop: "10px", marginBottom: "8px" }}>
               {aboutItems[activeAbout].heading}
             </h2>
-            <div className="text-white text-lg md:text-xl leading-relaxed space-y-0" style={{ maxWidth: "50%" }}>
+            <div className="text-white leading-relaxed space-y-0" style={{ maxWidth: "50%" }}>
               {aboutItems[activeAbout].description.split("\n\n").map((para, i) => (
-                <p key={i}>{para}</p>
+                <p key={i} className="font-sans" style={{ fontSize: "19px", marginBottom: "20px", color: "#FFFFFF" }}>{para}</p>
               ))}
             </div>
-            <button className="group mt-8 relative flex items-center gap-2 text-sm tracking-widest uppercase px-6 py-3 border border-white/40 overflow-hidden isolate">
-              <span className="absolute inset-0 bg-[#C9A961] z-0 translate-y-full transition-transform duration-300 ease-in-out group-hover:translate-y-0"></span>
-              <span className="relative z-10 text-white">Read More</span>
-              <ArrowRight size={16} className="relative z-10 text-white transition-all duration-300 group-hover:translate-x-2" />
-            </button>
+            <a
+              href="#"
+              className="inline-block text-white font-sans border border-white hover:bg-white hover:text-[#373A36] transition-all duration-300"
+              style={{ fontSize: "15px", padding: "6px 34px 6px 20px", marginTop: "5px" }}
+            >
+              Read More
+            </a>
           </div>
         </div>
 
@@ -366,100 +534,137 @@ export default function Home() {
 
       </section>
 
-      {/* B2B Solutions */}
+      {/* Why Choose Magik Lighting */}
       <section className="py-16 md:py-24 bg-[#F7F7F0]">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+          <div className="text-center mb-14">
+            <p className="text-[#C9A961] text-sm tracking-widest uppercase mb-3">Our Advantage</p>
+            <h2 className="text-3xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] leading-tight">
+              Why Choose <strong className="font-bold">Magik Lighting</strong>
+            </h2>
+            <div className="flex justify-center mt-4">
+              <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
+            </div>
+            <p className="text-[#666] text-sm max-w-3xl leading-relaxed mx-auto mt-4">
+              LED lights are the latest choice for smart and sustainable functioning. Magik enhances the power of LED lights that illuminates your world with smart solutions empowered by innovative thinking.
+            </p>
+          </div>
 
-            {/* Left: sticky text */}
-            <div className="md:sticky md:top-24">
-              <p className="text-[#C9A961] text-sm tracking-widest uppercase mb-3">B2B Solutions</p>
-              <h2 className="text-4xl md:text-5xl font-serif font-light text-[#373A36] mb-6 leading-tight">
-                B2B Project <strong className="font-bold font-serif">Showcase</strong>
-              </h2>
-              <div className="h-1 w-16 bg-[#C9A961] rounded-full mb-6"></div>
-              <p className="text-[#666] text-lg leading-relaxed font-serif">
-                Trusted by builders, contractors, and enterprises across India. From large-scale commercial fit-outs to industrial installations — we deliver end-to-end lighting solutions.
-              </p>
-              <div className="mt-8 grid grid-cols-2 gap-4">
-                <div className="border-l-2 border-[#C9A961] pl-4">
-                  <p className="text-2xl font-bold font-serif text-[#373A36]">300+</p>
-                  <p className="text-sm text-[#666] font-serif">Projects Completed</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5">
+            {[
+              {
+                icon: <Zap size={24} className="text-[#6B8E7F]" />,
+                title: "Energy Efficient",
+                desc: "Our LED solutions consume up to 80% less energy than traditional lighting, reducing your electricity bills and carbon footprint significantly.",
+              },
+              {
+                icon: <Factory size={24} className="text-[#6B8E7F]" />,
+                title: "Made in India",
+                desc: "Proudly manufactured in our state-of-the-art facility with world-class machinery, ensuring quality at every step of production.",
+              },
+              {
+                icon: <Award size={24} className="text-[#6B8E7F]" />,
+                title: "ISO Certified Quality",
+                desc: "Every product meets rigorous international standards. Our ISO, CE, and RoHS certifications are a testament to our commitment to excellence.",
+              },
+              {
+                icon: <Globe size={24} className="text-[#6B8E7F]" />,
+                title: "Pan-India Network",
+                desc: "With 300+ distributors and 15,000+ retailers across India, Magik Lighting is always within reach — wherever you are.",
+              },
+              {
+                icon: <Wrench size={24} className="text-[#6B8E7F]" />,
+                title: "End-to-End Solutions",
+                desc: "From residential to large-scale industrial projects, we provide complete lighting solutions tailored to your specific requirements.",
+              },
+              {
+                icon: <Leaf size={24} className="text-[#6B8E7F]" />,
+                title: "Sustainable Future",
+                desc: "We design with the planet in mind — using eco-friendly materials and processes to build a greener, brighter tomorrow.",
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="group bg-white rounded-xl p-8 shadow-sm hover:shadow-md border border-[#E8E8E0] hover:border-[#6B8E7F] transition-all duration-300"
+              >
+                <div className="w-14 h-14 rounded-full bg-[#6B8E7F]/10 flex items-center justify-center mb-6 group-hover:bg-[#6B8E7F]/20 transition-colors duration-300">
+                  {item.icon}
                 </div>
-                <div className="border-l-2 border-[#C9A961] pl-4">
-                  <p className="text-2xl font-bold font-serif text-[#373A36]">15,000+</p>
-                  <p className="text-sm text-[#666] font-serif">Retailers Nationwide</p>
-                </div>
-                <div className="border-l-2 border-[#C9A961] pl-4">
-                  <p className="text-2xl font-bold font-serif text-[#373A36]">Pan-India</p>
-                  <p className="text-sm text-[#666] font-serif">Distribution Network</p>
-                </div>
-                <div className="border-l-2 border-[#C9A961] pl-4">
-                  <p className="text-2xl font-bold font-serif text-[#373A36]">ISO Certified</p>
-                  <p className="text-sm text-[#666] font-serif">Quality Assured</p>
+                <h3 className="text-lg font-semibold text-[#373A36] mb-3 tracking-wide">{item.title}</h3>
+                <p className="text-[#666] text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* B2B Solutions */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+
+          {/* Header */}
+          <div className="mb-10 text-center">
+            <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-2">B2B Solutions</p>
+            <h2 className="text-4xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] mb-2 leading-tight">
+              B2B Project Showcase
+            </h2>
+            <div className="flex justify-center mb-4">
+              <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
+            </div>
+            <p className="text-[#666] text-base max-w-xl leading-relaxed mx-auto">
+              Trusted by builders, contractors, and enterprises across India —
+              delivering end-to-end lighting solutions for every scale.
+            </p>
+          </div>
+
+          {/* 3x2 Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              { img: "/starcementplant.png",                        title: "Star Cement Plant",       location: "Meghalaya",   tag: "INDUSTRIAL",         objectPosition: "center center" },
+              { img: "/The Agri Horticulture, Kolkata.jpeg",        title: "The Agri Horticulture",   location: "Kolkata",     tag: "AGRICULTURE",        objectPosition: "center center" },
+              { img: "/Kolkata Airport.jpeg",                       title: "Kolkata Airport",         location: "Kolkata",     tag: "INFRASTRUCTURE",     objectPosition: "center center" },
+              { img: "/Durgapur Steel Plant, West Bengal.jpeg",     title: "Durgapur Steel Plant",    location: "West Bengal", tag: "INDUSTRIAL",         objectPosition: "center center" },
+              { img: "/indorr lighting.png",                        title: "Eden Gardens Club House", location: "Kolkata",     tag: "SPORTS & RECREATION",objectPosition: "center center" },
+              { img: "/towerimage.png",                             title: "Air Traffic Control",     location: "Bhubaneswar", tag: "INFRASTRUCTURE",     objectPosition: "center 40%"   },
+            ].map((card, idx) => (
+              <div key={idx} className="relative rounded-xl overflow-hidden group cursor-pointer" style={{ height: "260px" }}>
+                <img
+                  src={card.img}
+                  alt={card.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  style={{ objectPosition: card.objectPosition }}
+                />
+                {/* dark gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+                {/* Title & location */}
+                <div className="absolute bottom-0 left-0 p-5">
+                  <h3 className="text-white text-xl font-serif font-light leading-snug">{card.title}</h3>
+                  <p className="text-white/70 text-sm mt-1">{card.location}</p>
+                  <div className="h-0.5 w-8 bg-[#6B8E7F] mt-2 rounded-full" />
                 </div>
               </div>
-            </div>
-
-            {/* Right: stacking cards */}
-            <div className="flex flex-col gap-6">
-              {[
-                { img: "/indorr lighting.png", title: "Eden Garden Club House", desc: "Kolkata" },
-                { img: "/towerimage.png", title: "Air Traffic Control", desc: "Bhubaneswar", objectPosition: "center 40%" },
-                { img: "/The Agri Horticulture, Kolkata.jpeg", title: "The Agri Horticulture", desc: "Kolkata" },
-                { img: "/starcementplant.png", title: "Star Cement Plant", desc: "Meghalaya" },
-                { img: "/Durgapur Steel Plant, West Bengal.jpeg", title: "Durgapur Steel Plant", desc: "West Bengal" },
-                { img: "/Kolkata Airport.jpeg", title: "Kolkata Airport", desc: "Kolkata" },
-              ].map((card, idx) => (
-                <div
-                  key={idx}
-                  className="sticky bg-white rounded-xl overflow-hidden shadow-md"
-                  style={{ top: `${96 + idx * 16}px` }}
-                >
-                  <div className="overflow-hidden h-96">
-                    <img src={card.img} alt={card.title} className="w-full h-full object-cover" style={{ objectPosition: (card as any).objectPosition || "center" }} />
-                  </div>
-                  <div className="p-3">
-                    <h3 className="text-sm font-semibold text-[#373A36] mb-1 tracking-wide">{card.title}</h3>
-                    <p className="text-[#666] text-xs leading-relaxed">{card.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
+            ))}
           </div>
+
+          {/* Bottom features strip */}
+          <div className="mt-10 border border-[#E8E8E0] rounded-xl flex flex-wrap divide-y sm:divide-y-0 sm:divide-x divide-[#E8E8E0] overflow-hidden">
+            {["BULK ORDERS", "CUSTOM BRANDING", "DEDICATED ACCOUNT MANAGER", "PAN INDIA DELIVERY", "AFTER-SALES SUPPORT"].map((feat) => (
+              <div key={feat} className="flex-1 min-w-[160px] flex items-center justify-center gap-2 py-4 px-4 bg-white hover:bg-[#F7F7F0] transition-colors">
+                <div className="w-2 h-2 rounded-full bg-[#C9A961]" />
+                <span className="text-[#373A36] text-xs font-semibold tracking-widest">{feat}</span>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
-      {/* Sockets & Switches Featured */}
-      <section className="py-16 md:py-24 bg-[#F7F7F0]">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-serif text-[#373A36] mb-6 font-light">
-                Sockets & Switches
-              </h2>
-              <p className="text-[#666] mb-8 leading-relaxed">
-                Our collection of luxury electrical hardware combines traditional
-                craftsmanship with contemporary design. Each piece is handcrafted
-                and finished with premium materials including aged brass, bronze,
-                and brushed finishes.
-              </p>
-              <button className="px-8 py-3 border-2 border-[#373A36] text-[#373A36] hover:bg-[#373A36] hover:text-white transition-all duration-300 font-medium tracking-widest text-sm">
-                EXPLORE COLLECTION
-              </button>
-            </div>
+      {/* Corporate Videos */}
+      <CorporateVideos />
 
-            <div className="relative h-80 md:h-96 rounded overflow-hidden">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663523553213/fVQNCj9t7YeSb6RPJnExaF/sockets-switches-detail-a6rpo3PXVGBFy2s8rhwVJK.webp"
-                alt="Sockets and Switches"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Client Love */}
+      <ClientLove />
 
       {/* Collections Grid */}
       <section className="py-16 md:py-24 bg-white">
