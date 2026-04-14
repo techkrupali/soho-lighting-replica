@@ -472,11 +472,50 @@ export default function Home() {
 
       {/* Kitchen Experience Section */}
       <section className="relative h-[90vh] overflow-hidden mb-16">
-        <img
-          src="/Experience/Kitchen-Tapelight-6COB116S30WH-Day-Etcher-All-Off.webp"
-          alt="Kitchen Lighting Experience"
-          className="w-full h-full object-cover"
-        />
+        {/* Base Image - Changes based on Day/Night toggle */}
+        <div className="absolute inset-0">
+          <img
+            src={kitchenLights.dayNight 
+              ? "/Experience/Kitchen/Kitchen-Tapelight-6COB116S30WH-Day-Etcher-All-Off.webp"
+              : "/Experience/Kitchen/1776165672498.png"
+            }
+            alt="Kitchen Base"
+            className="w-full h-full object-cover transition-opacity duration-500"
+          />
+        </div>
+
+        {/* Tape Lights Layer */}
+        {kitchenLights.tapeLights && (
+          <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
+            <img
+              src="/Experience/Kitchen/Kitchen-Tapelight-6COB116S30WH-Night-Hero.webp"
+              alt="Tape Lights"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+
+        {/* Pendants Layer */}
+        {kitchenLights.pendants && (
+          <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
+            <img
+              src="/Experience/Kitchen/Kitchen-Tapelight-6COB116S30WH-Night-Etcher.webp"
+              alt="Pendants"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+
+        {/* Downlights Layer */}
+        {kitchenLights.downlights && (
+          <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
+            <img
+              src="/Experience/Kitchen/Kitchen-Tapelight-6COB116S30WH-Night-Ara.webp"
+              alt="Downlights"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
         <div className="absolute inset-0 bg-black/20" />
 
         {/* Content */}
