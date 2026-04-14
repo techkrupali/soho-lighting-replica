@@ -178,6 +178,12 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
+  const [kitchenLights, setKitchenLights] = useState({
+    tapeLights: false,
+    pendants: false,
+    downlights: false,
+    dayNight: false,
+  });
 
   const heroSlides = [
     {
@@ -417,7 +423,7 @@ export default function Home() {
       </section>
 
       {/* Shop By Category */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white" id="shop-by-category">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-serif font-light text-[#373A36] mb-2 text-center tracking-widest">
             SHOP BY <strong className="font-bold">CATEGORY</strong>
@@ -459,6 +465,99 @@ export default function Home() {
               className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 w-10 h-10 bg-white border border-[#E8E8E0] rounded-full flex items-center justify-center shadow-md hover:bg-[#F7F7F0] transition"
             >
               <ChevronRight size={20} className="text-[#373A36]" />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Kitchen Experience Section */}
+      <section className="relative h-[90vh] overflow-hidden mb-16">
+        <img
+          src="/Experience/Kitchen-Tapelight-6COB116S30WH-Day-Etcher-All-Off.webp"
+          alt="Kitchen Lighting Experience"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/20" />
+
+        {/* Content */}
+        <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
+          {/* Top Left Text */}
+          <div>
+            <p className="text-white text-xs md:text-sm tracking-widest uppercase mb-4">
+              FRESH IDEAS TO LIGHT YOUR SPACE
+            </p>
+            <h2 className="text-white text-5xl md:text-7xl font-light mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Kitchen
+            </h2>
+            <button className="px-6 py-2.5 bg-white text-[#373A36] hover:bg-white/90 transition-all duration-300 text-sm tracking-wide flex items-center gap-2">
+              Explore More Spaces
+              <ArrowRight size={16} />
+            </button>
+          </div>
+
+          {/* Bottom Controls */}
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
+            {/* Toggle Buttons */}
+            <div className="flex flex-wrap gap-8">
+              {[
+                { label: "Tape Lights", key: "tapeLights", active: kitchenLights.tapeLights },
+                { label: "Pendants", key: "pendants", active: kitchenLights.pendants },
+                { label: "Downlights", key: "downlights", active: kitchenLights.downlights },
+                { label: "Day / Night", key: "dayNight", active: kitchenLights.dayNight },
+              ].map((btn) => (
+                <div key={btn.key} className="flex flex-col items-center gap-2">
+                  <button
+                    onClick={() => setKitchenLights(prev => ({ ...prev, [btn.key]: !prev[btn.key as keyof typeof prev] }))}
+                    className={`flex flex-col items-center gap-1 px-2 py-3 rounded-full transition-all duration-300 ${
+                      btn.active
+                        ? "bg-white"
+                        : "bg-black/40 backdrop-blur-sm hover:bg-black/50"
+                    }`}
+                  >
+                    {btn.active ? (
+                      <>
+                        <div
+                          className="w-6 h-6 rounded-full border border-[#373A36] bg-[#373A36] flex items-center justify-center shadow-sm"
+                        >
+                        </div>
+                        <div className="text-[#373A36] text-[9px] font-semibold tracking-wide">
+                          ON
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="text-white text-[9px] font-semibold tracking-wide">
+                          OFF
+                        </div>
+                        <div
+                          className="w-6 h-6 rounded-full border border-white bg-white flex items-center justify-center shadow-sm"
+                        >
+                        </div>
+                      </>
+                    )}
+                  </button>
+                  <span className={`text-sm tracking-wide font-semibold ${
+                    btn.active ? "text-white" : "text-white"
+                  }`}>
+                    {btn.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Shop This Look Button */}
+            <button className="px-8 py-3 bg-white text-[#373A36] hover:bg-white/90 transition-all duration-300 text-sm font-medium tracking-wide flex items-center gap-2 rounded-full shadow-lg">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              Shop this look
             </button>
           </div>
         </div>
