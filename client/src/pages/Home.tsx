@@ -185,6 +185,25 @@ export default function Home() {
     dayNight: true,
   });
   const [showSpaceModal, setShowSpaceModal] = useState(false);
+  const [showProductModal, setShowProductModal] = useState<string | null>(null);
+
+  const kitchenProducts = {
+    tapeLights: {
+      name: "Stream",
+      image: "/Experience/Kitchen/Tape-Lights.jpeg",
+      description: "",
+    },
+    pendants: {
+      name: "Spectrum",
+      image: "/Experience/Kitchen/Pendants.jpeg",
+      description: "",
+    },
+    downlights: {
+      name: "Aura Slim Plus RD",
+      image: "/Experience/Kitchen/Downlights.jpeg",
+      description: "",
+    },
+  };
 
   const spaces = [
     { name: "Living Room", image: "/Experience/LivingRoom.webp", description: "Create the perfect ambiance for relaxation" },
@@ -480,7 +499,7 @@ export default function Home() {
       </section>
 
       {/* Kitchen Experience Section */}
-      <section className="relative h-[90vh] overflow-hidden mb-16">
+      <section className="relative h-[90vh] overflow-hidden mb-16 mt-16 z-0">
         {/* Base Image - Changes based on Day/Night toggle */}
         <div className="absolute inset-0">
           <img
@@ -526,6 +545,46 @@ export default function Home() {
           </div>
         )}
         <div className="absolute inset-0 bg-black/20" />
+
+        {/* Product Detail Modal */}
+        {showProductModal && (
+          <div className="absolute inset-0 flex items-start justify-start z-40 pointer-events-none" style={{ padding: '20px' }}>
+            <div 
+              className="relative bg-white rounded-md w-64 overflow-hidden shadow-2xl pointer-events-auto"
+              style={{
+                position: 'absolute',
+                top: (() => {
+                  const buttonTop = showProductModal === 'tapeLights' ? 70 : showProductModal === 'pendants' ? 40 : 4;
+                  return `max(20px, min(calc(${buttonTop}% - 120px), calc(100% - 380px)))`;
+                })(),
+                left: (() => {
+                  const buttonLeft = showProductModal === 'tapeLights' ? '55%' : showProductModal === 'pendants' ? '28%' : '46%';
+                  if (showProductModal === 'tapeLights') {
+                    return `max(20px, calc(${buttonLeft} - 240px))`;
+                  }
+                  return `min(calc(${buttonLeft} + 60px), calc(100% - 244px))`;
+                })(),
+              }}
+            >
+              <div className="relative h-48 bg-gray-100 p-4">
+                <img
+                  src={kitchenProducts[showProductModal as keyof typeof kitchenProducts].image}
+                  alt={kitchenProducts[showProductModal as keyof typeof kitchenProducts].name}
+                  className="w-full h-full object-cover shadow-[0_4px_6px_-1px_rgba(0,0,0,0.3)]"
+                />
+              </div>
+
+              <div className="p-4">
+                <h3 className="text-base font-light text-[#373A36] mb-3">
+                  {kitchenProducts[showProductModal as keyof typeof kitchenProducts].name}
+                </h3>
+                <button className="w-full px-4 py-2 bg-[#6B8E7F] text-white hover:bg-[#5a7669] transition-all duration-300 text-sm tracking-wide rounded">
+                  Explore
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Space Selection Modal - Inside Section */}
         {showSpaceModal && (
@@ -613,6 +672,72 @@ export default function Home() {
             </div>
           </div>
         )}
+
+        {/* Hotspot Buttons */}
+        <div className="absolute inset-0 pointer-events-none z-10">
+          {/* Stream (Tape Lights) + Button - moved to right side */}
+          <button
+            onClick={() => setShowProductModal(showProductModal === 'tapeLights' ? null : 'tapeLights')}
+            className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
+            style={{ top: '70%', left: '57%' }}
+          >
+            {/* Animated pulse ring - only show when not active */}
+            {showProductModal !== 'tapeLights' && (
+              <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
+            )}
+            {showProductModal === 'tapeLights' ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            )}
+          </button>
+
+          {/* Spectrum (Pendants) + Button - moved to left side */}
+          <button
+            onClick={() => setShowProductModal(showProductModal === 'pendants' ? null : 'pendants')}
+            className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
+            style={{ top: '38%', left: '28%' }}
+          >
+            {/* Animated pulse ring - only show when not active */}
+            {showProductModal !== 'pendants' && (
+              <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
+            )}
+            {showProductModal === 'pendants' ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            )}
+          </button>
+
+          {/* Aura Slim Plus RD (Downlights) + Button */}
+          <button
+            onClick={() => setShowProductModal(showProductModal === 'downlights' ? null : 'downlights')}
+            className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
+            style={{ top: '4%', left: '46%' }}
+          >
+            {/* Animated pulse ring - only show when not active */}
+            {showProductModal !== 'downlights' && (
+              <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
+            )}
+            {showProductModal === 'downlights' ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            )}
+          </button>
+        </div>
 
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">

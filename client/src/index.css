@@ -190,6 +190,22 @@
     }
   }
 
+  /* Slow pulse animation for hotspot buttons */
+  @keyframes slowPulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.75;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  .animate-slow-pulse {
+    animation: slowPulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
 
 
   @media (min-width: 640px) {
