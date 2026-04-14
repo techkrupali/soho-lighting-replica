@@ -284,7 +284,7 @@ export default function Home() {
     { name: "RETAIL LIGHTING", image: "/retailllhdimage.png", objectPosition: "center top" },
     { name: "INDOOR LIGHTING", image: "/indorr lighting.png", objectPosition: "center top" },
     { name: "ARCHITECTURAL LIGHTING", image: "/towerimage.png", objectPosition: "center top" },
-    { name: "SMART LIGHTING", image: "/smartlights.png" },
+    { name: "SMART LIGHTING", image: "/smartlightingggg.png", objectPosition: "center top" },
     { name: "WIRE", image: "/wirehdimage.png", objectPosition: "center 20%" },
   ];
 
