@@ -184,6 +184,15 @@ export default function Home() {
     downlights: true,
     dayNight: true,
   });
+  const [showSpaceModal, setShowSpaceModal] = useState(false);
+
+  const spaces = [
+    { name: "Living Room", image: "/Experience/LivingRoom.webp", description: "Create the perfect ambiance for relaxation" },
+    { name: "Bedroom", image: "/Experience/badroom.webp", description: "Soft curves and smooth lighting for peaceful rest" },
+    { name: "Kitchen", image: "/Experience/Kitchen.webp", description: "Bright and functional lighting for your space" },
+    { name: "Bathroom", image: "/Experience/Bathroom.webp", description: "Elegant lighting that combines function and beauty" },
+    { name: "Outdoor", image: "/Experience/outdoor.webp", description: "Illuminate your exterior spaces beautifully" },
+  ];
 
   const heroSlides = [
     {
@@ -518,6 +527,93 @@ export default function Home() {
         )}
         <div className="absolute inset-0 bg-black/20" />
 
+        {/* Space Selection Modal - Inside Section */}
+        {showSpaceModal && (
+          <div className="absolute inset-0 bg-black/90 flex items-center justify-center p-4 z-30">
+            <div className="w-full max-w-7xl relative">
+              <button
+                onClick={() => setShowSpaceModal(false)}
+                className="absolute -top-4 right-0 text-white hover:text-gray-300 transition-colors z-10"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+
+              <div className="text-center mb-8">
+                <p className="text-white/60 text-xs tracking-widest uppercase mb-2">FRESH IDEAS TO LIGHT YOUR SPACE</p>
+                <h2 className="text-white text-4xl md:text-5xl font-light tracking-wider">CHOOSE A SPACE TO EXPLORE</h2>
+                <div className="flex justify-center mt-4">
+                  <div className="h-0.5 w-16 bg-[#C9A961]"></div>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div 
+                  id="space-scroll-container"
+                  className="overflow-x-auto scrollbar-hide"
+                  style={{ scrollbarWidth: 'none' }}
+                >
+                  <div className="flex gap-6 pb-4">
+                    {[...spaces, ...spaces].map((space, idx) => (
+                      <button
+                        key={`${space.name}-${idx}`}
+                        onClick={() => setShowSpaceModal(false)}
+                        className="group flex-shrink-0 cursor-pointer"
+                        style={{ width: '400px' }}
+                      >
+                        <div className="relative overflow-hidden rounded-lg" style={{ height: '300px' }}>
+                          <img
+                            src={space.image}
+                            alt={space.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                        </div>
+                        <div className="mt-4">
+                          <h3 className="text-white text-xl font-light mb-1 tracking-wide">{space.name.toUpperCase()} &gt;</h3>
+                          <p className="text-white/70 text-sm">{space.description}</p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <button 
+                  onClick={() => {
+                    const el = document.getElementById('space-scroll-container');
+                    if (el) {
+                      const scrollAmount = el.scrollLeft - 420;
+                      if (scrollAmount < 0) {
+                        el.scrollTo({ left: el.scrollWidth / 2, behavior: 'auto' });
+                      }
+                      el.scrollBy({ left: -420, behavior: 'smooth' });
+                    }
+                  }}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 w-12 h-12 rounded-full border-2 border-white/40 flex items-center justify-center text-white hover:bg-white/10 transition-all bg-black/50"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button 
+                  onClick={() => {
+                    const el = document.getElementById('space-scroll-container');
+                    if (el) {
+                      const maxScroll = el.scrollWidth - el.clientWidth;
+                      if (el.scrollLeft + 420 >= maxScroll) {
+                        el.scrollTo({ left: el.scrollWidth / 2 - el.clientWidth, behavior: 'auto' });
+                      }
+                      el.scrollBy({ left: 420, behavior: 'smooth' });
+                    }
+                  }}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 w-12 h-12 rounded-full border-2 border-white/40 flex items-center justify-center text-white hover:bg-white/10 transition-all bg-black/50"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
           {/* Top Left Text */}
@@ -528,7 +624,10 @@ export default function Home() {
             <h2 className="text-white text-5xl md:text-7xl font-light mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
               Kitchen
             </h2>
-            <button className="px-6 py-2.5 bg-white text-[#373A36] hover:bg-white/90 transition-all duration-300 text-sm tracking-wide flex items-center gap-2">
+            <button 
+              onClick={() => setShowSpaceModal(true)}
+              className="px-6 py-2.5 bg-white text-[#373A36] hover:bg-white/90 transition-all duration-300 text-sm tracking-wide flex items-center gap-2"
+            >
               Explore More Spaces
               <ArrowRight size={16} />
             </button>
@@ -583,21 +682,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-
-            {/* Shop This Look Button */}
-            <button className="px-8 py-3 bg-white text-[#373A36] hover:bg-white/90 transition-all duration-300 text-sm font-medium tracking-wide flex items-center gap-2 rounded-full shadow-lg">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              Shop this look
-            </button>
           </div>
         </div>
       </section>
