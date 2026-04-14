@@ -518,11 +518,33 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Left Arrow */}
+            <button
+              onClick={() => {
+                const el = document.getElementById("shop-category-scroll");
+                if (el) {
+                  if (el.scrollLeft <= 0) {
+                    el.scrollTo({ left: el.scrollWidth, behavior: "auto" });
+                  }
+                  el.scrollBy({ left: -300, behavior: "smooth" });
+                }
+              }}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 w-10 h-10 bg-white border border-[#E8E8E0] rounded-full flex items-center justify-center shadow-md hover:bg-[#F7F7F0] transition"
+            >
+              <ChevronLeft size={20} className="text-[#373A36]" />
+            </button>
+
             {/* Right Arrow */}
             <button
               onClick={() => {
                 const el = document.getElementById("shop-category-scroll");
-                if (el) el.scrollBy({ left: 300, behavior: "smooth" });
+                if (el) {
+                  const maxScroll = el.scrollWidth - el.clientWidth;
+                  if (el.scrollLeft >= maxScroll) {
+                    el.scrollTo({ left: 0, behavior: "auto" });
+                  }
+                  el.scrollBy({ left: 300, behavior: "smooth" });
+                }
               }}
               className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 w-10 h-10 bg-white border border-[#E8E8E0] rounded-full flex items-center justify-center shadow-md hover:bg-[#F7F7F0] transition"
             >
