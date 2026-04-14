@@ -391,7 +391,11 @@ export default function Home() {
           </button>
 
           <div className="flex items-center gap-2 md:gap-4">
-            <img src="/companylogo-2.png" alt="Soho Lighting" className="h-12 w-auto object-contain" />
+            <img 
+              src={scrolled ? "/companylogo-2.png" : "/Magik PNG Logo White.png"} 
+              alt="Magik Lighting" 
+              className="h-12 w-auto object-contain" 
+            />
           </div>
 
           <nav className="hidden md:flex gap-8 flex-1 ml-12">
