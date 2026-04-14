@@ -258,13 +258,6 @@ export default function Home() {
       sub: "",
       btn: false,
     },
-    {
-      type: "image" as const,
-      src: "/banner-2.jpeg",
-      heading: "",
-      sub: "",
-      btn: false,
-    },
   ];
 
   useEffect(() => {
@@ -398,7 +391,7 @@ export default function Home() {
             />
           </div>
 
-          <nav className="hidden md:flex gap-8 flex-1 ml-12">
+          <nav className="hidden md:flex gap-8 absolute left-1/2 -translate-x-1/2 -ml-15">
             <a href="#" className={`transition ${scrolled ? "text-[#373A36] hover:text-[#6B8E7F]" : "text-white hover:text-white/70"}`}>Home</a>
             <a href="#" className={`transition ${scrolled ? "text-[#373A36] hover:text-[#6B8E7F]" : "text-white hover:text-white/70"}`}>About Us</a>
             <a href="#" className={`transition ${scrolled ? "text-[#373A36] hover:text-[#6B8E7F]" : "text-white hover:text-white/70"}`}>Products</a>
@@ -407,6 +400,11 @@ export default function Home() {
           </nav>
 
           <div className="flex items-center gap-4">
+            <img 
+              src={scrolled ? "/Century Ply Logo white.png" : "/Century Ply Logo white.png"} 
+              alt="Century Ply" 
+              className="hidden md:block h-6 w-auto object-contain" 
+            />
             <div className={`hidden md:flex items-center border rounded px-3 py-2 transition-all duration-300 ${scrolled ? "bg-white border-[#E8E8E0]" : "bg-white/10 border-white/40"}`}>
               <input
                 type="text"
