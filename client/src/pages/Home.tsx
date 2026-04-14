@@ -2,14 +2,13 @@ import { ChevronLeft, ChevronRight, Search, User, ShoppingCart, Menu, ArrowRight
 import { useState, useEffect, useRef } from "react";
 
 const testimonials = [
-  { name: "Rajesh Mehta", role: "Architect, Mumbai", text: "Magik Lighting transformed our commercial project completely. The quality and finish are unmatched — every client who visits is impressed.", avatar: "RM" },
-  { name: "Priya Sharma", role: "Interior Designer, Delhi", text: "I've worked with many lighting brands, but Magik stands out for its consistency and innovation. My go-to for every premium project.", avatar: "PS" },
-  { name: "Anil Gupta", role: "Contractor, Kolkata", text: "Pan-India delivery, dedicated support, and products that never fail. Magik is the only brand I recommend to my clients.", avatar: "AG" },
-  { name: "Sunita Patel", role: "Hotel Owner, Ahmedabad", text: "We installed Magik LEDs across our entire hotel. Energy savings are remarkable and the ambiance is exactly what we envisioned.", avatar: "SP" },
-  { name: "Vikram Nair", role: "Project Manager, Bangalore", text: "From street lights to industrial fixtures — Magik delivered on time and within budget. Exceptional B2B experience.", avatar: "VN" },
-  { name: "Deepa Joshi", role: "Retail Chain Owner, Pune", text: "Our stores look stunning with Magik retail lighting. Footfall has increased and customers always comment on the atmosphere.", avatar: "DJ" },
-  { name: "Suresh Reddy", role: "Civil Engineer, Hyderabad", text: "ISO certified quality you can actually feel. Every product is built to last — we've had zero failures across 3 large projects.", avatar: "SR" },
-  { name: "Meena Kapoor", role: "Landscape Designer, Chennai", text: "The landscape lighting range is breathtaking. Magik understands outdoor aesthetics like no other brand in India.", avatar: "MK" },
+  { name: "Ashish Kumar", role: "Ashiana Interiors", text: "", avatar: "AK", videoId: "879Pi-2lFHA" },
+  { name: "Meghna Shah", role: "The Mark Decor", text: "", avatar: "MS", videoId: "Io-YXYDhuqE" },
+  { name: "Neeraj Surana", role: "", text: "", avatar: "NS", videoId: "lTs5tMDtIis" },
+  { name: "Arihant Parakh", role: "", text: "", avatar: "AP", videoId: "jWGmdVsTPK0" },
+  { name: "Payal Manaksia", role: "", text: "", avatar: "PM", videoId: "yohC4LkGKVI" },
+  { name: "Ashutosh Jaiswal", role: "", text: "", avatar: "AJ", videoId: "3mE6jT6zgj4" },
+  { name: "Vasudha Chaudhary Jalan", role: "", text: "", avatar: "VCJ", videoId: "Hn7WmlGaKfM" },
 ];
 
 function ClientLove() {
@@ -17,12 +16,13 @@ function ClientLove() {
   const animRef = useRef<number>(0);
   const posRef = useRef(0);
   const pausedRef = useRef(false);
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
   const doubled = [...testimonials, ...testimonials];
 
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-    const cardWidth = 320 + 24; // w-80 + gap-6
+    const cardWidth = 400 + 24; // w-[400px] + gap-6
     const totalWidth = cardWidth * testimonials.length;
 
     const step = () => {
@@ -42,7 +42,7 @@ function ClientLove() {
       <div className="container mx-auto px-4 mb-10 text-center">
         <p className="text-[#C9A961] text-xs tracking-widest uppercase font-sans mb-1">Client Love</p>
         <h2 className="text-3xl md:text-4xl font-serif font-light tracking-widest text-[#373A36]">
-          Magik <strong className="font-bold">Voices</strong>
+          Customer <strong className="font-bold">Voices</strong>
         </h2>
         <div className="flex justify-center mt-3 mb-4">
           <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
@@ -62,20 +62,50 @@ function ClientLove() {
           {doubled.map((t, idx) => (
             <div
               key={idx}
-              className="w-80 flex-shrink-0 bg-[#F7F7F0] rounded-2xl p-6 border border-[#E8E8E0] hover:border-[#6B8E7F] hover:shadow-md transition-all duration-300"
+              className="w-[400px] flex-shrink-0 bg-[#F7F7F0] rounded-2xl p-6 border border-[#E8E8E0] hover:border-[#6B8E7F] hover:shadow-md transition-all duration-300"
             >
-              {/* Quote mark */}
-              <div className="text-[#C9A961] text-5xl font-serif leading-none mb-2">"</div>
-              <p className="text-[#444] text-sm leading-relaxed mb-6">{t.text}</p>
-              <div className="flex items-center gap-3 mt-auto">
-                <div className="w-10 h-10 rounded-full bg-[#6B8E7F] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
-                  {t.avatar}
-                </div>
-                <div>
-                  <p className="text-[#373A36] text-sm font-semibold">{t.name}</p>
-                  <p className="text-[#999] text-xs">{t.role}</p>
-                </div>
-              </div>
+              {t.videoId ? (
+                <>
+                  <a
+                    href={`https://www.youtube.com/watch?v=${t.videoId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block mb-4 relative"
+                  >
+                    <iframe
+                      src={`https://www.youtube.com/embed/${t.videoId}?autoplay=1&mute=1&loop=1&playlist=${t.videoId}&controls=0&rel=0`}
+                      title={t.name}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full rounded-lg"
+                      style={{ height: 200, pointerEvents: 'none' }}
+                    />
+                  </a>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#6B8E7F] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                      {t.avatar}
+                    </div>
+                    <div>
+                      <p className="text-[#373A36] text-sm font-semibold">{t.name}</p>
+                      {t.role && <p className="text-[#999] text-xs">{t.role}</p>}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="text-[#C9A961] text-5xl font-serif leading-none mb-2">"</div>
+                  <p className="text-[#444] text-sm leading-relaxed mb-6">{t.text}</p>
+                  <div className="flex items-center gap-3 mt-auto">
+                    <div className="w-10 h-10 rounded-full bg-[#6B8E7F] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                      {t.avatar}
+                    </div>
+                    <div>
+                      <p className="text-[#373A36] text-sm font-semibold">{t.name}</p>
+                      <p className="text-[#999] text-xs">{t.role}</p>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           ))}
         </div>
