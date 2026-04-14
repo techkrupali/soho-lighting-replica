@@ -179,10 +179,10 @@ export default function Home() {
   const [heroIndex, setHeroIndex] = useState(0);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [kitchenLights, setKitchenLights] = useState({
-    tapeLights: false,
-    pendants: false,
-    downlights: false,
-    dayNight: false,
+    tapeLights: true,
+    pendants: true,
+    downlights: true,
+    dayNight: true,
   });
 
   const heroSlides = [
