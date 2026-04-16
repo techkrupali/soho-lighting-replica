@@ -221,6 +221,21 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
+  const [videoMuted, setVideoMuted] = useState(false);
+  const heroSectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = heroSectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVideoMuted(!entry.isIntersecting);
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [kitchenLights, setKitchenLights] = useState({
     tapeLights: true,
@@ -260,7 +275,7 @@ export default function Home() {
   const heroSlides = [
     {
       type: "video" as const,
-      src: "https://res.cloudinary.com/diint5cus/video/upload/v1775817581/Magik_Video_Low_2_1_1_k0dl6a.mp4",
+      src: "/Factory Video without Logo.mp4",
       heading: "It's in the detail",
       sub: "Engineered by experts | Handcrafted by artisans",
       btn: true,
@@ -283,7 +298,11 @@ export default function Home() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setHeroIndex((prev) => (prev + 1) % heroSlides.length);
+      setHeroIndex((prev) => {
+        const next = (prev + 1) % heroSlides.length;
+        setVideoMuted(heroSlides[next].type !== "video");
+        return next;
+      });
     }, 5000);
     return () => clearInterval(timer);
   }, []);
@@ -431,7 +450,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative h-[90vh] overflow-hidden">
+      <section ref={heroSectionRef} className="relative h-[90vh] overflow-hidden">
         {heroSlides.map((slide, idx) => (
           <div
             key={idx}
@@ -443,7 +462,7 @@ export default function Home() {
                 style={{ objectPosition: "center center" }}
                 src={slide.src}
                 autoPlay
-                muted
+                muted={videoMuted}
                 loop
                 playsInline
               />
@@ -472,11 +491,30 @@ export default function Home() {
           {heroSlides.map((_, idx) => (
             <button
               key={idx}
-              onClick={() => setHeroIndex(idx)}
+              onClick={() => { setHeroIndex(idx); setVideoMuted(heroSlides[idx].type !== "video"); }}
               className={`h-2 rounded-full transition-all duration-300 ${idx === heroIndex ? "bg-white w-6" : "bg-white/50 w-2"}`}
             />
           ))}
         </div>
+
+        {/* Sound toggle */}
+        {heroSlides[heroIndex]?.type === "video" && (
+          <button
+            onClick={() => setVideoMuted(!videoMuted)}
+            className="absolute bottom-6 right-6 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 border border-white/30 flex items-center justify-center transition-all duration-200"
+            title={videoMuted ? "Unmute" : "Mute"}
+          >
+            {videoMuted ? (
+              <svg className="w-5 h-5 text-white" fill="white" viewBox="0 0 24 24">
+                <path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 18l1.73 1.73L21 18.46 5.54 3 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+              </svg>
+            ) : (
+              <svg className="w-5 h-5 text-white" fill="white" viewBox="0 0 24 24">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+              </svg>
+            )}
+          </button>
+        )}
       </section>
 
       {/* Shop By Category */}
