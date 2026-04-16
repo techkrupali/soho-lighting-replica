@@ -4,11 +4,10 @@ import { useState, useEffect, useRef } from "react";
 const testimonials = [
   { name: "Ashish Kumar", role: "Ashiana Interiors", text: "", avatar: "AK", videoId: "879Pi-2lFHA" },
   { name: "Meghna Shah", role: "The Mark Decor", text: "", avatar: "MS", videoId: "Io-YXYDhuqE" },
-  { name: "Neeraj Surana", role: "", text: "", avatar: "NS", videoId: "lTs5tMDtIis" },
-  { name: "Arihant Parakh", role: "", text: "", avatar: "AP", videoId: "jWGmdVsTPK0" },
-  { name: "Payal Manaksia", role: "", text: "", avatar: "PM", videoId: "yohC4LkGKVI" },
-  { name: "Ashutosh Jaiswal", role: "", text: "", avatar: "AJ", videoId: "3mE6jT6zgj4" },
-  { name: "Vasudha Chaudhary Jalan", role: "", text: "", avatar: "VCJ", videoId: "Hn7WmlGaKfM" },
+  { name: "Neeraj Surana", role: "Ruh Fitness Studio", text: "", avatar: "NS", videoId: "lTs5tMDtIis" },
+  { name: "Arihant Parakh", role: "ORBIT Group", text: "", avatar: "AP", videoId: "jWGmdVsTPK0" },
+  { name: "Payal Manaksia", role: "Homemaker", text: "", avatar: "PM", videoId: "yohC4LkGKVI" },
+  { name: "Vasudha Chaudhary Jalan", role: "Interior Designer", text: "", avatar: "VCJ", videoId: "Hn7WmlGaKfM" },
 ];
 
 function ClientLove() {
@@ -62,26 +61,41 @@ function ClientLove() {
           {doubled.map((t, idx) => (
             <div
               key={idx}
-              className="w-[400px] flex-shrink-0 bg-[#F7F7F0] rounded-2xl p-6 border border-[#E8E8E0] hover:border-[#6B8E7F] hover:shadow-md transition-all duration-300"
+              className="w-[400px] flex-shrink-0 bg-[#F7F7F0] rounded-2xl overflow-hidden border border-[#E8E8E0] hover:border-[#6B8E7F] hover:shadow-md transition-all duration-300"
+              onMouseEnter={() => { pausedRef.current = true; }}
+              onMouseLeave={() => { pausedRef.current = false; }}
             >
               {t.videoId ? (
                 <>
-                  <a
-                    href={`https://www.youtube.com/watch?v=${t.videoId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block mb-4 relative"
-                  >
-                    <iframe
-                      src={`https://www.youtube.com/embed/${t.videoId}?autoplay=1&mute=1&loop=1&playlist=${t.videoId}&controls=0&rel=0`}
-                      title={t.name}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full rounded-lg"
-                      style={{ height: 200, pointerEvents: 'none' }}
-                    />
-                  </a>
-                  <div className="flex items-center gap-3">
+                  <div className="relative" style={{ height: 220 }}>
+                    {playingVideo === `${t.videoId}-${idx}` ? (
+                      <iframe
+                        src={`https://www.youtube.com/embed/${t.videoId}?autoplay=1&rel=0`}
+                        title={t.name}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="w-full h-full"
+                      />
+                    ) : (
+                      <button
+                        onClick={() => setPlayingVideo(`${t.videoId}-${idx}`)}
+                        className="w-full h-full absolute inset-0 group"
+                      >
+                        <img
+                          src={`https://img.youtube.com/vi/${t.videoId}/mqdefault.jpg`}
+                          alt={t.name}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-all" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-14 h-14 rounded-full bg-[#6B8E7F] flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                            <svg className="w-6 h-6 ml-1" viewBox="0 0 10 10" fill="white"><polygon points="2,1 9,5 2,9" /></svg>
+                          </div>
+                        </div>
+                      </button>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-3 px-5 py-4">
                     <div className="w-10 h-10 rounded-full bg-[#6B8E7F] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                       {t.avatar}
                     </div>
@@ -92,10 +106,10 @@ function ClientLove() {
                   </div>
                 </>
               ) : (
-                <>
+                <div className="p-6">
                   <div className="text-[#C9A961] text-5xl font-serif leading-none mb-2">"</div>
                   <p className="text-[#444] text-sm leading-relaxed mb-6">{t.text}</p>
-                  <div className="flex items-center gap-3 mt-auto">
+                  <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-[#6B8E7F] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                       {t.avatar}
                     </div>
@@ -104,7 +118,7 @@ function ClientLove() {
                       <p className="text-[#999] text-xs">{t.role}</p>
                     </div>
                   </div>
-                </>
+                </div>
               )}
             </div>
           ))}
@@ -1052,144 +1066,6 @@ export default function Home() {
 
       {/* Client Love */}
       <ClientLove />
-
-      {/* Collections Grid */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-serif text-[#373A36] mb-12 text-center font-light">
-            FEATURED COLLECTIONS
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <div className="relative h-64 md:h-80 rounded overflow-hidden group cursor-pointer">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663523553213/fVQNCj9t7YeSb6RPJnExaF/pendant-lights-collection-VkKopmr7jLVY2oK5HwMfbo.webp"
-                alt="Palaces Collection"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-all flex items-end p-6">
-                <h3 className="text-white text-3xl font-serif font-light">
-                  The Palaces Collection
-                </h3>
-              </div>
-            </div>
-
-            <div className="relative h-64 md:h-80 rounded overflow-hidden group cursor-pointer">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663523553213/fVQNCj9t7YeSb6RPJnExaF/outdoor-lighting-wall-RaB9Dem5DoAtwqv2vYPnkd.webp"
-                alt="Pendant Lights"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-all flex items-end p-6">
-                <h3 className="text-white text-3xl font-serif font-light">
-                  Pendant Lights
-                </h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonial */}
-      <section className="py-16 md:py-24 bg-[#F7F7F0]">
-        <div className="container mx-auto px-4 max-w-2xl text-center">
-          <p className="text-lg md:text-xl text-[#373A36] mb-6 italic leading-relaxed">
-            "The Soho Lighting Company's designs are timelessly beautiful and
-            incredibly well-made. Each piece demonstrates exceptional attention
-            to detail and craftsmanship."
-          </p>
-          <p className="text-sm font-semibold text-[#6B8E7F] tracking-widest">
-            GERRY APPONYI, DIRECTOR, APPONYI DESIGN
-          </p>
-        </div>
-      </section>
-
-      {/* Outdoor Lighting Section */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-            <div className="relative h-64 md:h-96 rounded overflow-hidden">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663523553213/fVQNCj9t7YeSb6RPJnExaF/outdoor-lighting-wall-RaB9Dem5DoAtwqv2vYPnkd.webp"
-                alt="Outdoor Lighting"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            <div className="flex flex-col justify-center">
-              <h2 className="text-4xl md:text-5xl font-serif text-[#373A36] mb-6 font-light">
-                Outdoor Lighting
-              </h2>
-              <p className="text-[#666] mb-8 leading-relaxed">
-                Illuminate your exterior spaces with our weather-resistant outdoor
-                lighting collection. Designed to withstand the elements while
-                maintaining the same aesthetic excellence found throughout our
-                range. Perfect for gardens, patios, and architectural features.
-              </p>
-              <button className="px-8 py-3 border-2 border-[#373A36] text-[#373A36] hover:bg-[#373A36] hover:text-white transition-all duration-300 font-medium tracking-widest text-sm w-fit">
-                VIEW COLLECTION
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Trending Products */}
-      <section className="py-16 md:py-24 bg-[#F7F7F0]">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-serif text-[#373A36] mb-12 text-center font-light">
-            TRENDING PRODUCTS
-          </h2>
-
-          <div className="relative">
-            <button
-              onClick={prevProduct}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white hover:bg-[#E8E8E0] transition rounded-full shadow"
-            >
-              <ChevronLeft size={24} className="text-[#373A36]" />
-            </button>
-
-            <div className="flex gap-6 overflow-hidden mx-12">
-              {products.map((product, idx) => (
-                <div
-                  key={product.id}
-                  className={`flex-shrink-0 transition-all duration-300 ${
-                    idx === currentProductIndex ? "w-full md:w-80" : "w-0"
-                  }`}
-                >
-                  {idx === currentProductIndex && (
-                    <div className="bg-white rounded p-4">
-                      <div className="relative h-64 md:h-80 rounded overflow-hidden mb-4">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <h3 className="text-lg font-semibold text-[#373A36] mb-2">
-                        {product.name}
-                      </h3>
-                      <p className="text-xl font-semibold text-[#C9A961]">
-                        {product.price}
-                      </p>
-                      <button className="w-full mt-4 px-6 py-2 border border-[#373A36] text-[#373A36] hover:bg-[#373A36] hover:text-white transition-all duration-300 text-sm font-medium">
-                        ADD TO CART
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <button
-              onClick={nextProduct}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white hover:bg-[#E8E8E0] transition rounded-full shadow"
-            >
-              <ChevronRight size={24} className="text-[#373A36]" />
-            </button>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="bg-[#373A36] text-white py-12 md:py-16">
