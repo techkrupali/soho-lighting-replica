@@ -221,21 +221,9 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
-  const [videoMuted, setVideoMuted] = useState(false);
+  const [videoMuted, setVideoMuted] = useState(true);
+  const [userUnmuted, setUserUnmuted] = useState(false);
   const heroSectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const section = heroSectionRef.current;
-    if (!section) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setVideoMuted(!entry.isIntersecting);
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [kitchenLights, setKitchenLights] = useState({
     tapeLights: true,
@@ -458,13 +446,19 @@ export default function Home() {
           >
             {slide.type === "video" ? (
               <video
+                key={slide.src}
                 className="w-full h-full object-cover scale-105"
                 style={{ objectPosition: "center center" }}
                 src={slide.src}
                 autoPlay
-                muted={videoMuted}
+                muted
                 loop
                 playsInline
+                ref={(el) => {
+                  if (!el) return;
+                  el.muted = videoMuted;
+                  el.play().catch(() => {});
+                }}
               />
             ) : (
               <img src={slide.src} alt={slide.heading} className="w-full h-full object-cover" style={{ objectPosition: (slide as any).objectPosition || "center" }} />
@@ -500,7 +494,7 @@ export default function Home() {
         {/* Sound toggle */}
         {heroSlides[heroIndex]?.type === "video" && (
           <button
-            onClick={() => setVideoMuted(!videoMuted)}
+            onClick={() => { const newMuted = !videoMuted; setVideoMuted(newMuted); setUserUnmuted(!newMuted); }}
             className="absolute bottom-6 right-6 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 border border-white/30 flex items-center justify-center transition-all duration-200"
             title={videoMuted ? "Unmute" : "Mute"}
           >
