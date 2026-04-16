@@ -253,10 +253,11 @@ export default function Home() {
     },
     {
       type: "image" as const,
-      src: "/banner2.png",
+      src: "/banerrrrrrrrrrrr.png",
       heading: "",
       sub: "",
       btn: false,
+      objectPosition: "center 30%",
     },
   ];
 
@@ -327,7 +328,7 @@ export default function Home() {
     { name: "INDOOR LIGHTING", image: "/indorr lighting.png", objectPosition: "center top" },
     { name: "ARCHITECTURAL LIGHTING", image: "/towerimage.png", objectPosition: "center top" },
     { name: "SMART LIGHTING", image: "/smartlightingggg.png", objectPosition: "center top" },
-    { name: "WIRE", image: "/wirehdimage.png", objectPosition: "center 20%" },
+    { name: "WIRE", image: "/wireeeeeeee.png", objectPosition: "center top" },
   ];
 
   const products = [
@@ -451,7 +452,7 @@ export default function Home() {
                 playsInline
               />
             ) : (
-              <img src={slide.src} alt={slide.heading} className="w-full h-full object-cover" />
+              <img src={slide.src} alt={slide.heading} className="w-full h-full object-cover" style={{ objectPosition: (slide as any).objectPosition || "center" }} />
             )}
             <div className="" />
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4">
