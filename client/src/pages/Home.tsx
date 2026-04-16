@@ -550,7 +550,7 @@ export default function Home() {
       </section>
 
       {/* Kitchen Experience Section */}
-      <section className="relative h-[90vh] overflow-hidden mb-16 mt-16 z-0">
+      <section className="relative h-[90vh] overflow-hidden z-0">
         {/* Base Image - Changes based on Day/Night toggle */}
         <div className="absolute inset-0">
           <img
@@ -863,7 +863,7 @@ export default function Home() {
       </section>
 
       {/* About Us */}
-      <section className="relative h-[750px] md:h-[110vh] overflow-hidden">
+      <section className="relative h-[650px] md:h-[90vh] overflow-hidden">
         <img
           src={aboutItems[safeAbout].image}
           alt="About Us"
@@ -901,7 +901,7 @@ export default function Home() {
         </div>
 
         {/* Right: List — original position */}
-        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "62%", paddingBottom: "10%", pointerEvents: "none" }}>
+        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "62%", paddingBottom: "4%", pointerEvents: "none" }}>
           <div className="w-full max-w-xs" style={{ pointerEvents: "auto" }}>
             {aboutItems.map((item, idx) => (
               <div
