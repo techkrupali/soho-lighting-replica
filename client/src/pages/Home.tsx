@@ -239,7 +239,7 @@ export default function Home() {
     },
     pendants: {
       name: "Spectrum",
-      image: "/Experience/Kitchen/Pendants.jpeg",
+      image: "/Experience/Kitchen/Lamps.jpeg",
       description: "",
     },
     downlights: {
@@ -563,23 +563,23 @@ export default function Home() {
           />
         </div>
 
-        {/* Tape Lights Layer */}
+        {/* Stream Layer */}
         {kitchenLights.tapeLights && (
           <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
             <img
               src="/Experience/Kitchen/Kitchen-Tapelight-6COB116S30WH-Night-Hero.webp"
-              alt="Tape Lights"
+              alt="Stream"
               className="w-full h-full object-cover"
             />
           </div>
         )}
 
-        {/* Pendants Layer */}
+        {/* Lamps Layer */}
         {kitchenLights.pendants && (
           <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
             <img
               src="/Experience/Kitchen/Kitchen-Tapelight-6COB116S30WH-Night-Etcher.webp"
-              alt="Pendants"
+              alt="Lamps"
               className="w-full h-full object-cover"
             />
           </div>
@@ -726,7 +726,7 @@ export default function Home() {
 
         {/* Hotspot Buttons */}
         <div className="absolute inset-0 pointer-events-none z-10">
-          {/* Stream (Tape Lights) + Button - moved to right side */}
+          {/* Stream (Stream) + Button - moved to right side */}
           <button
             onClick={() => setShowProductModal(showProductModal === 'tapeLights' ? null : 'tapeLights')}
             className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
@@ -747,7 +747,7 @@ export default function Home() {
             )}
           </button>
 
-          {/* Spectrum (Pendants) + Button - moved to left side */}
+          {/* Spectrum (Lamps) + Button - moved to left side */}
           <button
             onClick={() => setShowProductModal(showProductModal === 'pendants' ? null : 'pendants')}
             className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
@@ -814,8 +814,8 @@ export default function Home() {
             {/* Toggle Buttons */}
             <div className="flex flex-wrap gap-8">
               {[
-                { label: "Tape Lights", key: "tapeLights", active: kitchenLights.tapeLights },
-                { label: "Pendants", key: "pendants", active: kitchenLights.pendants },
+                { label: "Stream", key: "tapeLights", active: kitchenLights.tapeLights },
+                { label: "Lamps", key: "pendants", active: kitchenLights.pendants },
                 { label: "Downlights", key: "downlights", active: kitchenLights.downlights },
                 { label: "Day / Night", key: "dayNight", active: kitchenLights.dayNight },
               ].map((btn) => (
@@ -986,7 +986,20 @@ export default function Home() {
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="group bg-white rounded-xl p-8 shadow-sm hover:shadow-md border border-[#E8E8E0] hover:border-[#6B8E7F] transition-all duration-300"
+                className="group bg-white rounded-xl p-8 shadow-sm hover:shadow-md border border-[#E8E8E0] hover:border-[#6B8E7F] transition-all duration-300 card-animate"
+                ref={(el) => {
+                  if (!el) return;
+                  const observer = new IntersectionObserver(
+                    ([entry]) => {
+                      if (entry.isIntersecting) {
+                        setTimeout(() => el.classList.add('visible'), idx * 100);
+                        observer.disconnect();
+                      }
+                    },
+                    { threshold: 0.1 }
+                  );
+                  observer.observe(el);
+                }}
               >
                 <div className="w-14 h-14 rounded-full bg-[#6B8E7F]/10 flex items-center justify-center mb-6 group-hover:bg-[#6B8E7F]/20 transition-colors duration-300">
                   {item.icon}
