@@ -288,7 +288,7 @@ export default function Home() {
       heading: "World-Class Manufacturing",
       description:
         "Our state-of-the-art factory is equipped with advanced automated machinery and rigorous quality control processes. Every product is crafted with precision to meet international standards and ensure long-lasting performance.",
-      image: "/centuryhousehdimage.png",
+      image: "/magiklight factory.JPG.jpg",
     },
   ];
 
