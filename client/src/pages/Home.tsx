@@ -1061,16 +1061,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Bottom features strip */}
-          <div className="mt-10 border border-[#E8E8E0] rounded-xl flex flex-wrap divide-y sm:divide-y-0 sm:divide-x divide-[#E8E8E0] overflow-hidden">
-            {["BULK ORDERS", "CUSTOM BRANDING", "PAN INDIA DELIVERY", "AFTER-SALES SUPPORT"].map((feat) => (
-              <div key={feat} className="flex-1 min-w-[160px] flex items-center justify-center gap-2 py-4 px-4 bg-white hover:bg-[#F7F7F0] transition-colors">
-                <div className="w-2 h-2 rounded-full bg-[#C9A961]" />
-                <span className="text-[#373A36] text-xs font-semibold tracking-widest">{feat}</span>
-              </div>
-            ))}
-          </div>
-
         </div>
       </section>
 
