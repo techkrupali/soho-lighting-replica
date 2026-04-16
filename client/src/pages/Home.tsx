@@ -290,28 +290,10 @@ export default function Home() {
         "Our state-of-the-art factory is equipped with advanced automated machinery and rigorous quality control processes. Every product is crafted with precision to meet international standards and ensure long-lasting performance.",
       image: "/centuryhousehdimage.png",
     },
-    {
-      title: "Certificates",
-      heading: "Certified Excellence",
-      description:
-        "Magiklight holds multiple international certifications including ISO, CE, and RoHS, reflecting our unwavering commitment to quality, safety, and environmental responsibility in every product we manufacture.",
-      image: "/centuryhousehdimage.png",
-    },
-    {
-      title: "Company Deck",
-      heading: "Our Vision & Mission",
-      description:
-        "We envision a brighter, more sustainable world powered by intelligent lighting. Our mission is to innovate continuously, reduce energy consumption, and provide lighting solutions that enhance lives and spaces.",
-      image: "/centuryhousehdimage.png",
-    },
-    {
-      title: "Brochures",
-      heading: "Explore Our Range",
-      description:
-        "Browse our comprehensive product brochures covering our full range of LED panels, street lights, solar lights, architectural lighting, and more — designed for every application and environment.",
-      image: "/centuryhousehdimage.png",
-    },
   ];
+
+  const safeAbout = Math.min(activeAbout, aboutItems.length - 1);
+
   const shopCategoryList = [
     { name: "PANEL & SPOTLIGHT", image: "/panel.png", objectPosition: "center top" },
     { name: "OUTDOOR LIGHTS", image: "/outdorr lightsss.png", objectPosition: "center top" },
@@ -869,7 +851,7 @@ export default function Home() {
       {/* About Us */}
       <section className="relative h-[750px] md:h-[110vh] overflow-hidden">
         <img
-          src={aboutItems[activeAbout].image}
+          src={aboutItems[safeAbout].image}
           alt="About Us"
           className="w-full h-full object-cover transition-all duration-700"
           style={{ objectPosition: "20% 30%" }}
@@ -877,7 +859,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/60"></div>
 
         {/* Left: Dynamic Text */}
-        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "10%", paddingRight: "42%" }}>
+        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "10%", paddingRight: "42%", paddingBottom: "8%" }}>
           <div key={activeAbout} className="animate-fadeSlideIn">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-9 h-9 rounded-full bg-[#C9A961]/20 border border-[#C9A961]/50 flex items-center justify-center">
@@ -885,13 +867,13 @@ export default function Home() {
               </div>
               <p className="text-white font-sans tracking-widest uppercase" style={{ fontSize: "21px", paddingLeft: "0px", marginBottom: "0px" }}>About Us</p>
             </div>
-            <h2 className="text-white text-5xl md:text-7xl font-light mb-8 leading-tight"
+            <h2 className="text-white text-3xl md:text-5xl font-light mb-8 leading-tight"
                 style={{ fontFamily: "'Playfair Display', serif", paddingTop: "10px", marginBottom: "8px" }}>
-              {aboutItems[activeAbout].heading}
+              {aboutItems[safeAbout].heading}
             </h2>
-            <div className="text-white leading-relaxed space-y-0" style={{ maxWidth: "50%" }}>
-              {aboutItems[activeAbout].description.split("\n\n").map((para, i) => (
-                <p key={i} className="font-sans" style={{ fontSize: "19px", marginBottom: "20px", color: "#FFFFFF" }}>{para}</p>
+            <div className="text-white leading-relaxed space-y-0" style={{ maxWidth: "70%" }}>
+              {aboutItems[safeAbout].description.split("\n\n").map((para, i) => (
+                <p key={i} className="font-sans" style={{ fontSize: "17px", marginBottom: "20px", color: "#FFFFFF" }}>{para}</p>
               ))}
             </div>
             <a
@@ -905,28 +887,31 @@ export default function Home() {
         </div>
 
         {/* Right: List — original position */}
-        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "62%", pointerEvents: "none" }}>
+        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "62%", paddingBottom: "10%", pointerEvents: "none" }}>
           <div className="w-full max-w-xs" style={{ pointerEvents: "auto" }}>
             {aboutItems.map((item, idx) => (
               <div
                 key={idx}
                 onMouseEnter={() => setActiveAbout(idx)}
                 onClick={() => setActiveAbout(idx)}
-                className={`py-6 cursor-pointer flex items-center justify-between group transition-all duration-300 ${
-                  idx < aboutItems.length - 1 ? `border-b ${activeAbout === idx ? "border-[#C9A961]" : "border-white/40"}` : ""
+                className={`cursor-pointer flex items-center justify-between group transition-all duration-300 px-4 py-4 rounded-lg mb-4 ${
+                  activeAbout === idx
+                    ? "border border-[#C9A961] bg-white/10"
+                    : "border border-white/20 hover:border-white/50 hover:bg-white/5"
                 }`}
               >
                 <span
-                  className={`text-xl md:text-2xl font-light tracking-widest transition-all duration-300 ${
-                    activeAbout === idx ? "text-[#C9A961] translate-x-2" : "text-white group-hover:text-[#C9A961] group-hover:translate-x-2"
+                  className={`font-sans transition-all duration-300 ${
+                    activeAbout === idx ? "text-[#C9A961]" : "text-white group-hover:text-[#C9A961]"
                   }`}
+                  style={{ fontSize: "18px" }}
                 >
                   {item.title}
                 </span>
                 <ChevronRight
                   size={18}
                   className={`transition-all duration-300 ${
-                    activeAbout === idx ? "text-[#C9A961] opacity-100 translate-x-0" : "text-[#C9A961] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
+                    activeAbout === idx ? "text-[#C9A961] opacity-100" : "text-[#C9A961] opacity-0 group-hover:opacity-100"
                   }`}
                 />
               </div>
