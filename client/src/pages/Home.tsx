@@ -398,9 +398,9 @@ export default function Home() {
 
           <div className="flex items-center gap-4">
             <img 
-              src={scrolled ? "/Century Ply Logo white.png" : "/Century Ply Logo white.png"} 
+              src={scrolled ? "/blackcentury.png" : "/Century Ply Logo white.png"} 
               alt="Century Ply" 
-              className="hidden md:block h-6 w-auto object-contain" 
+              className={`hidden md:block w-auto object-contain ${scrolled ? "h-14" : "h-10"}`}
             />
             <div className={`hidden md:flex items-center border rounded px-3 py-2 transition-all duration-300 ${scrolled ? "bg-white border-[#E8E8E0]" : "bg-white/10 border-white/40"}`}>
               <input
