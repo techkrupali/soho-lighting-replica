@@ -256,7 +256,6 @@ export default function Home() {
     { name: "Living Room", image: "/Experience/LivingRoom.webp", description: "Create the perfect ambiance for relaxation" },
     { name: "Bedroom", image: "/Experience/badroom.webp", description: "Soft curves and smooth lighting for peaceful rest" },
     { name: "Kitchen", image: "/Experience/Kitchen.webp", description: "Bright and functional lighting for your space" },
-    { name: "Bathroom", image: "/Experience/Bathroom.webp", description: "Elegant lighting that combines function and beauty" },
     { name: "Outdoor", image: "/Experience/outdoor.webp", description: "Illuminate your exterior spaces beautifully" },
   ];
 
@@ -267,14 +266,6 @@ export default function Home() {
       heading: "It's in the detail",
       sub: "Engineered by experts | Handcrafted by artisans",
       btn: true,
-    },
-    {
-      type: "image" as const,
-      src: "/banerrrrrrrrrrrr.png",
-      heading: "",
-      sub: "",
-      btn: false,
-      objectPosition: "center 30%",
     },
   ];
 
@@ -378,67 +369,82 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#F7F7F0]">
       {/* Header */}
-      <header className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${scrolled ? "bg-[#F7F7F0] border-[#E8E8E0]" : "bg-transparent border-transparent"}`}>
-        <div className="container mx-auto px-4 py-2 flex items-center justify-between">
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden p-2"
-          >
-            <Menu size={24} className="text-[#373A36]" />
-          </button>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white border-b border-[#E8E8E0]" : "bg-transparent"}`}>
 
-          <div className="flex items-center gap-2 md:gap-4">
-            <img 
-              src={scrolled ? "/companylogo-2.png" : "/Magik PNG Logo White.png"} 
-              alt="Magik Lighting" 
-              className="h-12 w-auto object-contain" 
+        {/* Top row: Logo + all buttons centered together */}
+        <div className="hidden md:flex items-center justify-center gap-6 pt-4 pb-2">
+          <img
+            src={scrolled ? "/companylogo-2.png" : "/Magik PNG Logo White.png"}
+            alt="Magik Lighting"
+            className="h-14 w-auto object-contain"
+          />
+          <div className={`flex items-center border rounded px-3 py-1.5 transition-all duration-300 ${scrolled ? "bg-white border-[#E8E8E0]" : "bg-white/10 border-white/40"}`}>
+            <input
+              type="text"
+              placeholder="Search for products"
+              className={`outline-none text-sm placeholder-[#999] w-36 bg-transparent ${scrolled ? "text-[#373A36]" : "text-white placeholder-white/60"}`}
             />
+            <Search size={16} className={scrolled ? "text-[#999]" : "text-white/70"} />
           </div>
+          <button className="p-1.5">
+            <User size={20} className={scrolled ? "text-[#373A36]" : "text-white"} />
+          </button>
+          <button className="p-1.5">
+            <ShoppingCart size={20} className={scrolled ? "text-[#373A36]" : "text-white"} />
+          </button>
+          <img
+            src={scrolled ? "/blackcentury.png" : "/Century Ply Logo white.png"}
+            alt="Century Ply"
+            className={`w-auto object-contain ${scrolled ? "h-10" : "h-8"}`}
+          />
+        </div>
 
-          <nav className="hidden md:flex gap-8 absolute left-1/2 -translate-x-1/2 -ml-15">
-            <a href="#" className={`transition ${scrolled ? "text-[#373A36] hover:text-[#6B8E7F]" : "text-white hover:text-white/70"}`}>Home</a>
-            <a href="#" className={`transition ${scrolled ? "text-[#373A36] hover:text-[#6B8E7F]" : "text-white hover:text-white/70"}`}>About Us</a>
-            <a href="#" className={`transition ${scrolled ? "text-[#373A36] hover:text-[#6B8E7F]" : "text-white hover:text-white/70"}`}>Products</a>
-            <a href="#" className={`transition ${scrolled ? "text-[#373A36] hover:text-[#6B8E7F]" : "text-white hover:text-white/70"}`}>Contact Us</a>
-            <a href="#" className={`transition ${scrolled ? "text-[#373A36] hover:text-[#6B8E7F]" : "text-white hover:text-white/70"}`}>More</a>
-          </nav>
+        {/* Mobile top row */}
+        <div className="md:hidden flex items-center justify-between px-4 py-3">
+          <button onClick={() => setMenuOpen(!menuOpen)} className="p-2">
+            <Menu size={24} className={scrolled ? "text-[#373A36]" : "text-white"} />
+          </button>
+          <img
+            src={scrolled ? "/companylogo-2.png" : "/Magik PNG Logo White.png"}
+            alt="Magik Lighting"
+            className="h-10 w-auto object-contain"
+          />
+          <button className="p-1.5">
+            <ShoppingCart size={20} className={scrolled ? "text-[#373A36]" : "text-white"} />
+          </button>
+        </div>
 
-          <div className="flex items-center gap-4">
-            <img 
-              src={scrolled ? "/blackcentury.png" : "/Century Ply Logo white.png"} 
-              alt="Century Ply" 
-              className={`hidden md:block w-auto object-contain ${scrolled ? "h-10" : "h-8"}`}
-            />
-            <div className={`hidden md:flex items-center border rounded px-3 py-2 transition-all duration-300 ${scrolled ? "bg-white border-[#E8E8E0]" : "bg-white/10 border-white/40"}`}>
-              <input
-                type="text"
-                placeholder="Search for products"
-                className={`outline-none text-sm placeholder-[#999] flex-1 bg-transparent ${scrolled ? "text-[#373A36]" : "text-white placeholder-white/60"}`}
-              />
-              <Search size={18} className={scrolled ? "text-[#999]" : "text-white/70"} />
-            </div>
-            <button className="p-2">
-              <User size={20} className={scrolled ? "text-[#373A36]" : "text-white"} />
-            </button>
-            <button className="p-2">
-              <ShoppingCart size={20} className={scrolled ? "text-[#373A36]" : "text-white"} />
-            </button>
+        {/* Bottom row: Nav links centered */}
+        <div className="hidden md:block">
+          <div className="container mx-auto px-4">
+            <nav className="flex items-center justify-center gap-10 pb-3 pt-1">
+              {["HOME", "ABOUT US", "PRODUCTS", "CONTACT US", "MORE"].map((item) => (
+                <a
+                  key={item}
+                  href="#"
+                  className={`text-sm font-medium tracking-widest uppercase transition-all duration-200 hover:opacity-70 ${scrolled ? "text-[#373A36]" : "text-white"}`}
+                >
+                  {item}
+                </a>
+              ))}
+            </nav>
           </div>
         </div>
 
+        {/* Mobile menu */}
         {menuOpen && (
-          <nav className="md:hidden border-t border-[#E8E8E0] p-4 space-y-3">
-            <a href="#" className="block text-[#373A36]">Home</a>
-            <a href="#" className="block text-[#373A36]">About Us</a>
-            <a href="#" className="block text-[#373A36]">Products</a>
-            <a href="#" className="block text-[#373A36]">Contact Us</a>
-            <a href="#" className="block text-[#373A36]">More</a>
+          <nav className="md:hidden border-t border-[#E8E8E0] bg-white p-4 space-y-3">
+            <a href="#" className="block text-[#373A36] text-sm">Home</a>
+            <a href="#" className="block text-[#373A36] text-sm">About Us</a>
+            <a href="#" className="block text-[#373A36] text-sm">Products</a>
+            <a href="#" className="block text-[#373A36] text-sm">Contact Us</a>
+            <a href="#" className="block text-[#373A36] text-sm">More</a>
           </nav>
         )}
       </header>
 
       {/* Hero Section */}
-      <section ref={heroSectionRef} className="relative h-[90vh] overflow-hidden">
+      <section ref={heroSectionRef} className="relative h-[100vh] overflow-hidden">
         {heroSlides.map((slide, idx) => (
           <div
             key={idx}
@@ -464,7 +470,7 @@ export default function Home() {
               <img src={slide.src} alt={slide.heading} className="w-full h-full object-cover" style={{ objectPosition: (slide as any).objectPosition || "center" }} />
             )}
             <div className="" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4">
+            <div className="absolute inset-0 flex flex-col items-center justify-end text-center text-white px-4 pb-24">
               <h1 className="text-4xl md:text-7xl font-serif font-light mb-4 tracking-tight">{slide.heading}</h1>
               <p className="text-sm md:text-base mb-8 tracking-wide">{slide.sub}</p>
               {slide.btn && (
@@ -978,65 +984,76 @@ export default function Home() {
             <div className="flex justify-center mt-4">
               <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
             </div>
-            <p className="text-[#666] text-sm max-w-3xl leading-relaxed mx-auto mt-4">
-              LED lights are the latest choice for smart and sustainable functioning. Magik enhances the power of LED lights that illuminates your world with smart solutions empowered by innovative thinking.
-            </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
             {[
               {
-                icon: <Zap size={24} className="text-[#6B8E7F]" />,
-                title: "Energy Efficient",
-                desc: "Our LED solutions consume up to 80% less energy than traditional lighting, reducing your electricity bills and carbon footprint significantly.",
+                icon: <Zap size={56} strokeWidth={1.2} className="text-[#373A36]" />,
+                title: "ENERGY EFFICIENT",
+                desc: "Up to 80% less energy than traditional lighting.",
               },
               {
-                icon: <Factory size={24} className="text-[#6B8E7F]" />,
-                title: "Made in India",
-                desc: "Proudly manufactured in our state-of-the-art facility with world-class machinery, ensuring quality at every step of production.",
+                icon: <Award size={56} strokeWidth={1.2} className="text-[#373A36]" />,
+                title: "ISO CERTIFIED QUALITY",
+                desc: "ISO, CE & RoHS certified for international standards.",
+                featured: true,
               },
               {
-                icon: <Award size={24} className="text-[#6B8E7F]" />,
-                title: "ISO Certified Quality",
-                desc: "Every product meets rigorous international standards. Our ISO, CE, and RoHS certifications are a testament to our commitment to excellence.",
-              },
-              {
-                icon: <Globe size={24} className="text-[#6B8E7F]" />,
-                title: "Pan-India Network",
-                desc: "With 300+ distributors and 15,000+ retailers across India, Magik Lighting is always within reach — wherever you are.",
-              },
-              {
-                icon: <Wrench size={24} className="text-[#6B8E7F]" />,
-                title: "End-to-End Solutions",
-                desc: "From residential to large-scale industrial projects, we provide complete lighting solutions tailored to your specific requirements.",
-              },
-              {
-                icon: <Leaf size={24} className="text-[#6B8E7F]" />,
-                title: "Sustainable Future",
-                desc: "We design with the planet in mind — using eco-friendly materials and processes to build a greener, brighter tomorrow.",
+                icon: <Globe size={56} strokeWidth={1.2} className="text-[#373A36]" />,
+                title: "PAN-INDIA NETWORK",
+                desc: "10 Years in Industry | 1000+ Distributors | 1 Lakh+ products per day.",
               },
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="group bg-white rounded-xl p-8 shadow-sm hover:shadow-md border border-[#E8E8E0] hover:border-[#6B8E7F] transition-all duration-300 card-animate"
+                className={`flex flex-col items-center text-center p-8 rounded-2xl border transition-all duration-300 card-animate border-[#E8E8E0] shadow-sm hover:shadow-md hover:border-[#373A36]`}
                 ref={(el) => {
                   if (!el) return;
-                  const observer = new IntersectionObserver(
-                    ([entry]) => {
-                      if (entry.isIntersecting) {
-                        setTimeout(() => el.classList.add('visible'), idx * 100);
-                        observer.disconnect();
-                      }
-                    },
-                    { threshold: 0.1 }
-                  );
+                  const observer = new IntersectionObserver(([entry]) => {
+                    if (entry.isIntersecting) { setTimeout(() => el.classList.add('visible'), idx * 100); observer.disconnect(); }
+                  }, { threshold: 0.1 });
                   observer.observe(el);
                 }}
               >
-                <div className="w-14 h-14 rounded-full bg-[#6B8E7F]/10 flex items-center justify-center mb-6 group-hover:bg-[#6B8E7F]/20 transition-colors duration-300">
-                  {item.icon}
-                </div>
-                <h3 className="text-lg font-semibold text-[#373A36] mb-3 tracking-wide">{item.title}</h3>
+                <div className="mb-6">{item.icon}</div>
+                <h3 className="text-base font-bold text-[#373A36] mb-3 tracking-widest">{item.title}</h3>
+                <p className="text-[#666] text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              {
+                icon: <Factory size={56} strokeWidth={1.2} className="text-[#373A36]" />,
+                title: "MADE IN INDIA",
+                desc: "State-of-the-art facility with world-class machinery.",
+              },
+              {
+                icon: <Wrench size={56} strokeWidth={1.2} className="text-[#373A36]" />,
+                title: "END-TO-END SOLUTIONS",
+                desc: "Complete lighting solutions for every project scale.",
+              },
+              {
+                icon: <Leaf size={56} strokeWidth={1.2} className="text-[#373A36]" />,
+                title: "SUSTAINABLE FUTURE",
+                desc: "Eco-friendly materials for a greener tomorrow.",
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col items-center text-center p-8 rounded-2xl border border-[#E8E8E0] shadow-sm hover:shadow-md hover:border-[#373A36] transition-all duration-300 card-animate"
+                ref={(el) => {
+                  if (!el) return;
+                  const observer = new IntersectionObserver(([entry]) => {
+                    if (entry.isIntersecting) { setTimeout(() => el.classList.add('visible'), idx * 100); observer.disconnect(); }
+                  }, { threshold: 0.1 });
+                  observer.observe(el);
+                }}
+              >
+                <div className="mb-6">{item.icon}</div>
+                <h3 className="text-base font-bold text-[#373A36] mb-3 tracking-widest">{item.title}</h3>
                 <p className="text-[#666] text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
@@ -1063,41 +1080,64 @@ export default function Home() {
             </p>
           </div>
 
-          {/* 3x2 Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              { img: "/starcementplant.png",                        title: "Star Cement Plant",       location: "Meghalaya",   tag: "INDUSTRIAL",         objectPosition: "center center" },
-              { img: "/The Agri Horticulture, Kolkata.jpeg",        title: "The Agri Horticulture",   location: "Kolkata",     tag: "AGRICULTURE",        objectPosition: "center center" },
-              { img: "/Kolkata Airport.jpeg",                       title: "Kolkata Airport",         location: "Kolkata",     tag: "INFRASTRUCTURE",     objectPosition: "center center" },
-              { img: "/Durgapur Steel Plant, West Bengal.jpeg",     title: "Durgapur Steel Plant",    location: "West Bengal", tag: "INDUSTRIAL",         objectPosition: "center center" },
-              { img: "/indorr lighting.png",                        title: "Eden Gardens Club House", location: "Kolkata",     tag: "SPORTS & RECREATION",objectPosition: "center center" },
-              { img: "/towerimage.png",                             title: "Air Traffic Control",     location: "Bhubaneswar", tag: "INFRASTRUCTURE",     objectPosition: "center 40%"   },
-            ].map((card, idx) => (
-              <div key={idx} className="relative rounded-xl overflow-hidden group cursor-pointer" style={{ height: "260px" }}>
-                <img
-                  src={card.img}
-                  alt={card.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  style={{ objectPosition: card.objectPosition }}
-                />
-                {/* dark gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          {/* Mosaic Layout: left 2, center tall, right 2 */}
+          {(() => {
+            const cards = [
+              { img: "/starcementplant.png",                    title: "Star Cement Plant",       location: "Meghalaya",   objectPosition: "center center" },
+              { img: "/The Agri Horticulture, Kolkata.jpeg",    title: "The Agri Horticulture",   location: "Kolkata",     objectPosition: "center center" },
+              { img: "/Kolkata Airport.jpeg",                   title: "Kolkata Airport",         location: "Kolkata",     objectPosition: "center center" },
+              { img: "/Durgapur Steel Plant, West Bengal.jpeg", title: "Durgapur Steel Plant",    location: "West Bengal", objectPosition: "center center" },
+              { img: "/indorr lighting.png",                    title: "Eden Gardens Club House", location: "Kolkata",     objectPosition: "center center" },
+              { img: "/towerimage.png",                         title: "Air Traffic Control",     location: "Bhubaneswar", objectPosition: "center 40%"   },
+            ];
+            return (
+              <div className="grid grid-cols-3 gap-4" style={{ height: "580px" }}>
+                {/* Left col: 2 stacked */}
+                <div className="flex flex-col gap-4 h-full">
+                  {[cards[0], cards[1]].map((card, idx) => (
+                    <div key={idx} className="relative rounded-xl overflow-hidden group cursor-pointer" style={{ flex: 1 }}>
+                      <img src={card.img} alt={card.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" style={{ objectPosition: card.objectPosition }} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                      <div className="absolute bottom-0 left-0 p-4">
+                        <h3 className="text-white text-base font-serif font-light leading-snug">{card.title}</h3>
+                        <p className="text-white/70 text-xs mt-1">{card.location}</p>
+                        <div className="h-0.5 w-6 bg-[#6B8E7F] mt-2 rounded-full" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
 
-                {/* Title & location */}
-                <div className="absolute bottom-0 left-0 p-5">
-                  <h3 className="text-white text-xl font-serif font-light leading-snug">{card.title}</h3>
-                  <p className="text-white/70 text-sm mt-1">{card.location}</p>
-                  <div className="h-0.5 w-8 bg-[#6B8E7F] mt-2 rounded-full" />
+                {/* Center col: 1 tall card spanning both rows */}
+                <div className="relative rounded-xl overflow-hidden group cursor-pointer h-full">
+                  <img src={cards[2].img} alt={cards[2].title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" style={{ objectPosition: cards[2].objectPosition }} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 p-5">
+                    <h3 className="text-white text-xl font-serif font-light leading-snug">{cards[2].title}</h3>
+                    <p className="text-white/70 text-sm mt-1">{cards[2].location}</p>
+                    <div className="h-0.5 w-8 bg-[#6B8E7F] mt-2 rounded-full" />
+                  </div>
+                </div>
+
+                {/* Right col: 2 stacked */}
+                <div className="flex flex-col gap-4 h-full">
+                  {[cards[3], cards[4]].map((card, idx) => (
+                    <div key={idx} className="relative rounded-xl overflow-hidden group cursor-pointer" style={{ flex: 1 }}>
+                      <img src={card.img} alt={card.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" style={{ objectPosition: card.objectPosition }} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                      <div className="absolute bottom-0 left-0 p-4">
+                        <h3 className="text-white text-base font-serif font-light leading-snug">{card.title}</h3>
+                        <p className="text-white/70 text-xs mt-1">{card.location}</p>
+                        <div className="h-0.5 w-6 bg-[#6B8E7F] mt-2 rounded-full" />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
+            );
+          })()}
 
         </div>
       </section>
-
-      {/* Corporate Videos */}
-      <CorporateVideos />
 
       {/* Client Love */}
       <ClientLove />
