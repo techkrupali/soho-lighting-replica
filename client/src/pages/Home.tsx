@@ -10,6 +10,316 @@ const testimonials = [
   { name: "Vasudha Chaudhary Jalan", role: "Interior Designer", text: "", avatar: "VCJ", videoId: "Hn7WmlGaKfM" },
 ];
 
+type B2BCard = { img: string; title: string; location: string; objectPosition: string };
+
+function B2BCarousel({ cards }: { cards: B2BCard[] }) {
+  const [active, setActive] = useState(0);
+  const [prev2, setPrev2] = useState<number|null>(null);
+  const [dir, setDir] = useState<'left'|'right'>('right');
+
+  const go = (newIdx: number, direction: 'left'|'right') => {
+    setDir(direction);
+    setPrev2(active);
+    setActive(newIdx);
+    setTimeout(() => setPrev2(null), 450);
+  };
+
+  const prevSlide = () => go((active - 1 + cards.length) % cards.length, 'left');
+  const nextSlide = () => go((active + 1) % cards.length, 'right');
+  const goTo = (i: number) => go(i, i > active ? 'right' : 'left');
+  const getIdx = (offset: number) => (active + offset + cards.length) % cards.length;
+
+  const slideInAnim  = dir === 'right' ? 'slideInRight'  : 'slideInLeft';
+  const slideOutAnim = dir === 'right' ? 'slideOutLeft'  : 'slideOutRight';
+
+  return (
+    <div className="relative flex items-center gap-3" style={{ height: 500 }}>
+      {/* Prev arrow */}
+      <button onClick={prevSlide} className="absolute left-0 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-white border border-[#E8E8E0] flex items-center justify-center shadow-md transition -translate-x-5">
+        <ChevronLeft size={20} className="text-[#373A36]" />
+      </button>
+
+      {/* Left partial */}
+      <div className="relative rounded-xl overflow-hidden cursor-pointer flex-shrink-0 opacity-50 hover:opacity-70 transition-opacity" style={{ width: '18%', height: '75%' }} onClick={prevSlide}>
+        <img src={cards[getIdx(-1)].img} alt="" className="w-full h-full object-cover" style={{ objectPosition: cards[getIdx(-1)].objectPosition }} />
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
+
+      {/* Center main */}
+      <div className="relative rounded-2xl overflow-hidden flex-1 h-full shadow-xl">
+
+        {/* Exiting card */}
+        {prev2 !== null && (
+          <div key={`out-${prev2}`} className="absolute inset-0 w-full h-full"
+            style={{ animation: `${slideOutAnim} 0.45s ease forwards`, zIndex: 1 }}>
+            <img src={cards[prev2].img} alt="" className="w-full h-full object-cover" style={{ objectPosition: cards[prev2].objectPosition }} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            <div className="absolute bottom-0 left-0 p-6">
+              <h3 className="text-white text-2xl font-serif font-light leading-snug">{cards[prev2].title}</h3>
+              <p className="text-white/70 text-sm mt-1">{cards[prev2].location}</p>
+              <div className="h-0.5 w-10 bg-[#6B8E7F] mt-3 rounded-full" />
+            </div>
+          </div>
+        )}
+
+        {/* Entering card */}
+        <div key={`in-${active}`} className="absolute inset-0 w-full h-full"
+          style={{ animation: `${slideInAnim} 0.45s ease forwards`, zIndex: 2 }}>
+          <img src={cards[active].img} alt={cards[active].title} className="w-full h-full object-cover" style={{ objectPosition: cards[active].objectPosition }} />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+          <div className="absolute bottom-0 left-0 p-6">
+            <h3 className="text-white text-2xl font-serif font-light leading-snug">{cards[active].title}</h3>
+            <p className="text-white/70 text-sm mt-1">{cards[active].location}</p>
+            <div className="h-0.5 w-10 bg-[#6B8E7F] mt-3 rounded-full" />
+          </div>
+        </div>
+
+        {/* Dots */}
+        <div className="absolute bottom-6 right-6 z-10 flex gap-1.5">
+          {cards.map((_, i) => (
+            <button key={i} onClick={() => goTo(i)} className={`rounded-full transition-all duration-300 ${i === active ? 'bg-white w-5 h-1.5' : 'bg-white/50 w-1.5 h-1.5'}`} />
+          ))}
+        </div>
+      </div>
+
+      {/* Right partial */}
+      <div className="relative rounded-xl overflow-hidden cursor-pointer flex-shrink-0 opacity-50 hover:opacity-70 transition-opacity" style={{ width: '18%', height: '75%' }} onClick={nextSlide}>
+        <img src={cards[getIdx(1)].img} alt="" className="w-full h-full object-cover" style={{ objectPosition: cards[getIdx(1)].objectPosition }} />
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
+
+      {/* Next arrow */}
+      <button onClick={nextSlide} className="absolute right-0 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-white border border-[#E8E8E0] flex items-center justify-center shadow-md transition translate-x-5">
+        <ChevronRight size={20} className="text-[#373A36]" />
+      </button>
+    </div>
+  );
+}
+
+const blogPosts = [
+  { category: "TRENDS",    img: "/indorr lighting.png",                    title: "Top 5 Lighting Trends for Luxury Hospitality in 2024",          excerpt: "From warm tunable whites to architectural accent lighting — what top hotels are choosing.",          date: "Feb 28, 2024", read: "4 min read" },
+  { category: "QUALITY",   img: "/The Agri Horticulture, Kolkata.jpeg",    title: "BIS Certification: Why It Matters for Your LED Purchase",        excerpt: "Understanding quality certifications and why BIS-certified LEDs are the only safe choice.",          date: "Feb 10, 2024", read: "3 min read" },
+  { category: "INDUSTRIAL",img: "/starcementplant.png",                    title: "Industrial Lighting: High-Bay LEDs for Maximum Output",          excerpt: "A complete guide to choosing the right high-bay LED fixtures for warehouses and factories.",          date: "Jan 22, 2024", read: "6 min read" },
+  { category: "TRENDS",    img: "/towerimage.png",                         title: "Smart Lighting Controls: Dimming & Automation Guide",            excerpt: "How smart dimming systems and automation can reduce energy waste and improve ambiance.",              date: "Jan 10, 2024", read: "5 min read" },
+  { category: "INDUSTRIAL",img: "/Durgapur Steel Plant, West Bengal.jpeg", title: "Outdoor LED Flood Lights: Installation Tips",                   excerpt: "Everything you need to know about choosing and installing outdoor flood lights.",                    date: "Dec 18, 2023", read: "4 min read" },
+  { category: "QUALITY",   img: "/Kolkata Airport.jpeg",                   title: "Energy Saving with LED: A Complete ROI Analysis",               excerpt: "Calculate your return on investment when switching from traditional lighting to LED solutions.",       date: "Dec 5, 2023",  read: "7 min read" },
+];
+
+const categoryColors: Record<string, string> = {
+  TRENDS: "#6B8E7F", QUALITY: "#4A7FA5", INDUSTRIAL: "#C9A961",
+};
+
+function MagikBlog() {
+  const [activeTab, setActiveTab] = useState("ALL");
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const tabs = ["ALL", "ENERGY SAVING", "TRENDS", "QUALITY", "INDUSTRIAL"];
+  const filtered = activeTab === "ALL" ? blogPosts : blogPosts.filter(p => p.category === activeTab);
+
+  const scroll = (dir: 'left' | 'right') => {
+    scrollRef.current?.scrollBy({ left: dir === 'right' ? 300 : -300, behavior: 'smooth' });
+  };
+
+  return (
+    <section className="py-14 pb-20 bg-white">
+      <div className="container mx-auto px-8">
+        {/* Header */}
+        <div className="flex items-end justify-between mb-6">
+          <div className="flex-1 text-center">
+            <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-1">Our Journal</p>
+            <h2 className="text-4xl font-serif font-light tracking-widest text-[#373A36]">Magik <strong className="font-bold font-serif">Blog</strong></h2>
+            <div className="flex justify-center mt-3">
+              <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
+            </div>
+          </div>
+          <a href="#" className="flex items-center gap-2 text-sm font-medium text-[#373A36] hover:text-[#6B8E7F] transition-colors tracking-widest uppercase">
+            View All <ArrowRight size={16} />
+          </a>
+        </div>
+
+        {/* Filter tabs + arrows */}
+        <div className="flex items-center justify-between mb-6 mt-10">
+          <div className="flex gap-2 flex-wrap justify-center flex-1">
+            {tabs.map(tab => (
+              <button key={tab} onClick={() => setActiveTab(tab)}
+                className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest transition-all duration-200 ${
+                  activeTab === tab ? "bg-[#373A36] text-white" : "border border-[#E8E8E0] text-[#373A36] hover:border-[#373A36]"
+                }`}
+              >{tab}</button>
+            ))}
+          </div>
+          <div className="flex gap-2">
+            <button onClick={() => scroll('left')} className="w-8 h-8 rounded-full border border-[#E8E8E0] flex items-center justify-center hover:bg-[#F7F7F0] transition">
+              <ChevronLeft size={16} className="text-[#373A36]" />
+            </button>
+            <button onClick={() => scroll('right')} className="w-8 h-8 rounded-full border border-[#E8E8E0] flex items-center justify-center hover:bg-[#F7F7F0] transition">
+              <ChevronRight size={16} className="text-[#373A36]" />
+            </button>
+          </div>
+        </div>
+
+        {/* Cards */}
+        <div ref={scrollRef} className="flex gap-5 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
+          {filtered.map((post, idx) => (
+            <div key={idx} className="flex-shrink-0 cursor-pointer group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-[#F0F0F0]" style={{ width: 'calc(22% - 16px)', minWidth: 240 }}>
+              <div className="relative h-56 overflow-hidden">
+                <img src={post.img} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <span className="absolute top-3 left-3 text-white text-[10px] font-bold tracking-widest px-3 py-1 rounded-full"
+                  style={{ background: categoryColors[post.category] || "#373A36" }}>
+                  {post.category}
+                </span>
+              </div>
+              <div className="p-5">
+                <h3 className="text-[#373A36] text-lg font-serif font-light leading-snug mb-3 group-hover:text-[#6B8E7F] transition-colors">{post.title}</h3>
+                <p className="text-[#999] text-sm leading-relaxed mb-4 line-clamp-2">{post.excerpt}</p>
+                <div className="flex items-center justify-between pt-2 border-t border-[#F0F0F0]">
+                  <span className="text-[#999] text-xs tracking-wide">{post.date} · {post.read}</span>
+                  <ArrowRight size={16} className="text-[#C9A961]" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const reels = [
+  'https://www.instagram.com/reel/DViyiJHj0nM/?igsh=enM4MjNyYmtzeGc0',
+  'https://www.instagram.com/reel/DTu4n6vD7nm/?igsh=ZzZxanhsbXF4eDNk',
+  'https://www.instagram.com/reel/DTc3BVOlHIA/?igsh=MWxzamljbW5oNzUyeQ==',
+  'https://www.instagram.com/reel/DSXVfzAiMus/?igsh=MXJzaWZkaWl4N3FqNg==',
+  'https://www.instagram.com/reel/DPin2xPjnZA/?igsh=MW91MDNyMHdkeTF2ag==',
+  'https://www.instagram.com/reel/DSNCZFZlKxI/?igsh=MXR2OG8xM2F5bGVycA==',
+];
+
+function getReelId(url: string) {
+  const match = url.match(/reel\/([^/?]+)/);
+  return match ? match[1] : '';
+}
+
+const InstagramIcon = ({ size = 28, color = 'white' }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} fill={color} viewBox="0 0 24 24">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+  </svg>
+);
+
+const clientLogos = [
+  '/logos/Adani.jpg', '/logos/centuryply.png', '/logos/Cricket Association of Bengal.png',
+  '/logos/hdfc.jpg', '/logos/IISER.jpg', '/logos/manyavar.png',
+  '/logos/pharma.png', '/logos/rbi.jpg', '/logos/reliance.jpg',
+  '/logos/sbi.jpg', '/logos/tata medical.png', '/logos/zydus.png',
+];
+const logoRow1 = clientLogos.slice(0, 6);
+const logoRow2 = clientLogos.slice(6);
+
+function LogoCard({ src }: { src: string }) {
+  return (
+    <div className="flex-shrink-0 mx-3 w-36 h-20 rounded-xl bg-white border border-[#E8E8E0] flex items-center justify-center px-4 hover:border-[#C9A961]/40 transition-all duration-300">
+      <img src={src} alt="client logo" className="max-h-10 w-auto object-contain" />
+    </div>
+  );
+}
+
+function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
+  const doubled = [...items, ...items, ...items, ...items];
+  return (
+    <div className="flex overflow-hidden">
+      <div className="flex" style={{ animation: `${reverse ? 'marqueeReverse' : 'marquee'} ${reverse ? 22 : 28}s linear infinite` }}>
+        {doubled.map((src, i) => <LogoCard key={i} src={src} />)}
+      </div>
+    </div>
+  );
+}
+
+function MagikClients() {
+  return (
+    <section className="py-20 bg-white overflow-hidden relative">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center mb-14">
+          <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-3">Trusted By The Best</p>
+          <h2 className="text-4xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] mb-4">
+            Our Magik <strong className="font-bold">Clients</strong>
+          </h2>
+          <div className="flex justify-center mb-4">
+            <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
+          </div>
+          <p className="text-[#666] text-sm max-w-md mx-auto">
+            From Fortune 500 corporations to iconic institutions — powering India's most prestigious spaces.
+          </p>
+        </div>
+      </div>
+      <div className="relative space-y-4">
+        <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #FFFFFF, transparent)' }} />
+        <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #FFFFFF, transparent)' }} />
+        <MarqueeRow items={logoRow1} />
+        <MarqueeRow items={logoRow2} reverse />
+      </div>
+    </section>
+  );
+}
+
+function InstagramReels() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scroll = (dir: 'left' | 'right') => {
+    scrollRef.current?.scrollBy({ left: dir === 'right' ? 320 : -320, behavior: 'smooth' });
+  };
+  return (
+    <section className="py-16 px-6 bg-[#F7F7F0]">
+      <div className="container mx-auto">
+        <div className="flex flex-col lg:flex-row gap-10 items-start">
+          {/* Left Text */}
+          <div className="lg:w-64 flex-shrink-0 lg:pt-4">
+            <h2 className="text-[#373A36] text-5xl font-serif leading-tight mb-3">Stay inspired with us on Instagram</h2>
+            <div className="h-1 w-16 bg-[#6B8E7F] rounded-full mb-6" />
+            <a
+              href="https://www.instagram.com/magiklighting?igsh=ZDNpYnRmZGtxa3N3"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border border-[#373A36] text-[#373A36] px-5 py-2.5 rounded-full text-sm hover:bg-[#373A36] hover:text-white transition-all duration-200 mb-8"
+            >
+              <InstagramIcon size={16} color="currentColor" />
+              Follow us
+            </a>
+          </div>
+          {/* Reels Carousel */}
+          <div className="flex-1 relative">
+            <button onClick={() => scroll('left')} className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white hover:bg-[#E8E8E0] flex items-center justify-center transition-all border border-[#E8E8E0]">
+              <svg className="w-4 h-4 text-[#373A36]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            <button onClick={() => scroll('right')} className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white hover:bg-[#E8E8E0] flex items-center justify-center transition-all border border-[#E8E8E0]">
+              <svg className="w-4 h-4 text-[#373A36]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
+            <div ref={scrollRef} className="flex gap-3 overflow-x-auto scroll-smooth" style={{ scrollbarWidth: 'none' }}>
+              {reels.map((url) => {
+                const id = getReelId(url);
+                return (
+                  <a key={id} href={url} target="_blank" rel="noopener noreferrer"
+                    className="flex-shrink-0 relative rounded-2xl overflow-hidden block"
+                    style={{ width: 220, height: 390 }}
+                  >
+                    <div className="absolute" style={{ top: '80%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                      <iframe
+                        src={`https://www.instagram.com/reel/${id}/embed/captioned/`}
+                        width="300" height="700" allowFullScreen scrolling="no"
+                        style={{ border: 'none', pointerEvents: 'none', transform: 'scale(1.1)', transformOrigin: 'center center' }}
+                      />
+                    </div>
+                    <div className="absolute inset-0 z-10" />
+                    <div className="absolute bottom-3 right-3 z-20 pointer-events-none">
+                      <InstagramIcon size={26} color="white" />
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ClientLove() {
   const trackRef = useRef<HTMLDivElement>(null);
   const animRef = useRef<number>(0);
@@ -37,7 +347,7 @@ function ClientLove() {
   }, []);
 
   return (
-    <section className="py-16 bg-white overflow-hidden">
+    <section className="py-10 pb-16 bg-[#F7F7F0] overflow-hidden">
       <div className="container mx-auto px-4 mb-10 text-center">
         <p className="text-[#C9A961] text-xs tracking-widest uppercase font-sans mb-1">Client Love</p>
         <h2 className="text-3xl md:text-4xl font-serif font-light tracking-widest text-[#373A36]">
@@ -217,6 +527,44 @@ function CorporateVideos() {
  * - Smooth transitions and refined interactions
  */
 
+function QuickEnquiry() {
+  const [enquiryOpen, setEnquiryOpen] = useState(false);
+  return (
+    <div className="fixed bottom-0 right-0 z-50 flex flex-col items-end">
+      {/* WhatsApp */}
+      <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer"
+        className="w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 mr-3 mb-2"
+        aria-label="Chat on WhatsApp">
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+      </a>
+      {/* Quick Enquiry */}
+      <div className="w-full">
+        <button onClick={() => setEnquiryOpen((v) => !v)}
+          className="flex items-center gap-3 bg-[#373A36] text-white px-6 py-3 font-semibold text-sm w-full">
+          Quick Enquiry
+          <svg className={`w-4 h-4 transition-transform ${enquiryOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path d="m18 15-6-6-6 6" />
+          </svg>
+        </button>
+        {enquiryOpen && (
+          <div className="bg-white shadow-xl p-6 w-80 border border-gray-200">
+            <h3 className="font-bold text-[#373A36] mb-4">Quick Enquiry</h3>
+            <div className="space-y-3">
+              <input type="text" placeholder="Your Name" className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-[#373A36]" />
+              <input type="email" placeholder="Email Address" className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-[#373A36]" />
+              <input type="tel" placeholder="Phone Number" className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-[#373A36]" />
+              <textarea placeholder="Message" rows={3} className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-[#373A36] resize-none" />
+              <button className="w-full bg-[#373A36] text-white py-2 rounded text-sm font-medium hover:bg-[#6B8E7F] transition-colors">Submit</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -292,14 +640,14 @@ export default function Home() {
       title: "Company Profile",
       heading: "Made in India",
       description:
-        "In just a few years, MAGIK has established itself as a reputed and trusted brand with a pan-India footprint. Its product range encompasses solutions for Home, Office, Industry, Infrastructure, Retail and Hospitality. With a network of 300+ distributors and 15,000+ retailers, MAGIK is there to serve you anywhere.",
+        "MAGIK is a trusted pan-India brand offering innovative solutions for Home, Office, Industry, Retail, and Hospitality sectors. With 10+ years of experience, 1000+ distributors, and a production capacity of 1 lakh+ products per day, MAGIK delivers quality products backed by advanced manufacturing and strict quality standards.",
       image: "/centuryhousehdimage.png",
     },
     {
       title: "Factory and Machinery",
-      heading: "World-Class Manufacturing",
+      heading: "Made in India",
       description:
-        "Our state-of-the-art factory is equipped with advanced automated machinery and rigorous quality control processes. Every product is crafted with precision to meet international standards and ensure long-lasting performance.",
+        "MAGIK has rapidly grown into a reputed and trusted brand with a strong pan-India presence, offering innovative solutions for Home, Office, Industry, Infrastructure, Retail, and Hospitality sectors. With 10+ years in the industry, a strong network of 1000+ distributors, and the capacity to produce 1 lakh+ products per day, MAGIK ensures reliable service and widespread accessibility across the country. Backed by a world-class manufacturing facility equipped with advanced automated machinery and stringent quality control systems, every product is crafted with precision, durability, and international quality standards.",
       image: "/magiklight factory.JPG.jpg",
     },
   ];
@@ -369,66 +717,54 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#F7F7F0]">
       {/* Header */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white border-b border-[#E8E8E0]" : "bg-transparent"}`}>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white">
 
-        {/* Top row: Logo + all buttons centered together */}
-        <div className="hidden md:flex items-center justify-center gap-6 pt-4 pb-2">
-          <img
-            src={scrolled ? "/companylogo-2.png" : "/Magik PNG Logo White.png"}
-            alt="Magik Lighting"
-            className="h-14 w-auto object-contain"
-          />
-          <div className={`flex items-center border rounded px-3 py-1.5 transition-all duration-300 ${scrolled ? "bg-white border-[#E8E8E0]" : "bg-white/10 border-white/40"}`}>
-            <input
-              type="text"
-              placeholder="Search for products"
-              className={`outline-none text-sm placeholder-[#999] w-36 bg-transparent ${scrolled ? "text-[#373A36]" : "text-white placeholder-white/60"}`}
-            />
-            <Search size={16} className={scrolled ? "text-[#999]" : "text-white/70"} />
+        {/* Top row: Logo center, icons right */}
+        <div className="hidden md:flex items-center px-8 pt-5 pb-2 relative">
+
+          {/* Center: Magik Logo */}
+          <div className="absolute left-1/2 -translate-x-1/2">
+            <img src="/companylogo-2.png" alt="Magik Lighting" className="h-16 w-auto object-contain" />
           </div>
-          <button className="p-1.5">
-            <User size={20} className={scrolled ? "text-[#373A36]" : "text-white"} />
-          </button>
-          <button className="p-1.5">
-            <ShoppingCart size={20} className={scrolled ? "text-[#373A36]" : "text-white"} />
-          </button>
-          <img
-            src={scrolled ? "/blackcentury.png" : "/Century Ply Logo white.png"}
-            alt="Century Ply"
-            className={`w-auto object-contain ${scrolled ? "h-10" : "h-8"}`}
-          />
+
+          {/* Right: icons + CenturyPly */}
+          <div className="ml-auto flex items-center gap-4">
+            <button className="p-1.5 hover:opacity-70 transition-opacity">
+              <Search size={20} className="text-[#373A36]" />
+            </button>
+            <button className="p-1.5 hover:opacity-70 transition-opacity">
+              <User size={20} className="text-[#373A36]" />
+            </button>
+            <button className="p-1.5 hover:opacity-70 transition-opacity">
+              <ShoppingCart size={20} className="text-[#373A36]" />
+            </button>
+            <div className="w-px h-6 bg-[#E8E8E0]" />
+            <img src="/blackcentury.png" alt="Century Ply" className="h-9 w-auto object-contain" />
+          </div>
+        </div>
+
+        {/* Bottom row: Nav links centered */}
+        <div className="hidden md:block">
+          <nav className="flex items-center justify-center gap-10 pb-4 pt-6">
+            {["HOME", "ABOUT US", "PRODUCTS", "CONTACT US", "MORE"].map((item) => (
+              <a key={item} href="#"
+                className="text-sm font-semibold tracking-widest text-[#373A36] hover:text-[#6B8E7F] transition-colors duration-200"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
         </div>
 
         {/* Mobile top row */}
         <div className="md:hidden flex items-center justify-between px-4 py-3">
           <button onClick={() => setMenuOpen(!menuOpen)} className="p-2">
-            <Menu size={24} className={scrolled ? "text-[#373A36]" : "text-white"} />
+            <Menu size={24} className="text-[#373A36]" />
           </button>
-          <img
-            src={scrolled ? "/companylogo-2.png" : "/Magik PNG Logo White.png"}
-            alt="Magik Lighting"
-            className="h-10 w-auto object-contain"
-          />
+          <img src="/companylogo-2.png" alt="Magik Lighting" className="h-10 w-auto object-contain" />
           <button className="p-1.5">
-            <ShoppingCart size={20} className={scrolled ? "text-[#373A36]" : "text-white"} />
+            <ShoppingCart size={20} className="text-[#373A36]" />
           </button>
-        </div>
-
-        {/* Bottom row: Nav links centered */}
-        <div className="hidden md:block">
-          <div className="container mx-auto px-4">
-            <nav className="flex items-center justify-center gap-10 pb-3 pt-1">
-              {["HOME", "ABOUT US", "PRODUCTS", "CONTACT US", "MORE"].map((item) => (
-                <a
-                  key={item}
-                  href="#"
-                  className={`text-sm font-medium tracking-widest uppercase transition-all duration-200 hover:opacity-70 ${scrolled ? "text-[#373A36]" : "text-white"}`}
-                >
-                  {item}
-                </a>
-              ))}
-            </nav>
-          </div>
         </div>
 
         {/* Mobile menu */}
@@ -444,7 +780,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section ref={heroSectionRef} className="relative h-[100vh] overflow-hidden">
+      <section ref={heroSectionRef} className="relative h-[92vh] overflow-hidden">
         {heroSlides.map((slide, idx) => (
           <div
             key={idx}
@@ -453,7 +789,7 @@ export default function Home() {
             {slide.type === "video" ? (
               <video
                 key={slide.src}
-                className="w-full h-full object-cover scale-105"
+                className="w-full h-full object-cover"
                 style={{ objectPosition: "center center" }}
                 src={slide.src}
                 autoPlay
@@ -903,71 +1239,35 @@ export default function Home() {
       {/* About Us */}
       <section className="relative h-[650px] md:h-[90vh] overflow-hidden mt-16">
         <img
-          src={aboutItems[safeAbout].image}
+          src="/centuryhousehdimage.png"
           alt="About Us"
-          className="w-full h-full object-cover transition-all duration-700"
+          className="w-full h-full object-cover"
           style={{ objectPosition: "20% 30%" }}
         />
         <div className="absolute inset-0 bg-black/60"></div>
 
-        {/* Left: Dynamic Text */}
-        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "10%", paddingRight: "42%", paddingBottom: "8%" }}>
+        {/* Left: Dynamic Text — image style layout */}
+        <div className="absolute inset-0 flex items-end" style={{ paddingLeft: "5%", paddingRight: "50%", paddingBottom: "6%" }}>
           <div key={activeAbout} className="animate-fadeSlideIn">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-full bg-[#C9A961]/20 border border-[#C9A961]/50 flex items-center justify-center">
-                <Zap size={16} className="text-[#C9A961]" fill="#C9A961" />
-              </div>
-              <p className="text-white font-sans tracking-widest uppercase" style={{ fontSize: "21px", paddingLeft: "0px", marginBottom: "0px" }}>About Us</p>
-            </div>
-            <h2 className="text-white text-3xl md:text-5xl font-light mb-8 leading-tight"
-                style={{ fontFamily: "'Playfair Display', serif", paddingTop: "10px", marginBottom: "8px" }}>
-              {aboutItems[safeAbout].heading}
+            <h2 className="text-white leading-tight mb-3"
+                style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700 }}>
+              <span style={{ fontWeight: 300 }}>ABOUT </span>Magik LED Lights
             </h2>
-            <div className="text-white leading-relaxed space-y-0" style={{ maxWidth: "70%" }}>
+            <p className="text-white/80 text-xs tracking-[0.3em] uppercase mb-4">
+              MANUFACTURING &nbsp;|&nbsp; MARKETING &nbsp;|&nbsp; MONITORING
+            </p>
+            <div className="text-white/90 leading-relaxed" style={{ maxWidth: "480px" }}>
               {aboutItems[safeAbout].description.split("\n\n").map((para, i) => (
-                <p key={i} className="font-sans" style={{ fontSize: "17px", marginBottom: "20px", color: "#FFFFFF" }}>{para}</p>
+                <p key={i} style={{ fontSize: "15px", marginBottom: "8px" }}>{para}</p>
               ))}
             </div>
             <a
               href="#"
-              className="inline-block text-white font-sans border border-white hover:bg-white hover:text-[#373A36] transition-all duration-300"
-              style={{ fontSize: "15px", padding: "6px 34px 6px 20px", marginTop: "5px" }}
+              className="inline-block mt-5 text-white border border-white hover:bg-white hover:text-[#373A36] transition-all duration-300"
+              style={{ fontSize: "14px", padding: "8px 28px" }}
             >
               Read More
             </a>
-          </div>
-        </div>
-
-        {/* Right: List — original position */}
-        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: "62%", paddingBottom: "4%", pointerEvents: "none" }}>
-          <div className="w-full max-w-xs" style={{ pointerEvents: "auto" }}>
-            {aboutItems.map((item, idx) => (
-              <div
-                key={idx}
-                onMouseEnter={() => setActiveAbout(idx)}
-                onClick={() => setActiveAbout(idx)}
-                className={`cursor-pointer flex items-center justify-between group transition-all duration-300 px-4 py-4 rounded-lg mb-4 ${
-                  activeAbout === idx
-                    ? "border border-[#C9A961] bg-white/10"
-                    : "border border-white/20 hover:border-white/50 hover:bg-white/5"
-                }`}
-              >
-                <span
-                  className={`font-sans transition-all duration-300 ${
-                    activeAbout === idx ? "text-[#C9A961]" : "text-white group-hover:text-[#C9A961]"
-                  }`}
-                  style={{ fontSize: "18px" }}
-                >
-                  {item.title}
-                </span>
-                <ChevronRight
-                  size={18}
-                  className={`transition-all duration-300 ${
-                    activeAbout === idx ? "text-[#C9A961] opacity-100" : "text-[#C9A961] opacity-0 group-hover:opacity-100"
-                  }`}
-                />
-              </div>
-            ))}
           </div>
         </div>
 
@@ -989,18 +1289,18 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
             {[
               {
-                icon: <Zap size={56} strokeWidth={1.2} className="text-[#373A36]" />,
+                icon: <span className="text-4xl">⚡</span>,
                 title: "ENERGY EFFICIENT",
                 desc: "Up to 80% less energy than traditional lighting.",
               },
               {
-                icon: <Award size={56} strokeWidth={1.2} className="text-[#373A36]" />,
+                icon: <span className="text-4xl">🏆</span>,
                 title: "ISO CERTIFIED QUALITY",
                 desc: "ISO, CE & RoHS certified for international standards.",
                 featured: true,
               },
               {
-                icon: <Globe size={56} strokeWidth={1.2} className="text-[#373A36]" />,
+                icon: <span className="text-4xl">🌐</span>,
                 title: "PAN-INDIA NETWORK",
                 desc: "10 Years in Industry | 1000+ Distributors | 1 Lakh+ products per day.",
               },
@@ -1026,17 +1326,17 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
               {
-                icon: <Factory size={56} strokeWidth={1.2} className="text-[#373A36]" />,
+                icon: <span className="text-4xl">🏭</span>,
                 title: "MADE IN INDIA",
                 desc: "State-of-the-art facility with world-class machinery.",
               },
               {
-                icon: <Wrench size={56} strokeWidth={1.2} className="text-[#373A36]" />,
+                icon: <span className="text-4xl">🔧</span>,
                 title: "END-TO-END SOLUTIONS",
                 desc: "Complete lighting solutions for every project scale.",
               },
               {
-                icon: <Leaf size={56} strokeWidth={1.2} className="text-[#373A36]" />,
+                icon: <span className="text-4xl">💎</span>,
                 title: "SUSTAINABLE FUTURE",
                 desc: "Eco-friendly materials for a greener tomorrow.",
               },
@@ -1062,7 +1362,7 @@ export default function Home() {
       </section>
 
       {/* B2B Solutions */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-8 md:py-14 bg-white">
         <div className="container mx-auto px-4">
 
           {/* Header */}
@@ -1080,7 +1380,7 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Mosaic Layout: left 2, center tall, right 2 */}
+          {/* Carousel: center big, sides partial */}
           {(() => {
             const cards = [
               { img: "/starcementplant.png",                    title: "Star Cement Plant",       location: "Meghalaya",   objectPosition: "center center" },
@@ -1090,50 +1390,7 @@ export default function Home() {
               { img: "/indorr lighting.png",                    title: "Eden Gardens Club House", location: "Kolkata",     objectPosition: "center center" },
               { img: "/towerimage.png",                         title: "Air Traffic Control",     location: "Bhubaneswar", objectPosition: "center 40%"   },
             ];
-            return (
-              <div className="grid grid-cols-3 gap-4" style={{ height: "580px" }}>
-                {/* Left col: 2 stacked */}
-                <div className="flex flex-col gap-4 h-full">
-                  {[cards[0], cards[1]].map((card, idx) => (
-                    <div key={idx} className="relative rounded-xl overflow-hidden group cursor-pointer" style={{ flex: 1 }}>
-                      <img src={card.img} alt={card.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" style={{ objectPosition: card.objectPosition }} />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                      <div className="absolute bottom-0 left-0 p-4">
-                        <h3 className="text-white text-base font-serif font-light leading-snug">{card.title}</h3>
-                        <p className="text-white/70 text-xs mt-1">{card.location}</p>
-                        <div className="h-0.5 w-6 bg-[#6B8E7F] mt-2 rounded-full" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Center col: 1 tall card spanning both rows */}
-                <div className="relative rounded-xl overflow-hidden group cursor-pointer h-full">
-                  <img src={cards[2].img} alt={cards[2].title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" style={{ objectPosition: cards[2].objectPosition }} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-5">
-                    <h3 className="text-white text-xl font-serif font-light leading-snug">{cards[2].title}</h3>
-                    <p className="text-white/70 text-sm mt-1">{cards[2].location}</p>
-                    <div className="h-0.5 w-8 bg-[#6B8E7F] mt-2 rounded-full" />
-                  </div>
-                </div>
-
-                {/* Right col: 2 stacked */}
-                <div className="flex flex-col gap-4 h-full">
-                  {[cards[3], cards[4]].map((card, idx) => (
-                    <div key={idx} className="relative rounded-xl overflow-hidden group cursor-pointer" style={{ flex: 1 }}>
-                      <img src={card.img} alt={card.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" style={{ objectPosition: card.objectPosition }} />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                      <div className="absolute bottom-0 left-0 p-4">
-                        <h3 className="text-white text-base font-serif font-light leading-snug">{card.title}</h3>
-                        <p className="text-white/70 text-xs mt-1">{card.location}</p>
-                        <div className="h-0.5 w-6 bg-[#6B8E7F] mt-2 rounded-full" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
+            return <B2BCarousel cards={cards} />;
           })()}
 
         </div>
@@ -1142,108 +1399,123 @@ export default function Home() {
       {/* Client Love */}
       <ClientLove />
 
+      {/* Store + Distributor Banner */}
+      <section className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight: 220 }}>
+        {/* Left: Find a Store */}
+        <div className="relative flex flex-col justify-center px-12 py-14 overflow-hidden"
+          style={{ background: 'linear-gradient(rgba(40,50,55,0.82), rgba(40,50,55,0.82)), url("/Kolkata Airport.jpeg") center/cover no-repeat' }}>
+          {/* Corner brackets */}
+          <span className="absolute top-5 left-5 w-5 h-5 border-t-2 border-l-2 border-white/60" />
+          <span className="absolute bottom-5 right-5 w-5 h-5 border-b-2 border-r-2 border-white/60" />
+          <p className="text-white/70 text-xs tracking-[0.25em] uppercase mb-2" style={{ fontFamily: 'inherit' }}>Find A</p>
+          <h2 className="text-white text-3xl md:text-4xl font-serif font-bold leading-tight mb-3">
+            STORE NEAR YOU
+          </h2>
+          <p className="text-white/70 text-sm mb-6" style={{ fontFamily: 'inherit' }}>Find out a retailer nearby your location.</p>
+          <a href="#" className="inline-block border border-white text-white text-xs tracking-widest uppercase px-6 py-2.5 hover:bg-white hover:text-[#373A36] transition-all duration-300 w-fit" style={{ fontFamily: 'inherit' }}>
+            FIND STORE
+          </a>
+        </div>
+
+        {/* Right: Distributor Network */}
+        <div className="relative flex flex-col justify-center px-12 py-14" style={{ background: '#6B8E7F' }}>
+          {/* Corner brackets */}
+          <span className="absolute top-5 left-5 w-5 h-5 border-t-2 border-l-2 border-white/60" />
+          <span className="absolute bottom-5 right-5 w-5 h-5 border-b-2 border-r-2 border-white/60" />
+          <p className="text-white/70 text-xs tracking-[0.25em] uppercase mb-2" style={{ fontFamily: 'inherit' }}>Partner With Us</p>
+          <h2 className="text-white text-3xl md:text-4xl font-serif font-bold leading-tight mb-3">
+            JOIN OUR DISTRIBUTOR<br />NETWORK
+          </h2>
+          <p className="text-white/80 text-sm mb-6" style={{ fontFamily: 'inherit' }}>Partner with India's leading lighting brand and grow your business with premium products and support.</p>
+          <a href="#" className="inline-block border border-white text-white text-xs tracking-widest uppercase px-6 py-2.5 hover:bg-white hover:text-[#6B8E7F] transition-all duration-300 w-fit" style={{ fontFamily: 'inherit' }}>
+            BECOME A DISTRIBUTOR
+          </a>
+        </div>
+      </section>
+
+      {/* Magik Blog */}
+      <MagikBlog />
+
+      {/* Instagram Reels */}
+      <InstagramReels />
+
+      {/* OUR PARTNERS / Magik Clients */}
+      <MagikClients />
+
       {/* Footer */}
-      <footer className="bg-[#373A36] text-white py-12 md:py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <footer className="bg-[#373A36] text-white">
+        <div className="container mx-auto px-6 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+            {/* Brand + Social */}
             <div>
-              <h4 className="font-semibold mb-4 tracking-widest text-sm">
-                ABOUT
-              </h4>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Our Story
+              <h2 className="text-3xl font-serif text-white mb-2">Magik Lighting</h2>
+              <p className="text-white/60 text-sm mb-6">Illuminating spaces with premium LED solutions.</p>
+              <div className="flex gap-3">
+                {[
+                  { label: 'Facebook', href: 'https://facebook.com', icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg> },
+                  { label: 'Instagram', href: 'https://instagram.com/magiklighting', icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" /></svg> },
+                  { label: 'YouTube', href: 'https://youtube.com', icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" /><polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" /></svg> },
+                  { label: 'LinkedIn', href: 'https://linkedin.com', icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg> },
+                  { label: 'Twitter', href: 'https://twitter.com', icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg> },
+                ].map((s) => (
+                  <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
+                    className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center text-white/70 hover:text-[#C9A961] hover:border-[#C9A961] transition-colors duration-200">
+                    {s.icon}
                   </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Sustainability
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Craftsmanship
-                  </a>
-                </li>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-sm font-bold text-white mb-3 pb-2 border-b-2 border-[#C9A961]">QUICK LINKS</h4>
+              <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
+                {[
+                  { label: 'Brochures', href: '#' }, { label: 'Ledpedia', href: '#' },
+                  { label: 'Become a Distributor', href: '#' }, { label: 'News & Media', href: '#' },
+                  { label: 'Gallery', href: '#' }, { label: 'Blogs', href: '#' },
+                  { label: 'Career', href: '#' }, { label: 'Contact Us', href: '#' },
+                ].map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="text-sm text-gray-300 hover:text-white transition-colors duration-200">{link.label}</a>
+                  </li>
+                ))}
               </ul>
             </div>
 
-            <div>
-              <h4 className="font-semibold mb-4 tracking-widest text-sm">
-                PRODUCTS
-              </h4>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Lighting
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Sockets & Switches
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Collections
-                  </a>
-                </li>
-              </ul>
+            {/* Contact + Newsletter */}
+            <div className="space-y-6">
+              <div>
+                <h4 className="text-sm font-bold text-white mb-3 pb-2 border-b-2 border-[#C9A961]">CONTACT</h4>
+                <div className="space-y-2 text-sm text-gray-300">
+                  <p>📧 Info@magiklights.com</p>
+                  <p>📧 helpdesk@magiklights.com</p>
+                  <p>📞 Toll Free: 18003451345</p>
+                </div>
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-white mb-3 pb-2 border-b-2 border-[#C9A961]">NEWSLETTER</h4>
+                <div className="flex gap-2">
+                  <input type="email" placeholder="Your email..." className="flex-1 bg-black text-white placeholder-gray-500 px-4 py-2 rounded-full focus:outline-none text-sm" />
+                  <button className="border border-gray-500 text-white px-4 py-2 rounded-full hover:bg-white hover:text-black transition-colors duration-200 text-sm font-medium whitespace-nowrap">Subscribe</button>
+                </div>
+              </div>
             </div>
 
-            <div>
-              <h4 className="font-semibold mb-4 tracking-widest text-sm">
-                SUPPORT
-              </h4>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Contact Us
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    FAQ
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Shipping
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-4 tracking-widest text-sm">
-                CONNECT
-              </h4>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Instagram
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Pinterest
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition">
-                    Newsletter
-                  </a>
-                </li>
-              </ul>
-            </div>
           </div>
+        </div>
 
-          <div className="border-t border-gray-700 pt-8 text-center text-sm text-gray-300">
-            <p>&copy; 2026 The Soho Lighting Company. All rights reserved.</p>
+        {/* Bottom bar */}
+        <div className="border-t border-gray-700">
+          <div className="container mx-auto px-6 py-3 flex items-center justify-between flex-wrap gap-2">
+            <p className="text-sm text-gray-300">© 2026 Magik LED | <a href="#" className="hover:text-white">Terms of Use</a> | <a href="#" className="hover:text-white">Sitemap</a></p>
           </div>
         </div>
       </footer>
+
+      {/* WhatsApp + Quick Enquiry */}
+      <QuickEnquiry />
     </div>
   );
 }
