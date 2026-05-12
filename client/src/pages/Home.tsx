@@ -239,7 +239,7 @@ function MagikClients() {
         <div className="text-center mb-14">
           <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-3">Trusted By The Best</p>
           <h2 className="text-4xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] mb-4">
-            Our Magik <strong className="font-bold">Clients</strong>
+            Our <strong className="font-bold">Partners</strong>
           </h2>
           <div className="flex justify-center mb-4">
             <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
@@ -1274,7 +1274,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Magik Lighting */}
-      <section className="py-16 md:py-24 bg-[#F7F7F0]">
+      <section className="py-10 md:py-14 bg-[#F7F7F0]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <p className="text-[#C9A961] text-sm tracking-widest uppercase mb-3">Our Advantage</p>
@@ -1403,7 +1403,7 @@ export default function Home() {
       <section className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight: 220 }}>
         {/* Left: Find a Store */}
         <div className="relative flex flex-col justify-center px-12 py-14 overflow-hidden"
-          style={{ background: 'linear-gradient(rgba(40,50,55,0.82), rgba(40,50,55,0.82)), url("/Kolkata Airport.jpeg") center/cover no-repeat' }}>
+          style={{ background: 'linear-gradient(rgba(40,50,55,0.75), rgba(40,50,55,0.75)), url("/map photo.jpeg") center/cover no-repeat' }}>
           {/* Corner brackets */}
           <span className="absolute top-5 left-5 w-5 h-5 border-t-2 border-l-2 border-white/60" />
           <span className="absolute bottom-5 right-5 w-5 h-5 border-b-2 border-r-2 border-white/60" />
