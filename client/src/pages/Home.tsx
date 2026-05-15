@@ -190,10 +190,10 @@ const InstagramIcon = ({ size = 28, color = 'white' }: { size?: number; color?: 
 );
 
 const clientLogos = [
-  '/logos/Adani.jpg', '/logos/centuryply.png', '/logos/Cricket Association of Bengal.png',
-  '/logos/hdfc.jpg', '/logos/IISER.jpg', '/logos/manyavar.png',
-  '/logos/pharma.png', '/logos/rbi.jpg', '/logos/reliance.jpg',
-  '/logos/sbi.jpg', '/logos/tata medical.png', '/logos/zydus.png',
+  '/logos/logo-1.jpeg', '/logos/logo-2.jpeg', '/logos/logo-3.jpeg',
+  '/logos/logo-4.jpeg', '/logos/logo-5.jpeg', '/logos/logo-6.jpeg',
+  '/logos/logo-7.jpeg', '/logos/logo-8.jpeg', '/logos/logo-9.jpeg',
+  '/logos/logo-10.jpeg', '/logos/logo-11.jpeg', '/logos/logo-12.jpeg',
 ];
 const logoRow1 = clientLogos.slice(0, 6);
 const logoRow2 = clientLogos.slice(6);
