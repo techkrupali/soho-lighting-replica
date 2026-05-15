@@ -1397,37 +1397,23 @@ export default function Home() {
       {/* Client Love */}
       <ClientLove />
 
-      {/* Store + Distributor Banner */}
-      <section className="grid grid-cols-1 md:grid-cols-2" style={{ minHeight: 220 }}>
-        {/* Left: Find a Store */}
-        <div className="relative flex flex-col justify-center px-12 py-14 overflow-hidden"
-          style={{ background: 'linear-gradient(rgba(40,50,55,0.75), rgba(40,50,55,0.75)), url("/map photo.jpeg") center/cover no-repeat' }}>
+      {/* Distributor Network Banner */}
+      <section className="w-full">
+        <div className="relative flex flex-col justify-center px-6 md:px-12 lg:px-24 py-20 overflow-hidden" style={{ background: '#6B8E7F', minHeight: '350px' }}>
           {/* Corner brackets */}
-          <span className="absolute top-5 left-5 w-5 h-5 border-t-2 border-l-2 border-white/60" />
-          <span className="absolute bottom-5 right-5 w-5 h-5 border-b-2 border-r-2 border-white/60" />
-          <p className="text-white/70 text-xs tracking-[0.25em] uppercase mb-2" style={{ fontFamily: 'inherit' }}>Find A</p>
-          <h2 className="text-white text-3xl md:text-4xl font-serif font-bold leading-tight mb-3">
-            STORE NEAR YOU
-          </h2>
-          <p className="text-white/70 text-sm mb-6" style={{ fontFamily: 'inherit' }}>Find out a retailer nearby your location.</p>
-          <a href="#" className="inline-block border border-white text-white text-xs tracking-widest uppercase px-6 py-2.5 hover:bg-white hover:text-[#373A36] transition-all duration-300 w-fit" style={{ fontFamily: 'inherit' }}>
-            FIND STORE
-          </a>
-        </div>
-
-        {/* Right: Distributor Network */}
-        <div className="relative flex flex-col justify-center px-12 py-14" style={{ background: '#6B8E7F' }}>
-          {/* Corner brackets */}
-          <span className="absolute top-5 left-5 w-5 h-5 border-t-2 border-l-2 border-white/60" />
-          <span className="absolute bottom-5 right-5 w-5 h-5 border-b-2 border-r-2 border-white/60" />
-          <p className="text-white/70 text-xs tracking-[0.25em] uppercase mb-2" style={{ fontFamily: 'inherit' }}>Partner With Us</p>
-          <h2 className="text-white text-3xl md:text-4xl font-serif font-bold leading-tight mb-3">
-            JOIN OUR DISTRIBUTOR<br />NETWORK
-          </h2>
-          <p className="text-white/80 text-sm mb-6" style={{ fontFamily: 'inherit' }}>Partner with India's leading lighting brand and grow your business with premium products and support.</p>
-          <a href="#" className="inline-block border border-white text-white text-xs tracking-widest uppercase px-6 py-2.5 hover:bg-white hover:text-[#6B8E7F] transition-all duration-300 w-fit" style={{ fontFamily: 'inherit' }}>
-            BECOME A DISTRIBUTOR
-          </a>
+          <span className="absolute top-10 left-10 w-8 h-8 border-t-2 border-l-2 border-white/60" />
+          <span className="absolute bottom-10 right-10 w-8 h-8 border-b-2 border-r-2 border-white/60" />
+          
+          <div className="container mx-auto">
+            <p className="text-white/70 text-xs tracking-[0.3em] uppercase mb-3" style={{ fontFamily: 'inherit' }}>Partner With Us</p>
+            <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight mb-4">
+              JOIN OUR DISTRIBUTOR<br />NETWORK
+            </h2>
+            <p className="text-white/90 text-base md:text-lg mb-8 max-w-2xl" style={{ fontFamily: 'inherit' }}>Partner with India's leading lighting brand and grow your business with premium products and end-to-end support.</p>
+            <a href="#" className="inline-block border border-white text-white text-sm tracking-widest uppercase px-10 py-3.5 hover:bg-white hover:text-[#6B8E7F] transition-all duration-300 w-fit font-semibold" style={{ fontFamily: 'inherit' }}>
+              BECOME A DISTRIBUTOR
+            </a>
+          </div>
         </div>
       </section>
 
@@ -1436,6 +1422,27 @@ export default function Home() {
 
       {/* Instagram Reels */}
       <InstagramReels />
+
+      {/* Find a Store Banner (Moved) */}
+      <section className="w-full">
+        <div className="relative flex flex-col justify-center px-6 md:px-12 lg:px-24 py-20 overflow-hidden"
+          style={{ background: 'linear-gradient(rgba(40,50,55,0.75), rgba(40,50,55,0.75)), url("/map photo.jpeg") center/cover no-repeat', minHeight: '350px' }}>
+          {/* Corner brackets */}
+          <span className="absolute top-10 left-10 w-8 h-8 border-t-2 border-l-2 border-white/60" />
+          <span className="absolute bottom-10 right-10 w-8 h-8 border-b-2 border-r-2 border-white/60" />
+          
+          <div className="container mx-auto text-center flex flex-col items-center">
+            <p className="text-white/70 text-xs tracking-[0.3em] uppercase mb-3" style={{ fontFamily: 'inherit' }}>Find A</p>
+            <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight mb-4">
+              STORE NEAR YOU
+            </h2>
+            <p className="text-white/80 text-base md:text-lg mb-8 max-w-xl mx-auto" style={{ fontFamily: 'inherit' }}>Find out a retailer nearby your location and experience Magik Lighting in person.</p>
+            <a href="#" className="inline-block border border-white text-white text-sm tracking-widest uppercase px-10 py-3.5 hover:bg-white hover:text-[#373A36] transition-all duration-300 w-fit font-semibold" style={{ fontFamily: 'inherit' }}>
+              FIND STORE
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="bg-[#373A36] text-white">
