@@ -48,7 +48,7 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
   const slideOutAnim = dir === 'right' ? 'slideOutLeft'  : 'slideOutRight';
 
   return (
-    <div className="relative w-full overflow-hidden" style={{ aspectRatio: '21/9' }}>
+    <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
 
       {/* Exiting card */}
       {prev2 !== null && (
@@ -57,7 +57,7 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
           <img src={cards[prev2].img} alt="" className="w-full h-full object-cover object-center" style={{ objectPosition: cards[prev2].objectPosition }} />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
           <div className="absolute bottom-0 left-0 p-8 md:p-16 lg:p-24">
-            <h3 className="text-white text-4xl md:text-5xl lg:text-6xl font-serif font-light leading-snug">{cards[prev2].title}</h3>
+            <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-serif font-light leading-snug">{cards[prev2].title}</h3>
             <p className="text-white/70 text-base md:text-lg mt-2 tracking-widest uppercase">{cards[prev2].location}</p>
             <div className="h-1 w-16 bg-[#6B8E7F] mt-4 rounded-full" />
           </div>
@@ -70,7 +70,7 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
         <img src={cards[active].img} alt={cards[active].title} className="w-full h-full object-cover" style={{ objectPosition: cards[active].objectPosition }} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         <div className="absolute bottom-0 left-0 p-8 md:p-16 lg:p-24">
-          <h3 className="text-white text-4xl md:text-5xl lg:text-6xl font-serif font-light leading-snug">{cards[active].title}</h3>
+          <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-serif font-light leading-snug">{cards[active].title}</h3>
           <p className="text-white/70 text-base md:text-lg mt-2 tracking-widest uppercase">{cards[active].location}</p>
           <div className="h-1 w-16 bg-[#6B8E7F] mt-4 rounded-full" />
         </div>
