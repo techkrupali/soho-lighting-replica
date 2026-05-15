@@ -1,5 +1,20 @@
-import { ChevronLeft, ChevronRight, Search, User, ShoppingCart, Menu, ArrowRight, Zap, Factory, Award, Globe, Wrench, Leaf } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search, User, ShoppingCart, Menu, ArrowRight, Zap, Factory, Award, Globe, Wrench, Leaf, Mail, MapPin, Twitter, Instagram, Linkedin, Send, Phone } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
+
+const GlobalStyles = () => (
+  <style dangerouslySetInnerHTML={{ __html: `
+    @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideInLeft  { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+    @keyframes slideOutLeft  { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+    @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes float { 
+      0%, 100% { transform: translate(0, 0) rotate(15deg); }
+      50% { transform: translate(-10px, -10px) rotate(10deg); }
+    }
+    .animate-fadeSlideIn { animation: fadeSlideIn 0.8s ease forwards; }
+  `}} />
+);
 
 const testimonials = [
   { name: "Ashish Kumar", role: "Ashiana Interiors", text: "", avatar: "AK", videoId: "879Pi-2lFHA" },
@@ -200,8 +215,8 @@ const logoRow2 = clientLogos.slice(6);
 
 function LogoCard({ src }: { src: string }) {
   return (
-    <div className="flex-shrink-0 mx-3 w-36 h-20 rounded-xl bg-white border border-[#E8E8E0] flex items-center justify-center px-4 hover:border-[#C9A961]/40 transition-all duration-300">
-      <img src={src} alt="client logo" className="max-h-10 w-auto object-contain" />
+    <div className="flex-shrink-0 mx-4 w-44 h-24 rounded-xl bg-white border border-[#E8E8E0] flex items-center justify-center px-6 hover:border-[#C9A961]/40 transition-all duration-300 shadow-sm">
+      <img src={src} alt="client logo" className="max-h-14 w-auto object-contain" />
     </div>
   );
 }
@@ -714,6 +729,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#F7F7F0]">
+      
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white">
 
@@ -1255,7 +1271,7 @@ export default function Home() {
             
             <div className="text-white/90 leading-relaxed" style={{ maxWidth: "520px" }}>
               {aboutItems[safeAbout].description.split("\n\n").map((para, i) => (
-                <p key={i} style={{ fontSize: "18px", marginBottom: "8px" }}>{para}</p>
+                <p key={i} style={{ fontSize: "16px", marginBottom: "8px" }}>{para}</p>
               ))}
             </div>
             <a
@@ -1397,22 +1413,109 @@ export default function Home() {
       {/* Client Love */}
       <ClientLove />
 
-      {/* Distributor Network Banner */}
-      <section className="w-full">
-        <div className="relative flex flex-col justify-center px-6 md:px-12 lg:px-24 py-20 overflow-hidden" style={{ background: '#6B8E7F', minHeight: '350px' }}>
-          {/* Corner brackets */}
-          <span className="absolute top-10 left-10 w-8 h-8 border-t-2 border-l-2 border-white/60" />
-          <span className="absolute bottom-10 right-10 w-8 h-8 border-b-2 border-r-2 border-white/60" />
-          
-          <div className="container mx-auto">
-            <p className="text-white/70 text-xs tracking-[0.3em] uppercase mb-3" style={{ fontFamily: 'inherit' }}>Partner With Us</p>
-            <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight mb-4">
-              JOIN OUR DISTRIBUTOR<br />NETWORK
-            </h2>
-            <p className="text-white/90 text-base md:text-lg mb-8 max-w-2xl" style={{ fontFamily: 'inherit' }}>Partner with India's leading lighting brand and grow your business with premium products and end-to-end support.</p>
-            <a href="#" className="inline-block border border-white text-white text-sm tracking-widest uppercase px-10 py-3.5 hover:bg-white hover:text-[#6B8E7F] transition-all duration-300 w-fit font-semibold" style={{ fontFamily: 'inherit' }}>
-              BECOME A DISTRIBUTOR
-            </a>
+      {/* Distributor Network Banner - Glassmorphism Distributor Theme */}
+      <section className="w-full relative pt-10 pb-20 md:pt-16 md:pb-16 bg-[#373A36] overflow-hidden">
+        {/* Background Colorful Circles - Matching Second Image Colors */}
+        <div className="absolute inset-0 z-0">
+          {/* Pink Circle */}
+          <div className="absolute top-[10%] left-[15%] w-64 h-64 bg-[#B05B8A] rounded-full blur-[80px] opacity-40 animate-pulse" />
+          {/* Green Circle */}
+          <div className="absolute top-[40%] right-[10%] w-72 h-72 bg-[#4D8B63] rounded-full blur-[90px] opacity-30 animate-pulse delay-700" />
+          {/* Blue Circle */}
+          <div className="absolute bottom-[15%] left-[30%] w-80 h-80 bg-[#4A86B0] rounded-full blur-[100px] opacity-30 animate-pulse delay-1000" />
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10 text-center mb-8">
+          <h2 className="text-white text-5xl md:text-7xl font-bold mb-4 tracking-tight uppercase">Become a Distributor</h2>
+          <p className="text-white/60 text-lg">Partner with India's fastest growing lighting brand.</p>
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            {/* Glassmorphism Card */}
+            <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
+              
+              {/* Left: Contact Support */}
+              <div className="w-full md:w-2/5 bg-white/5 p-8 md:p-12 flex flex-col justify-center relative overflow-hidden">
+                {/* Internal accent circles */}
+                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#B05B8A]/20 rounded-full blur-3xl" />
+                <div className="absolute top-10 left-10 w-20 h-20 bg-[#4A86B0]/10 rounded-full blur-2xl" />
+                
+                <div className="relative z-10">
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-4 group">
+                      <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#C9A961] transition-colors duration-500">
+                        <Mail size={16} className="text-white" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Email Support</span>
+                        <span className="text-white/80 text-sm">Info@magiklights.com</span>
+                        <span className="text-white/80 text-sm">helpdesk@magiklights.com</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4 group">
+                      <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#C9A961] transition-colors duration-500">
+                        <Phone size={16} className="text-white" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Phone Support</span>
+                        <span className="text-white/80 text-sm">Toll Free: 18003451345</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: Distributor Form */}
+              <div className="w-full md:w-3/5 p-8 md:p-12 bg-transparent flex flex-col justify-center">
+                <form className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-12" onSubmit={(e) => e.preventDefault()}>
+                  <div className="space-y-2">
+                    <label className="text-white text-[10px] uppercase tracking-widest font-bold">Full Name</label>
+                    <input type="text" className="w-full bg-transparent border-b border-white py-2 text-white text-sm focus:outline-none focus:border-[#C9A961] transition-all" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-white text-[10px] uppercase tracking-widest font-bold">Company Name</label>
+                    <input type="text" className="w-full bg-transparent border-b border-white py-2 text-white text-sm focus:outline-none focus:border-[#C9A961] transition-all" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-white text-[10px] uppercase tracking-widest font-bold">Email Address</label>
+                    <input type="email" className="w-full bg-transparent border-b border-white py-2 text-white text-sm focus:outline-none focus:border-[#C9A961] transition-all" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-white text-[10px] uppercase tracking-widest font-bold">Phone Number</label>
+                    <input type="tel" className="w-full bg-transparent border-b border-white py-2 text-white text-sm focus:outline-none focus:border-[#C9A961] transition-all placeholder:text-white" placeholder="+91" />
+                  </div>
+
+                  <div className="md:col-span-2 flex justify-end mt-4 relative">
+                    {/* Paper Plane Path Animation */}
+                    <div className="absolute -bottom-16 right-12 w-48 h-24 pointer-events-none hidden md:block">
+                      <svg viewBox="0 0 200 100" className="w-full h-full fill-none">
+                        <path 
+                          d="M20,80 Q60,20 100,60 T180,20" 
+                          stroke="white" 
+                          strokeWidth="1" 
+                          strokeDasharray="4 4" 
+                          className="opacity-20"
+                        />
+                        <g className="animate-[float_4s_ease-in-out_infinite]">
+                          <path 
+                            d="M175,15 L185,25 L170,25 Z" 
+                            fill="white" 
+                            className="opacity-60"
+                            transform="rotate(15 180 20)"
+                          />
+                        </g>
+                      </svg>
+                    </div>
+
+                    <button className="bg-[#C9A961] text-[#373A36] px-12 py-4 rounded-xl font-bold text-sm tracking-widest uppercase hover:bg-white hover:text-[#373A36] transition-all duration-500 shadow-xl group flex items-center gap-3 relative z-10">
+                      Become a Distributor
+                      <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </section>
