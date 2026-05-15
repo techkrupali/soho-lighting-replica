@@ -608,7 +608,7 @@ export default function Home() {
     },
     pendants: {
       name: "Spectrum",
-      image: "/Experience/Kitchen/Lamps.jpeg",
+      image: "/Experience/Kitchen/Pendants.jpeg",
       description: "",
     },
     downlights: {
@@ -979,8 +979,8 @@ export default function Home() {
         <div className="absolute inset-0">
           <img
             src={kitchenLights.dayNight 
-              ? "/Experience/Kitchen/Kitchen-Tapelight-6COB116S30WH-Day-Etcher-All-Off.webp"
-              : "/Experience/Kitchen/1776165672498.png"
+              ? "/Experience/Kitchen/day.png"
+              : "/Experience/Kitchen/night.png"
             }
             alt="Kitchen Base"
             className="w-full h-full object-cover transition-opacity duration-500"
@@ -991,7 +991,7 @@ export default function Home() {
         {kitchenLights.tapeLights && (
           <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
             <img
-              src="/Experience/Kitchen/Kitchen-Tapelight-6COB116S30WH-Night-Hero.webp"
+              src="/Experience/Kitchen/light3.png"
               alt="Stream"
               className="w-full h-full object-cover"
             />
@@ -1002,7 +1002,7 @@ export default function Home() {
         {kitchenLights.pendants && (
           <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
             <img
-              src="/Experience/Kitchen/Kitchen-Tapelight-6COB116S30WH-Night-Etcher.webp"
+              src="/Experience/Kitchen/light2.png"
               alt="Lamps"
               className="w-full h-full object-cover"
             />
@@ -1013,9 +1013,10 @@ export default function Home() {
         {kitchenLights.downlights && (
           <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
             <img
-              src="/Experience/Kitchen/Kitchen-Tapelight-6COB116S30WH-Night-Ara.webp"
+              src="/Experience/Kitchen/light1.png"
               alt="Downlights"
               className="w-full h-full object-cover"
+              style={{ transform: 'translateY(-2px)' }}
             />
           </div>
         )}
@@ -1029,11 +1030,11 @@ export default function Home() {
               style={{
                 position: 'absolute',
                 top: (() => {
-                  const buttonTop = showProductModal === 'tapeLights' ? 70 : showProductModal === 'pendants' ? 40 : 4;
+                  const buttonTop = showProductModal === 'tapeLights' ? 43 : showProductModal === 'pendants' ? 30 : 8;
                   return `max(20px, min(calc(${buttonTop}% - 120px), calc(100% - 380px)))`;
                 })(),
                 left: (() => {
-                  const buttonLeft = showProductModal === 'tapeLights' ? '55%' : showProductModal === 'pendants' ? '28%' : '46%';
+                  const buttonLeft = showProductModal === 'tapeLights' ? '77%' : showProductModal === 'pendants' ? '43%' : '52%';
                   if (showProductModal === 'tapeLights') {
                     return `max(20px, calc(${buttonLeft} - 240px))`;
                   }
@@ -1154,7 +1155,7 @@ export default function Home() {
           <button
             onClick={() => setShowProductModal(showProductModal === 'tapeLights' ? null : 'tapeLights')}
             className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
-            style={{ top: '70%', left: '57%' }}
+            style={{ top: '43%', left: '77%' }}
           >
             {/* Animated pulse ring - only show when not active */}
             {showProductModal !== 'tapeLights' && (
@@ -1175,7 +1176,7 @@ export default function Home() {
           <button
             onClick={() => setShowProductModal(showProductModal === 'pendants' ? null : 'pendants')}
             className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
-            style={{ top: '38%', left: '28%' }}
+            style={{ top: '30%', left: '43%' }}
           >
             {/* Animated pulse ring - only show when not active */}
             {showProductModal !== 'pendants' && (
@@ -1196,7 +1197,7 @@ export default function Home() {
           <button
             onClick={() => setShowProductModal(showProductModal === 'downlights' ? null : 'downlights')}
             className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
-            style={{ top: '4%', left: '46%' }}
+            style={{ top: '8%', left: '52%' }}
           >
             {/* Animated pulse ring - only show when not active */}
             {showProductModal !== 'downlights' && (
