@@ -33,7 +33,7 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
   const slideOutAnim = dir === 'right' ? 'slideOutLeft'  : 'slideOutRight';
 
   return (
-    <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: '16/7' }}>
+    <div className="relative w-full overflow-hidden" style={{ aspectRatio: '21/9' }}>
 
       {/* Exiting card */}
       {prev2 !== null && (
@@ -41,10 +41,10 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
           style={{ animation: `${slideOutAnim} 0.45s ease forwards`, zIndex: 1 }}>
           <img src={cards[prev2].img} alt="" className="w-full h-full object-cover object-center" style={{ objectPosition: cards[prev2].objectPosition }} />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-          <div className="absolute bottom-0 left-0 p-8">
-            <h3 className="text-white text-3xl font-serif font-light leading-snug">{cards[prev2].title}</h3>
-            <p className="text-white/70 text-sm mt-1">{cards[prev2].location}</p>
-            <div className="h-0.5 w-10 bg-[#6B8E7F] mt-3 rounded-full" />
+          <div className="absolute bottom-0 left-0 p-8 md:p-16 lg:p-24">
+            <h3 className="text-white text-4xl md:text-5xl lg:text-6xl font-serif font-light leading-snug">{cards[prev2].title}</h3>
+            <p className="text-white/70 text-base md:text-lg mt-2 tracking-widest uppercase">{cards[prev2].location}</p>
+            <div className="h-1 w-16 bg-[#6B8E7F] mt-4 rounded-full" />
           </div>
         </div>
       )}
@@ -53,29 +53,29 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
       <div key={`in-${active}`} className="absolute inset-0 w-full h-full"
         style={{ animation: `${slideInAnim} 0.45s ease forwards`, zIndex: 2 }}>
         <img src={cards[active].img} alt={cards[active].title} className="w-full h-full object-cover" style={{ objectPosition: cards[active].objectPosition }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-        <div className="absolute bottom-0 left-0 p-8">
-          <h3 className="text-white text-3xl font-serif font-light leading-snug">{cards[active].title}</h3>
-          <p className="text-white/70 text-sm mt-1">{cards[active].location}</p>
-          <div className="h-0.5 w-10 bg-[#6B8E7F] mt-3 rounded-full" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 p-8 md:p-16 lg:p-24">
+          <h3 className="text-white text-4xl md:text-5xl lg:text-6xl font-serif font-light leading-snug">{cards[active].title}</h3>
+          <p className="text-white/70 text-base md:text-lg mt-2 tracking-widest uppercase">{cards[active].location}</p>
+          <div className="h-1 w-16 bg-[#6B8E7F] mt-4 rounded-full" />
         </div>
       </div>
 
       {/* Dots */}
-      <div className="absolute bottom-8 right-8 z-10 flex gap-2">
+      <div className="absolute bottom-12 md:bottom-20 left-1/2 -translate-x-1/2 z-30 flex gap-3">
         {cards.map((_, i) => (
-          <button key={i} onClick={() => goTo(i)} className={`rounded-full transition-all duration-300 ${i === active ? 'bg-white w-6 h-2' : 'bg-white/50 w-2 h-2'}`} />
+          <button key={i} onClick={() => goTo(i)} className={`rounded-full transition-all duration-500 ${i === active ? 'bg-[#6B8E7F] w-12 h-1.5' : 'bg-white/40 w-3 h-1.5 hover:bg-white/60'}`} />
         ))}
       </div>
 
       {/* Prev arrow */}
-      <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/40 hover:bg-black/60 border border-white/30 flex items-center justify-center shadow-md transition">
-        <ChevronLeft size={22} className="text-white" />
+      <button onClick={prevSlide} className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-lg transition-all duration-300">
+        <ChevronLeft size={24} className="text-white" />
       </button>
 
       {/* Next arrow */}
-      <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/40 hover:bg-black/60 border border-white/30 flex items-center justify-center shadow-md transition">
-        <ChevronRight size={22} className="text-white" />
+      <button onClick={nextSlide} className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-lg transition-all duration-300">
+        <ChevronRight size={24} className="text-white" />
       </button>
     </div>
   );
@@ -219,7 +219,7 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
 
 function MagikClients() {
   return (
-    <section className="py-20 bg-white overflow-hidden relative">
+    <section className="py-20 bg-white overflow-hidden relative -mt-10 md:-mt-16 rounded-t-[40px] md:rounded-t-[80px] z-20">
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-14">
           <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-3">Trusted By The Best</p>
@@ -1361,7 +1361,7 @@ export default function Home() {
       </section>
 
       {/* B2B Solutions */}
-      <section className="py-8 md:py-14 bg-white">
+      <section className="pt-8 md:pt-14 pb-0 bg-white">
         {/* Header */}
         <div className="mb-10 text-center container mx-auto px-4">
           <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-2">B2B Solutions</p>
@@ -1378,7 +1378,7 @@ export default function Home() {
         </div>
 
         {/* Carousel: full width, no clipping */}
-        <div className="w-full px-6 md:px-12">
+        <div className="w-full">
           {(() => {
             const cards = [
               { img: "/starcementplant.png",                    title: "Star Cement Plant",       location: "Meghalaya",   objectPosition: "center center" },
