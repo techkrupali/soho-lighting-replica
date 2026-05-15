@@ -98,7 +98,7 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
 
 const blogPosts = [
   { category: "TRENDS",    img: "/indorr lighting.png",                    title: "Top 5 Lighting Trends for Luxury Hospitality in 2024",          excerpt: "From warm tunable whites to architectural accent lighting — what top hotels are choosing.",          date: "Feb 28, 2024", read: "4 min read" },
-  { category: "QUALITY",   img: "/The Agri Horticulture, Kolkata.jpeg",    title: "BIS Certification: Why It Matters for Your LED Purchase",        excerpt: "Understanding quality certifications and why BIS-certified LEDs are the only safe choice.",          date: "Feb 10, 2024", read: "3 min read" },
+  { category: "QUALITY",   img: "/The Agri Horticulture, Kolkata2.jpeg",    title: "BIS Certification: Why It Matters for Your LED Purchase",        excerpt: "Understanding quality certifications and why BIS-certified LEDs are the only safe choice.",          date: "Feb 10, 2024", read: "3 min read" },
   { category: "INDUSTRIAL",img: "/starcementplant.png",                    title: "Industrial Lighting: High-Bay LEDs for Maximum Output",          excerpt: "A complete guide to choosing the right high-bay LED fixtures for warehouses and factories.",          date: "Jan 22, 2024", read: "6 min read" },
   { category: "TRENDS",    img: "/towerimage.png",                         title: "Smart Lighting Controls: Dimming & Automation Guide",            excerpt: "How smart dimming systems and automation can reduce energy waste and improve ambiance.",              date: "Jan 10, 2024", read: "5 min read" },
   { category: "INDUSTRIAL",img: "/Durgapur Steel Plant, West Bengal.jpeg", title: "Outdoor LED Flood Lights: Installation Tips",                   excerpt: "Everything you need to know about choosing and installing outdoor flood lights.",                    date: "Dec 18, 2023", read: "4 min read" },
@@ -1430,11 +1430,11 @@ export default function Home() {
           {(() => {
             const cards = [
               { img: "/starcementplant.png",                    title: "Star Cement Plant",       location: "Meghalaya",   objectPosition: "center center" },
-              { img: "/The Agri Horticulture, Kolkata.jpeg",    title: "The Agri Horticulture",   location: "Kolkata",     objectPosition: "center center" },
-              { img: "/Kolkata Airport.jpeg",                   title: "Kolkata Airport",         location: "Kolkata",     objectPosition: "center center" },
-              { img: "/Durgapur Steel Plant, West Bengal.jpeg", title: "Durgapur Steel Plant",    location: "West Bengal", objectPosition: "center center" },
+              { img: "/The Agri Horticulture, Kolkata2.png",    title: "The Agri Horticulture",   location: "Kolkata",     objectPosition: "center center" },
+              { img: "/Kolkata Airport2.png",                   title: "Kolkata Airport",         location: "Kolkata",     objectPosition: "center center" },
+              { img: "/Durgapur Steel Plant, West Bengal2.png", title: "Durgapur Steel Plant",    location: "West Bengal", objectPosition: "center center" },
               { img: "/indorr lighting.png",                    title: "Eden Gardens Club House", location: "Kolkata",     objectPosition: "center center" },
-              { img: "/towerimage.png",                         title: "Air Traffic Control",     location: "Bhubaneswar", objectPosition: "center 40%"   },
+              { img: "/towerimage2.png",                         title: "Air Traffic Control",     location: "Bhubaneswar", objectPosition: "center 40%"   },
             ];
             return <B2BCarousel cards={cards} />;
           })()}
