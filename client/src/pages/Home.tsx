@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Search, User, ShoppingCart, Menu, ArrowRight, Zap, Factory, Award, Globe, Wrench, Leaf, Mail, MapPin, Twitter, Instagram, Linkedin, Send, Phone } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search, User, ShoppingCart, Menu, ArrowRight, Zap, Factory, Award, Globe, Wrench, Leaf, Mail, MapPin, Twitter, Instagram, Linkedin, Send, Phone, ChevronDown } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 
 const GlobalStyles = () => (
@@ -1499,7 +1499,7 @@ export default function Home() {
 
                   <div className="md:col-span-2 flex justify-end mt-4 relative">
                     {/* Paper Plane Path Animation */}
-                    <div className="absolute -bottom-16 right-12 w-48 h-24 pointer-events-none hidden md:block">
+                    <div className="absolute -bottom-16 right-24 w-48 h-24 pointer-events-none hidden md:block">
                       <svg viewBox="0 0 200 100" className="w-full h-full fill-none">
                         <path 
                           d="M20,80 Q60,20 100,60 T180,20" 
@@ -1537,23 +1537,73 @@ export default function Home() {
       {/* Instagram Reels */}
       <InstagramReels />
 
-      {/* Find a Store Banner (Moved) */}
-      <section className="w-full">
-        <div className="relative flex flex-col justify-center px-6 md:px-12 lg:px-24 py-20 overflow-hidden"
-          style={{ background: 'linear-gradient(rgba(40,50,55,0.75), rgba(40,50,55,0.75)), url("/map photo.jpeg") center/cover no-repeat', minHeight: '350px' }}>
-          {/* Corner brackets */}
-          <span className="absolute top-10 left-10 w-8 h-8 border-t-2 border-l-2 border-white/60" />
-          <span className="absolute bottom-10 right-10 w-8 h-8 border-b-2 border-r-2 border-white/60" />
-          
-          <div className="container mx-auto text-center flex flex-col items-center">
-            <p className="text-white/70 text-xs tracking-[0.3em] uppercase mb-3" style={{ fontFamily: 'inherit' }}>Find A</p>
-            <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight mb-4">
-              STORE NEAR YOU
-            </h2>
-            <p className="text-white/80 text-base md:text-lg mb-8 max-w-xl mx-auto" style={{ fontFamily: 'inherit' }}>Find out a retailer nearby your location and experience Magik Lighting in person.</p>
-            <a href="#" className="inline-block border border-white text-white text-sm tracking-widest uppercase px-10 py-3.5 hover:bg-white hover:text-[#373A36] transition-all duration-300 w-fit font-semibold" style={{ fontFamily: 'inherit' }}>
-              FIND STORE
-            </a>
+      {/* Find a Store Banner - Light Gold Theme */}
+      <section className="w-full relative py-8 md:py-12 bg-[#FDF7E7] overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+            
+            {/* Left side: Search Controls */}
+            <div className="lg:w-[45%] w-full text-left">
+              <div className="mb-6">
+                <p className="text-[#373A36]/60 text-sm tracking-[0.2em] uppercase mb-1 font-medium">FIND YOUR</p>
+                <h2 className="text-[#373A36] text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
+                  NEAREST STORE
+                </h2>
+              </div>
+              
+              <div className="space-y-4 max-w-sm">
+                {/* Choose City Dropdown */}
+                <div className="relative group">
+                  <select className="w-full bg-white text-[#373A36] px-6 py-3.5 rounded-full text-sm appearance-none cursor-pointer focus:outline-none shadow-lg border border-[#C9A961]/20">
+                    <option>Choose City</option>
+                    <option>Kolkata</option>
+                    <option>Nagpur</option>
+                    <option>Delhi</option>
+                  </select>
+                  <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <ChevronDown size={18} className="text-[#373A36]" />
+                  </div>
+                </div>
+
+                {/* Enter Pincode with Find Us button */}
+                <div className="relative flex items-center bg-white rounded-full overflow-hidden shadow-lg border border-[#C9A961]/20">
+                  <input 
+                    type="text" 
+                    placeholder="Enter Pincode" 
+                    className="flex-1 bg-transparent text-[#373A36] px-6 py-3.5 text-sm focus:outline-none placeholder:text-gray-400"
+                  />
+                  <button className="bg-[#373A36] text-white px-8 py-3.5 text-sm font-bold hover:bg-[#C9A961] transition-colors uppercase tracking-widest">
+                    Find us
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Right side: Real Interactive Map */}
+            <div className="lg:w-[55%] w-full">
+              <div className="relative rounded-[2rem] overflow-hidden shadow-2xl border-8 border-white/10 group">
+                <div className="aspect-video bg-[#f8f9fa]">
+                  <iframe 
+                    title="Magik Store Locator"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.072223403328!2d88.361309315403!3d22.576404985181285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02764f6974241d%3A0xc3f12467a840e5a6!2sMagik%20Lighting!5e0!3m2!1sen!2sin!4v1652610000000!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="100%" 
+                    style={{ border: 0, filter: 'grayscale(0.2) contrast(1.1)' }} 
+                    allowFullScreen={true} 
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                  ></iframe>
+                </div>
+                
+                {/* Floating "Interactive" Indicator */}
+                <div className="absolute bottom-6 right-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2 shadow-lg pointer-events-none group-hover:opacity-0 transition-opacity">
+                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                  <span className="text-[10px] font-bold tracking-widest uppercase text-[#373A36]">Interactive Map</span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
