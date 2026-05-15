@@ -597,8 +597,15 @@ export default function Home() {
     downlights: true,
     dayNight: true,
   });
+  const [bathroomLights, setBathroomLights] = useState({
+    light1: true,
+    light2: true,
+    light3: true,
+    dayNight: true,
+  });
   const [showSpaceModal, setShowSpaceModal] = useState(false);
   const [showProductModal, setShowProductModal] = useState<string | null>(null);
+  const [activeSpace, setActiveSpace] = useState<'Kitchen' | 'Bathroom'>('Kitchen');
 
   const kitchenProducts = {
     tapeLights: {
@@ -614,6 +621,24 @@ export default function Home() {
     downlights: {
       name: "Aura Slim Plus RD",
       image: "/Experience/Kitchen/Downlights.jpeg",
+      description: "",
+    },
+  };
+
+  const bathroomProducts = {
+    light1: {
+      name: "Bathroom Light 1",
+      image: "/Experience/Bathroom/light1.webp",
+      description: "",
+    },
+    light2: {
+      name: "Bathroom Light 2",
+      image: "/Experience/Bathroom/light2.webp",
+      description: "",
+    },
+    light3: {
+      name: "Bathroom Light 3",
+      image: "/Experience/Bathroom/light3.webp",
       description: "",
     },
   };
@@ -973,8 +998,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Kitchen Experience Section */}
-      <section className="relative h-[90vh] overflow-hidden z-0">
+      {/* Experience Section - Kitchen/Bathroom */}
+      <section className="relative h-[90vh] overflow-hidden z-0" id="experience-section">
+        {activeSpace === 'Kitchen' ? (
+        <>
         {/* Base Image - Changes based on Day/Night toggle */}
         <div className="absolute inset-0">
           <img
@@ -1093,7 +1120,14 @@ export default function Home() {
                     {[...spaces, ...spaces].map((space, idx) => (
                       <button
                         key={`${space.name}-${idx}`}
-                        onClick={() => setShowSpaceModal(false)}
+                        onClick={() => {
+                          setShowSpaceModal(false);
+                          if (space.name === 'Kitchen') {
+                            setActiveSpace('Kitchen');
+                          } else if (space.name === 'Bathroom') {
+                            setActiveSpace('Bathroom');
+                          }
+                        }}
                         className="group flex-shrink-0 cursor-pointer"
                         style={{ width: '400px' }}
                       >
@@ -1285,6 +1319,325 @@ export default function Home() {
             </div>
           </div>
         </div>
+        </>
+        ) : (
+        <>
+        {/* Bathroom Experience */}
+        {/* Base Image - Changes based on Day/Night toggle */}
+        <div className="absolute inset-0">
+          <img
+            src={bathroomLights.dayNight 
+              ? "/Experience/Bathroom/day.webp"
+              : "/Experience/Bathroom/night.png"
+            }
+            alt="Bathroom Base"
+            className="w-full h-full object-cover transition-opacity duration-500"
+          />
+        </div>
+
+        {/* Light 1 Layer */}
+        {bathroomLights.light1 && (
+          <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
+            <img
+              src="/Experience/Bathroom/light1.webp"
+              alt="Light 1"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+
+        {/* Light 2 Layer */}
+        {bathroomLights.light2 && (
+          <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
+            <img
+              src="/Experience/Bathroom/light2.webp"
+              alt="Light 2"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+
+        {/* Light 3 Layer */}
+        {bathroomLights.light3 && (
+          <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
+            <img
+              src="/Experience/Bathroom/light3.webp"
+              alt="Light 3"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+        <div className="absolute inset-0 bg-black/20" />
+
+        {/* Product Detail Modal */}
+        {showProductModal && activeSpace === 'Bathroom' && (
+          <div className="absolute inset-0 flex items-start justify-start z-40 pointer-events-none" style={{ padding: '20px' }}>
+            <div 
+              className="relative bg-white rounded-md w-64 overflow-hidden shadow-2xl pointer-events-auto"
+              style={{
+                position: 'absolute',
+                top: (() => {
+                  const buttonTop = showProductModal === 'light1' ? 43 : showProductModal === 'light2' ? 30 : 8;
+                  return `max(20px, min(calc(${buttonTop}% - 120px), calc(100% - 380px)))`;
+                })(),
+                left: (() => {
+                  const buttonLeft = showProductModal === 'light1' ? '77%' : showProductModal === 'light2' ? '43%' : '52%';
+                  if (showProductModal === 'light1') {
+                    return `max(20px, calc(${buttonLeft} - 240px))`;
+                  }
+                  return `min(calc(${buttonLeft} + 60px), calc(100% - 244px))`;
+                })(),
+              }}
+            >
+              <div className="relative h-48 bg-gray-100 p-4">
+                <img
+                  src={bathroomProducts[showProductModal as keyof typeof bathroomProducts].image}
+                  alt={bathroomProducts[showProductModal as keyof typeof bathroomProducts].name}
+                  className="w-full h-full object-cover shadow-[0_4px_6px_-1px_rgba(0,0,0,0.3)]"
+                />
+              </div>
+
+              <div className="p-4">
+                <h3 className="text-base font-light text-[#373A36] mb-3">
+                  {bathroomProducts[showProductModal as keyof typeof bathroomProducts].name}
+                </h3>
+                <button className="w-full px-4 py-2 bg-[#6B8E7F] text-white hover:bg-[#5a7669] transition-all duration-300 text-sm tracking-wide rounded">
+                  Explore
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Space Selection Modal - Inside Section */}
+        {showSpaceModal && (
+          <div className="absolute inset-0 bg-black/90 flex items-center justify-center p-4 z-30">
+            <div className="w-full max-w-7xl relative">
+              <button
+                onClick={() => setShowSpaceModal(false)}
+                className="absolute -top-4 right-0 text-white hover:text-gray-300 transition-colors z-10"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+
+              <div className="text-center mb-8">
+                <p className="text-white/60 text-xs tracking-widest uppercase mb-2">FRESH IDEAS TO LIGHT YOUR SPACE</p>
+                <h2 className="text-white text-4xl md:text-5xl font-light tracking-wider">CHOOSE A SPACE TO EXPLORE</h2>
+                <div className="flex justify-center mt-4">
+                  <div className="h-0.5 w-16 bg-[#C9A961]"></div>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div 
+                  id="space-scroll-container-bathroom"
+                  className="overflow-x-auto scrollbar-hide"
+                  style={{ scrollbarWidth: 'none' }}
+                >
+                  <div className="flex gap-6 pb-4">
+                    {[...spaces, ...spaces].map((space, idx) => (
+                      <button
+                        key={`${space.name}-${idx}`}
+                        onClick={() => {
+                          setShowSpaceModal(false);
+                          if (space.name === 'Kitchen') {
+                            setActiveSpace('Kitchen');
+                          } else if (space.name === 'Bathroom') {
+                            setActiveSpace('Bathroom');
+                          }
+                        }}
+                        className="group flex-shrink-0 cursor-pointer"
+                        style={{ width: '400px' }}
+                      >
+                        <div className="relative overflow-hidden rounded-lg" style={{ height: '300px' }}>
+                          <img
+                            src={space.image}
+                            alt={space.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                        </div>
+                        <div className="mt-4">
+                          <h3 className="text-white text-xl font-light mb-1 tracking-wide">{space.name.toUpperCase()} &gt;</h3>
+                          <p className="text-white/70 text-sm">{space.description}</p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <button 
+                  onClick={() => {
+                    const el = document.getElementById('space-scroll-container-bathroom');
+                    if (el) {
+                      const scrollAmount = el.scrollLeft - 420;
+                      if (scrollAmount < 0) {
+                        el.scrollTo({ left: el.scrollWidth / 2, behavior: 'auto' });
+                      }
+                      el.scrollBy({ left: -420, behavior: 'smooth' });
+                    }
+                  }}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 w-12 h-12 rounded-full border-2 border-white/40 flex items-center justify-center text-white hover:bg-white/10 transition-all bg-black/50"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button 
+                  onClick={() => {
+                    const el = document.getElementById('space-scroll-container-bathroom');
+                    if (el) {
+                      const maxScroll = el.scrollWidth - el.clientWidth;
+                      if (el.scrollLeft + 420 >= maxScroll) {
+                        el.scrollTo({ left: el.scrollWidth / 2 - el.clientWidth, behavior: 'auto' });
+                      }
+                      el.scrollBy({ left: 420, behavior: 'smooth' });
+                    }
+                  }}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 w-12 h-12 rounded-full border-2 border-white/40 flex items-center justify-center text-white hover:bg-white/10 transition-all bg-black/50"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Hotspot Buttons */}
+        <div className="absolute inset-0 pointer-events-none z-10">
+          {/* Light 1 + Button */}
+          <button
+            onClick={() => setShowProductModal(showProductModal === 'light1' ? null : 'light1')}
+            className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
+            style={{ top: '43%', left: '77%' }}
+          >
+            {showProductModal !== 'light1' && (
+              <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
+            )}
+            {showProductModal === 'light1' ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            )}
+          </button>
+
+          {/* Light 2 + Button */}
+          <button
+            onClick={() => setShowProductModal(showProductModal === 'light2' ? null : 'light2')}
+            className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
+            style={{ top: '30%', left: '43%' }}
+          >
+            {showProductModal !== 'light2' && (
+              <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
+            )}
+            {showProductModal === 'light2' ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            )}
+          </button>
+
+          {/* Light 3 + Button */}
+          <button
+            onClick={() => setShowProductModal(showProductModal === 'light3' ? null : 'light3')}
+            className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
+            style={{ top: '8%', left: '52%' }}
+          >
+            {showProductModal !== 'light3' && (
+              <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
+            )}
+            {showProductModal === 'light3' ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            )}
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
+          {/* Top Left Text */}
+          <div>
+            <p className="text-white text-xs md:text-sm tracking-widest uppercase mb-4">
+              FRESH IDEAS TO LIGHT YOUR SPACE
+            </p>
+            <h2 className="text-white text-5xl md:text-7xl font-light mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Bathroom
+            </h2>
+            <button 
+              onClick={() => setShowSpaceModal(true)}
+              className="px-6 py-2.5 bg-white text-[#373A36] hover:bg-white/90 transition-all duration-300 text-sm tracking-wide flex items-center gap-2"
+            >
+              Explore More Spaces
+              <ArrowRight size={16} />
+            </button>
+          </div>
+
+          {/* Bottom Controls */}
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
+            {/* Toggle Buttons */}
+            <div className="flex flex-wrap gap-8">
+              {[
+                { label: "Light 1", key: "light1", active: bathroomLights.light1 },
+                { label: "Light 2", key: "light2", active: bathroomLights.light2 },
+                { label: "Light 3", key: "light3", active: bathroomLights.light3 },
+                { label: "Day / Night", key: "dayNight", active: bathroomLights.dayNight },
+              ].map((btn) => (
+                <div key={btn.key} className="flex flex-col items-center gap-2">
+                  <button
+                    onClick={() => setBathroomLights(prev => ({ ...prev, [btn.key]: !prev[btn.key as keyof typeof prev] }))}
+                    className={`flex flex-col items-center gap-1 px-2 py-3 rounded-full transition-all duration-300 ${
+                      btn.active
+                        ? "bg-white"
+                        : "bg-black/40 backdrop-blur-sm hover:bg-black/50"
+                    }`}
+                  >
+                    {btn.active ? (
+                      <>
+                        <div
+                          className="w-6 h-6 rounded-full border border-[#373A36] bg-[#373A36] flex items-center justify-center shadow-sm"
+                        >
+                        </div>
+                        <div className="text-[#373A36] text-[9px] font-semibold tracking-wide">
+                          ON
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="text-white text-[9px] font-semibold tracking-wide">
+                          OFF
+                        </div>
+                        <div
+                          className="w-6 h-6 rounded-full border border-white bg-white flex items-center justify-center shadow-sm"
+                        >
+                        </div>
+                      </>
+                    )}
+                  </button>
+                  <span className={`text-sm tracking-wide font-semibold ${
+                    btn.active ? "text-white" : "text-white"
+                  }`}>
+                    {btn.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        </>
+        )}
       </section>
 
       {/* About Us */}
