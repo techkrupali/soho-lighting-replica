@@ -606,7 +606,13 @@ export default function Home() {
   });
   const [showSpaceModal, setShowSpaceModal] = useState(false);
   const [showProductModal, setShowProductModal] = useState<string | null>(null);
-  const [activeSpace, setActiveSpace] = useState<'Kitchen' | 'Bathroom'>('Kitchen');
+  const [activeSpace, setActiveSpace] = useState<'Kitchen' | 'Bathroom' | 'Livingroom'>('Kitchen');
+  const [livingroomLights, setLivingroomLights] = useState({
+    light1: true,
+    light2: true,
+    light3: true,
+    dayNight: true,
+  });
 
   const kitchenProducts = {
     tapeLights: {
@@ -645,6 +651,24 @@ export default function Home() {
     light4: {
       name: "Downlights",
       image: "/Experience/Bathroom/Downlights.jpeg",
+      description: "",
+    },
+  };
+
+  const livingroomProducts = {
+    light1: {
+      name: "Light 1",
+      image: "/Experience/livingroom/light1.png",
+      description: "",
+    },
+    light2: {
+      name: "Light 2",
+      image: "/Experience/livingroom/light2.png",
+      description: "",
+    },
+    light3: {
+      name: "Light 3",
+      image: "/Experience/livingroom/light3.png",
       description: "",
     },
   };
@@ -1003,7 +1027,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experience Section - Kitchen/Bathroom */}
+      {/* Experience Section - Kitchen/Bathroom/Livingroom */}
       <section className="relative h-[90vh] overflow-hidden z-0" id="experience-section">
         {activeSpace === 'Kitchen' ? (
         <>
@@ -1131,6 +1155,8 @@ export default function Home() {
                             setActiveSpace('Kitchen');
                           } else if (space.name === 'Bathroom') {
                             setActiveSpace('Bathroom');
+                          } else if (space.name === 'Living Room') {
+                            setActiveSpace('Livingroom');
                           }
                         }}
                         className="group flex-shrink-0 cursor-pointer"
@@ -1325,9 +1351,8 @@ export default function Home() {
           </div>
         </div>
         </>
-        ) : (
+        ) : activeSpace === 'Bathroom' ? (
         <>
-        {/* Bathroom Experience */}
         {/* Base Image - Changes based on Day/Night toggle */}
         <div className="absolute inset-0">
           <img
@@ -1674,7 +1699,244 @@ export default function Home() {
           </div>
         </div>
         </>
+        ) : activeSpace === 'Livingroom' ? (
+        <>
+        {/* Livingroom Experience */}
+        <div className="absolute inset-0">
+          <img
+            src={livingroomLights.dayNight 
+              ? "/Experience/livingroom/day.png"
+              : "/Experience/livingroom/night.png"
+            }
+            alt="Livingroom Base"
+            className="w-full h-full object-cover transition-opacity duration-500"
+          />
+        </div>
+
+        {livingroomLights.light1 && (
+          <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
+            <img
+              src="/Experience/livingroom/light1.png"
+              alt="Light 1"
+              className="w-full h-full object-cover"
+            />
+          </div>
         )}
+
+        {livingroomLights.light2 && (
+          <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
+            <img
+              src="/Experience/livingroom/light2.png"
+              alt="Light 2"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+
+        {livingroomLights.light3 && (
+          <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
+            <img
+              src="/Experience/livingroom/light3.png"
+              alt="Light 3"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+        <div className="absolute inset-0 bg-black/20" />
+
+        {showProductModal && activeSpace === 'Livingroom' && (
+          <div className="absolute inset-0 flex items-start justify-start z-40 pointer-events-none" style={{ padding: '20px' }}>
+            <div 
+              className="relative bg-white rounded-md w-64 overflow-hidden shadow-2xl pointer-events-auto"
+              style={{
+                position: 'absolute',
+                top: '20px',
+                left: '20px',
+              }}
+            >
+              <div className="relative h-48 bg-gray-100 p-4">
+                <img
+                  src={livingroomProducts[showProductModal as 'light1' | 'light2' | 'light3']?.image || ''}
+                  alt={livingroomProducts[showProductModal as 'light1' | 'light2' | 'light3']?.name || ''}
+                  className="w-full h-full object-cover shadow-[0_4px_6px_-1px_rgba(0,0,0,0.3)]"
+                />
+              </div>
+
+              <div className="p-4">
+                <h3 className="text-base font-light text-[#373A36] mb-3">
+                  {livingroomProducts[showProductModal as 'light1' | 'light2' | 'light3']?.name || ''}
+                </h3>
+                <button className="w-full px-4 py-2 bg-[#6B8E7F] text-white hover:bg-[#5a7669] transition-all duration-300 text-sm tracking-wide rounded">
+                  Explore
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {showSpaceModal && (
+          <div className="absolute inset-0 bg-black/90 flex items-center justify-center p-4 z-30">
+            <div className="w-full max-w-7xl relative">
+              <button
+                onClick={() => setShowSpaceModal(false)}
+                className="absolute -top-4 right-0 text-white hover:text-gray-300 transition-colors z-10"
+              >
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+
+              <div className="text-center mb-8">
+                <p className="text-white/60 text-xs tracking-widest uppercase mb-2">FRESH IDEAS TO LIGHT YOUR SPACE</p>
+                <h2 className="text-white text-4xl md:text-5xl font-light tracking-wider">CHOOSE A SPACE TO EXPLORE</h2>
+                <div className="flex justify-center mt-4">
+                  <div className="h-0.5 w-16 bg-[#C9A961]"></div>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div 
+                  id="space-scroll-container-livingroom"
+                  className="overflow-x-auto scrollbar-hide"
+                  style={{ scrollbarWidth: 'none' }}
+                >
+                  <div className="flex gap-6 pb-4">
+                    {[...spaces, ...spaces].map((space, idx) => (
+                      <button
+                        key={`${space.name}-${idx}`}
+                        onClick={() => {
+                          setShowSpaceModal(false);
+                          if (space.name === 'Kitchen') {
+                            setActiveSpace('Kitchen');
+                          } else if (space.name === 'Bathroom') {
+                            setActiveSpace('Bathroom');
+                          } else if (space.name === 'Living Room') {
+                            setActiveSpace('Livingroom');
+                          }
+                        }}
+                        className="group flex-shrink-0 cursor-pointer"
+                        style={{ width: '400px' }}
+                      >
+                        <div className="relative overflow-hidden rounded-lg" style={{ height: '300px' }}>
+                          <img
+                            src={space.image}
+                            alt={space.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                        </div>
+                        <div className="mt-4">
+                          <h3 className="text-white text-xl font-light mb-1 tracking-wide">{space.name.toUpperCase()} &gt;</h3>
+                          <p className="text-white/70 text-sm">{space.description}</p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <button 
+                  onClick={() => {
+                    const el = document.getElementById('space-scroll-container-livingroom');
+                    if (el) {
+                      const scrollAmount = el.scrollLeft - 420;
+                      if (scrollAmount < 0) {
+                        el.scrollTo({ left: el.scrollWidth / 2, behavior: 'auto' });
+                      }
+                      el.scrollBy({ left: -420, behavior: 'smooth' });
+                    }
+                  }}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 w-12 h-12 rounded-full border-2 border-white/40 flex items-center justify-center text-white hover:bg-white/10 transition-all bg-black/50"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button 
+                  onClick={() => {
+                    const el = document.getElementById('space-scroll-container-livingroom');
+                    if (el) {
+                      const maxScroll = el.scrollWidth - el.clientWidth;
+                      if (el.scrollLeft + 420 >= maxScroll) {
+                        el.scrollTo({ left: el.scrollWidth / 2 - el.clientWidth, behavior: 'auto' });
+                      }
+                      el.scrollBy({ left: 420, behavior: 'smooth' });
+                    }
+                  }}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 w-12 h-12 rounded-full border-2 border-white/40 flex items-center justify-center text-white hover:bg-white/10 transition-all bg-black/50"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
+          <div>
+            <p className="text-white text-xs md:text-sm tracking-widest uppercase mb-4">
+              FRESH IDEAS TO LIGHT YOUR SPACE
+            </p>
+            <h2 className="text-white text-5xl md:text-7xl font-light mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Living Room
+            </h2>
+            <button 
+              onClick={() => setShowSpaceModal(true)}
+              className="px-6 py-2.5 bg-white text-[#373A36] hover:bg-white/90 transition-all duration-300 text-sm tracking-wide flex items-center gap-2"
+            >
+              Explore More Spaces
+              <ArrowRight size={16} />
+            </button>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
+            <div className="flex flex-wrap gap-8">
+              {[
+                { label: "Light 1", key: "light1", active: livingroomLights.light1 },
+                { label: "Light 2", key: "light2", active: livingroomLights.light2 },
+                { label: "Light 3", key: "light3", active: livingroomLights.light3 },
+                { label: "Day / Night", key: "dayNight", active: livingroomLights.dayNight },
+              ].map((btn) => (
+                <div key={btn.key} className="flex flex-col items-center gap-2">
+                  <button
+                    onClick={() => setLivingroomLights(prev => ({ ...prev, [btn.key]: !prev[btn.key as keyof typeof prev] }))}
+                    className={`flex flex-col items-center gap-1 px-2 py-3 rounded-full transition-all duration-300 ${
+                      btn.active
+                        ? "bg-white"
+                        : "bg-black/40 backdrop-blur-sm hover:bg-black/50"
+                    }`}
+                  >
+                    {btn.active ? (
+                      <>
+                        <div
+                          className="w-6 h-6 rounded-full border border-[#373A36] bg-[#373A36] flex items-center justify-center shadow-sm"
+                        >
+                        </div>
+                        <div className="text-[#373A36] text-[9px] font-semibold tracking-wide">
+                          ON
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="text-white text-[9px] font-semibold tracking-wide">
+                          OFF
+                        </div>
+                        <div
+                          className="w-6 h-6 rounded-full border border-white bg-white flex items-center justify-center shadow-sm"
+                        >
+                        </div>
+                      </>
+                    )}
+                  </button>
+                  <span className={`text-sm tracking-wide font-semibold ${
+                    btn.active ? "text-white" : "text-white"
+                  }`}>
+                    {btn.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        </>
+        ) : null}
       </section>
 
       {/* About Us */}
