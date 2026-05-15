@@ -1429,11 +1429,11 @@ export default function Home() {
         <div className="w-full">
           {(() => {
             const cards = [
-              { img: "/starcementplant.png",                    title: "Star Cement Plant",       location: "Meghalaya",   objectPosition: "center center" },
+              { img: "/starcementplant2.png",                    title: "Star Cement Plant",       location: "Meghalaya",   objectPosition: "center center" },
               { img: "/The Agri Horticulture, Kolkata2.png",    title: "The Agri Horticulture",   location: "Kolkata",     objectPosition: "center center" },
               { img: "/Kolkata Airport2.png",                   title: "Kolkata Airport",         location: "Kolkata",     objectPosition: "center center" },
               { img: "/Durgapur Steel Plant, West Bengal2.png", title: "Durgapur Steel Plant",    location: "West Bengal", objectPosition: "center center" },
-              { img: "/indorr lighting.png",                    title: "Eden Gardens Club House", location: "Kolkata",     objectPosition: "center center" },
+              { img: "/indorr lighting2.png",                    title: "Eden Gardens Club House", location: "Kolkata",     objectPosition: "center center" },
               { img: "/towerimage2.png",                         title: "Air Traffic Control",     location: "Bhubaneswar", objectPosition: "center 40%"   },
             ];
             return <B2BCarousel cards={cards} />;
