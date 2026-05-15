@@ -112,7 +112,5 @@ temp/
 client/public/__manus__/version.json
 
 # Large video files
-client/public/*.mp4
-client/public/*.MP4
 client/public/*.mov
 client/public/*.MOV

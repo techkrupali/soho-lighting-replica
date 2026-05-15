@@ -629,7 +629,7 @@ export default function Home() {
   const heroSlides = [  
     {
       type: "video" as const,
-      src: "/Factory Video without Logo.mp4",
+      src: "/hero.mp4",
       heading: "It's in the detail",
       sub: "Engineered by experts | Handcrafted by artisans",
       btn: true,
