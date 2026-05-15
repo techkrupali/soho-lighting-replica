@@ -119,61 +119,72 @@ function MagikBlog() {
     scrollRef.current?.scrollBy({ left: dir === 'right' ? 300 : -300, behavior: 'smooth' });
   };
 
+  const tagColors: Record<string, string> = {
+    TRENDS: "bg-[#E9D5FF] text-[#A855F7]",
+    QUALITY: "bg-[#DBEAFE] text-[#3B82F6]",
+    INDUSTRIAL: "bg-[#FFEDD5] text-[#F97316]",
+    "ENERGY SAVING": "bg-[#DCFCE7] text-[#22C55E]"
+  };
+
   return (
-    <section className="py-14 pb-20 bg-white">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-8">
         {/* Header */}
-        <div className="flex items-end justify-between mb-6">
-          <div className="flex-1 text-center">
-            <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-1">Our Journal</p>
-            <h2 className="text-4xl font-serif font-light tracking-widest text-[#373A36]">Magik <strong className="font-bold font-serif">Blog</strong></h2>
-            <div className="flex justify-center mt-3">
-              <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
-            </div>
+        <div className="flex items-end justify-between mb-12">
+          <div>
+            <p className="text-[#C9A961] text-[10px] tracking-[0.4em] uppercase font-bold mb-3">Our Journal</p>
+            <h2 className="text-5xl font-serif text-[#373A36]">
+              Magik <span className="font-sans font-black">Blog</span>
+            </h2>
           </div>
-          <a href="#" className="flex items-center gap-2 text-sm font-medium text-[#373A36] hover:text-[#6B8E7F] transition-colors tracking-widest uppercase">
-            View All <ArrowRight size={16} />
+          <a href="#" className="flex items-center gap-2 text-xs font-bold text-[#373A36]/60 hover:text-[#373A36] transition-all tracking-[0.1em] uppercase border-b border-transparent hover:border-[#373A36]">
+            View All <span className="text-lg">→</span>
           </a>
         </div>
 
         {/* Filter tabs + arrows */}
-        <div className="flex items-center justify-between mb-6 mt-10">
-          <div className="flex gap-2 flex-wrap justify-center flex-1">
+        <div className="flex items-center justify-between mb-10">
+          <div className="flex gap-3 overflow-x-auto pb-2" style={{ scrollbarWidth: 'none' }}>
             {tabs.map(tab => (
               <button key={tab} onClick={() => setActiveTab(tab)}
-                className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest transition-all duration-200 ${
-                  activeTab === tab ? "bg-[#373A36] text-white" : "border border-[#E8E8E0] text-[#373A36] hover:border-[#373A36]"
+                className={`px-6 py-2 rounded-full text-[10px] font-bold tracking-widest uppercase transition-all duration-300 flex-shrink-0 ${
+                  activeTab === tab 
+                  ? "bg-[#373A36] text-white shadow-lg" 
+                  : "bg-white border border-[#E8E8E0] text-[#373A36]/60 hover:border-[#373A36] hover:text-[#373A36]"
                 }`}
               >{tab}</button>
             ))}
           </div>
-          <div className="flex gap-2">
-            <button onClick={() => scroll('left')} className="w-8 h-8 rounded-full border border-[#E8E8E0] flex items-center justify-center hover:bg-[#F7F7F0] transition">
-              <ChevronLeft size={16} className="text-[#373A36]" />
+          <div className="flex gap-3 ml-4">
+            <button onClick={() => scroll('left')} className="w-10 h-10 rounded-full border border-[#E8E8E0] flex items-center justify-center hover:bg-[#373A36] hover:text-white transition-all duration-300">
+              <ChevronLeft size={18} />
             </button>
-            <button onClick={() => scroll('right')} className="w-8 h-8 rounded-full border border-[#E8E8E0] flex items-center justify-center hover:bg-[#F7F7F0] transition">
-              <ChevronRight size={16} className="text-[#373A36]" />
+            <button onClick={() => scroll('right')} className="w-10 h-10 rounded-full border border-[#E8E8E0] flex items-center justify-center hover:bg-[#373A36] hover:text-white transition-all duration-300">
+              <ChevronRight size={18} />
             </button>
           </div>
         </div>
 
         {/* Cards */}
-        <div ref={scrollRef} className="flex gap-5 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
+        <div ref={scrollRef} className="flex gap-6 overflow-x-auto pb-6" style={{ scrollbarWidth: 'none' }}>
           {filtered.map((post, idx) => (
-            <div key={idx} className="flex-shrink-0 cursor-pointer group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-[#F0F0F0]" style={{ width: 'calc(22% - 16px)', minWidth: 240 }}>
-              <div className="relative h-56 overflow-hidden">
-                <img src={post.img} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                <span className="absolute top-3 left-3 text-white text-[10px] font-bold tracking-widest px-3 py-1 rounded-full"
-                  style={{ background: categoryColors[post.category] || "#373A36" }}>
+            <div key={idx} className="flex-shrink-0 group bg-white rounded-3xl overflow-hidden border border-[#F0F0F0] hover:shadow-2xl transition-all duration-500" style={{ width: '280px' }}>
+              <div className="relative h-32 overflow-hidden">
+                <img src={post.img} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <span className={`absolute top-2 left-3 text-[7px] font-black tracking-[0.2em] px-2 py-1 rounded-full uppercase shadow-sm ${tagColors[post.category] || "bg-gray-100 text-gray-600"}`}>
                   {post.category}
                 </span>
               </div>
-              <div className="p-5">
-                <h3 className="text-[#373A36] text-lg font-serif font-light leading-snug mb-3 group-hover:text-[#6B8E7F] transition-colors">{post.title}</h3>
-                <p className="text-[#999] text-sm leading-relaxed mb-4 line-clamp-2">{post.excerpt}</p>
-                <div className="flex items-center justify-between pt-2 border-t border-[#F0F0F0]">
-                  <span className="text-[#999] text-xs tracking-wide">{post.date} · {post.read}</span>
-                  <ArrowRight size={16} className="text-[#C9A961]" />
+              <div className="p-4">
+                <h3 className="text-[#373A36] text-sm font-serif font-bold leading-tight mb-2 group-hover:text-[#6B8E7F] transition-colors line-clamp-2">{post.title}</h3>
+                <p className="text-gray-400 text-[11px] leading-relaxed mb-3 line-clamp-2 font-light">{post.excerpt}</p>
+                <div className="flex items-center justify-between pt-3 border-t border-gray-50">
+                  <div className="flex items-center gap-2 text-gray-300 text-[10px] font-medium tracking-wide uppercase">
+                    <span>{post.date}</span>
+                    <span className="w-1 h-1 rounded-full bg-gray-200" />
+                    <span>{post.read}</span>
+                  </div>
+                  <span className="text-[#C9A961] text-xl transform group-hover:translate-x-2 transition-transform duration-300">→</span>
                 </div>
               </div>
             </div>
