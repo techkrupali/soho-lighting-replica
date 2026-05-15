@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, Search, User, ShoppingCart, Menu, ArrowRight, Zap, Factory, Award, Globe, Wrench, Leaf } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const testimonials = [
   { name: "Ashish Kumar", role: "Ashiana Interiors", text: "", avatar: "AK", videoId: "879Pi-2lFHA" },
@@ -33,64 +33,49 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
   const slideOutAnim = dir === 'right' ? 'slideOutLeft'  : 'slideOutRight';
 
   return (
-    <div className="relative flex items-center gap-3" style={{ height: 500 }}>
-      {/* Prev arrow */}
-      <button onClick={prevSlide} className="absolute left-0 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-white border border-[#E8E8E0] flex items-center justify-center shadow-md transition -translate-x-5">
-        <ChevronLeft size={20} className="text-[#373A36]" />
-      </button>
+    <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: '16/7' }}>
 
-      {/* Left partial */}
-      <div className="relative rounded-xl overflow-hidden cursor-pointer flex-shrink-0 opacity-50 hover:opacity-70 transition-opacity" style={{ width: '18%', height: '75%' }} onClick={prevSlide}>
-        <img src={cards[getIdx(-1)].img} alt="" className="w-full h-full object-cover" style={{ objectPosition: cards[getIdx(-1)].objectPosition }} />
-        <div className="absolute inset-0 bg-black/40" />
-      </div>
-
-      {/* Center main */}
-      <div className="relative rounded-2xl overflow-hidden flex-1 h-full shadow-xl">
-
-        {/* Exiting card */}
-        {prev2 !== null && (
-          <div key={`out-${prev2}`} className="absolute inset-0 w-full h-full"
-            style={{ animation: `${slideOutAnim} 0.45s ease forwards`, zIndex: 1 }}>
-            <img src={cards[prev2].img} alt="" className="w-full h-full object-cover" style={{ objectPosition: cards[prev2].objectPosition }} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-6">
-              <h3 className="text-white text-2xl font-serif font-light leading-snug">{cards[prev2].title}</h3>
-              <p className="text-white/70 text-sm mt-1">{cards[prev2].location}</p>
-              <div className="h-0.5 w-10 bg-[#6B8E7F] mt-3 rounded-full" />
-            </div>
-          </div>
-        )}
-
-        {/* Entering card */}
-        <div key={`in-${active}`} className="absolute inset-0 w-full h-full"
-          style={{ animation: `${slideInAnim} 0.45s ease forwards`, zIndex: 2 }}>
-          <img src={cards[active].img} alt={cards[active].title} className="w-full h-full object-cover" style={{ objectPosition: cards[active].objectPosition }} />
+      {/* Exiting card */}
+      {prev2 !== null && (
+        <div key={`out-${prev2}`} className="absolute inset-0 w-full h-full"
+          style={{ animation: `${slideOutAnim} 0.45s ease forwards`, zIndex: 1 }}>
+          <img src={cards[prev2].img} alt="" className="w-full h-full object-cover object-center" style={{ objectPosition: cards[prev2].objectPosition }} />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-          <div className="absolute bottom-0 left-0 p-6">
-            <h3 className="text-white text-2xl font-serif font-light leading-snug">{cards[active].title}</h3>
-            <p className="text-white/70 text-sm mt-1">{cards[active].location}</p>
+          <div className="absolute bottom-0 left-0 p-8">
+            <h3 className="text-white text-3xl font-serif font-light leading-snug">{cards[prev2].title}</h3>
+            <p className="text-white/70 text-sm mt-1">{cards[prev2].location}</p>
             <div className="h-0.5 w-10 bg-[#6B8E7F] mt-3 rounded-full" />
           </div>
         </div>
+      )}
 
-        {/* Dots */}
-        <div className="absolute bottom-6 right-6 z-10 flex gap-1.5">
-          {cards.map((_, i) => (
-            <button key={i} onClick={() => goTo(i)} className={`rounded-full transition-all duration-300 ${i === active ? 'bg-white w-5 h-1.5' : 'bg-white/50 w-1.5 h-1.5'}`} />
-          ))}
+      {/* Entering card */}
+      <div key={`in-${active}`} className="absolute inset-0 w-full h-full"
+        style={{ animation: `${slideInAnim} 0.45s ease forwards`, zIndex: 2 }}>
+        <img src={cards[active].img} alt={cards[active].title} className="w-full h-full object-cover" style={{ objectPosition: cards[active].objectPosition }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+        <div className="absolute bottom-0 left-0 p-8">
+          <h3 className="text-white text-3xl font-serif font-light leading-snug">{cards[active].title}</h3>
+          <p className="text-white/70 text-sm mt-1">{cards[active].location}</p>
+          <div className="h-0.5 w-10 bg-[#6B8E7F] mt-3 rounded-full" />
         </div>
       </div>
 
-      {/* Right partial */}
-      <div className="relative rounded-xl overflow-hidden cursor-pointer flex-shrink-0 opacity-50 hover:opacity-70 transition-opacity" style={{ width: '18%', height: '75%' }} onClick={nextSlide}>
-        <img src={cards[getIdx(1)].img} alt="" className="w-full h-full object-cover" style={{ objectPosition: cards[getIdx(1)].objectPosition }} />
-        <div className="absolute inset-0 bg-black/40" />
+      {/* Dots */}
+      <div className="absolute bottom-8 right-8 z-10 flex gap-2">
+        {cards.map((_, i) => (
+          <button key={i} onClick={() => goTo(i)} className={`rounded-full transition-all duration-300 ${i === active ? 'bg-white w-6 h-2' : 'bg-white/50 w-2 h-2'}`} />
+        ))}
       </div>
 
+      {/* Prev arrow */}
+      <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/40 hover:bg-black/60 border border-white/30 flex items-center justify-center shadow-md transition">
+        <ChevronLeft size={22} className="text-white" />
+      </button>
+
       {/* Next arrow */}
-      <button onClick={nextSlide} className="absolute right-0 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-white border border-[#E8E8E0] flex items-center justify-center shadow-md transition translate-x-5">
-        <ChevronRight size={20} className="text-[#373A36]" />
+      <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/40 hover:bg-black/60 border border-white/30 flex items-center justify-center shadow-md transition">
+        <ChevronRight size={22} className="text-white" />
       </button>
     </div>
   );
@@ -572,6 +557,7 @@ export default function Home() {
   const [videoMuted, setVideoMuted] = useState(true);
   const [userUnmuted, setUserUnmuted] = useState(false);
   const heroSectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [kitchenLights, setKitchenLights] = useState({
     tapeLights: true,
@@ -623,11 +609,23 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Sync muted state to actual video element whenever it changes
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = videoMuted;
+    }
+  }, [videoMuted]);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setHeroIndex((prev) => {
         const next = (prev + 1) % heroSlides.length;
-        setVideoMuted(heroSlides[next].type !== "video");
+        // Only auto-mute if user has NOT manually unmuted
+        setVideoMuted((currentMuted) => {
+          if (heroSlides[next].type !== "video") return true;
+          // If user explicitly unmuted, keep unmuted; otherwise keep current state
+          return currentMuted;
+        });
         return next;
       });
     }, 5000);
@@ -797,6 +795,7 @@ export default function Home() {
                 loop
                 playsInline
                 ref={(el) => {
+                  (videoRef as React.MutableRefObject<HTMLVideoElement | null>).current = el;
                   if (!el) return;
                   el.muted = videoMuted;
                   el.play().catch(() => {});
@@ -827,7 +826,7 @@ export default function Home() {
           {heroSlides.map((_, idx) => (
             <button
               key={idx}
-              onClick={() => { setHeroIndex(idx); setVideoMuted(heroSlides[idx].type !== "video"); }}
+              onClick={() => { setHeroIndex(idx); if (heroSlides[idx].type !== "video") setVideoMuted(true); }}
               className={`h-2 rounded-full transition-all duration-300 ${idx === heroIndex ? "bg-white w-6" : "bg-white/50 w-2"}`}
             />
           ))}
@@ -1363,24 +1362,23 @@ export default function Home() {
 
       {/* B2B Solutions */}
       <section className="py-8 md:py-14 bg-white">
-        <div className="container mx-auto px-4">
-
-          {/* Header */}
-          <div className="mb-10 text-center">
-            <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-2">B2B Solutions</p>
-            <h2 className="text-4xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] mb-2 leading-tight">
-              B2B Project Showcase
-            </h2>
-            <div className="flex justify-center mb-4">
-              <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
-            </div>
-            <p className="text-[#666] text-base max-w-xl leading-relaxed mx-auto">
-              Trusted by builders, contractors, and enterprises across India —
-              delivering end-to-end lighting solutions for every scale.
-            </p>
+        {/* Header */}
+        <div className="mb-10 text-center container mx-auto px-4">
+          <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-2">B2B Solutions</p>
+          <h2 className="text-4xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] mb-2 leading-tight">
+            B2B Project Showcase
+          </h2>
+          <div className="flex justify-center mb-4">
+            <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
           </div>
+          <p className="text-[#666] text-base max-w-xl leading-relaxed mx-auto">
+            Trusted by builders, contractors, and enterprises across India —
+            delivering end-to-end lighting solutions for every scale.
+          </p>
+        </div>
 
-          {/* Carousel: center big, sides partial */}
+        {/* Carousel: full width, no clipping */}
+        <div className="w-full px-6 md:px-12">
           {(() => {
             const cards = [
               { img: "/starcementplant.png",                    title: "Star Cement Plant",       location: "Meghalaya",   objectPosition: "center center" },
@@ -1392,9 +1390,11 @@ export default function Home() {
             ];
             return <B2BCarousel cards={cards} />;
           })()}
-
         </div>
       </section>
+
+      {/* OUR PARTNERS / Magik Clients */}
+      <MagikClients />
 
       {/* Client Love */}
       <ClientLove />
@@ -1438,9 +1438,6 @@ export default function Home() {
 
       {/* Instagram Reels */}
       <InstagramReels />
-
-      {/* OUR PARTNERS / Magik Clients */}
-      <MagikClients />
 
       {/* Footer */}
       <footer className="bg-[#373A36] text-white">
