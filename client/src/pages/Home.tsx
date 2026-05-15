@@ -1238,7 +1238,7 @@ export default function Home() {
       {/* About Us */}
       <section className="relative h-[650px] md:h-[90vh] overflow-hidden mt-16">
         <img
-          src="/centuryhousehdimage.png"
+          src="/centuryhouse33.png"
           alt="About Us"
           className="w-full h-full object-cover"
           style={{ objectPosition: "20% 30%" }}
@@ -1246,24 +1246,22 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/60"></div>
 
         {/* Left: Dynamic Text — image style layout */}
-        <div className="absolute inset-0 flex items-end" style={{ paddingLeft: "5%", paddingRight: "50%", paddingBottom: "6%" }}>
+        <div className="absolute inset-0 flex items-start" style={{ paddingLeft: "5%", paddingRight: "50%", paddingTop: "4%" }}>
           <div key={activeAbout} className="animate-fadeSlideIn">
             <h2 className="text-white leading-tight mb-3"
                 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700 }}>
-              <span style={{ fontWeight: 300 }}>ABOUT </span>Magik LED Lights
+              <span style={{ fontWeight: 300 }}>ABOUT </span>Magik Lighting
             </h2>
-            <p className="text-white/80 text-xs tracking-[0.3em] uppercase mb-4">
-              MANUFACTURING &nbsp;|&nbsp; MARKETING &nbsp;|&nbsp; MONITORING
-            </p>
-            <div className="text-white/90 leading-relaxed" style={{ maxWidth: "480px" }}>
+            
+            <div className="text-white/90 leading-relaxed" style={{ maxWidth: "520px" }}>
               {aboutItems[safeAbout].description.split("\n\n").map((para, i) => (
-                <p key={i} style={{ fontSize: "15px", marginBottom: "8px" }}>{para}</p>
+                <p key={i} style={{ fontSize: "18px", marginBottom: "8px" }}>{para}</p>
               ))}
             </div>
             <a
               href="#"
-              className="inline-block mt-5 text-white border border-white hover:bg-white hover:text-[#373A36] transition-all duration-300"
-              style={{ fontSize: "14px", padding: "8px 28px" }}
+              className="inline-block mt-6 text-white border border-white hover:bg-white hover:text-[#373A36] transition-all duration-300"
+              style={{ fontSize: "14px", padding: "10px 32px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}
             >
               Read More
             </a>
