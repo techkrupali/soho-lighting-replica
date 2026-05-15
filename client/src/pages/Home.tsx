@@ -48,7 +48,7 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
   const slideOutAnim = dir === 'right' ? 'slideOutLeft'  : 'slideOutRight';
 
   return (
-    <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
+    <div className="relative w-full overflow-hidden" style={{ aspectRatio: '17/9' }}>
 
       {/* Exiting card */}
       {prev2 !== null && (
@@ -116,7 +116,7 @@ function MagikBlog() {
   const filtered = activeTab === "ALL" ? blogPosts : blogPosts.filter(p => p.category === activeTab);
 
   const scroll = (dir: 'left' | 'right') => {
-    scrollRef.current?.scrollBy({ left: dir === 'right' ? 300 : -300, behavior: 'smooth' });
+    scrollRef.current?.scrollBy({ left: dir === 'right' ? 364 : -364, behavior: 'smooth' });
   };
 
   const tagColors: Record<string, string> = {
@@ -130,21 +130,26 @@ function MagikBlog() {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-8">
         {/* Header */}
-        <div className="flex items-end justify-between mb-12">
-          <div>
-            <p className="text-[#C9A961] text-[10px] tracking-[0.4em] uppercase font-bold mb-3">Our Journal</p>
-            <h2 className="text-5xl font-serif text-[#373A36]">
-              Magik <span className="font-sans font-black">Blog</span>
+        <div className="relative mb-4">
+          <div className="flex flex-col items-center text-center">
+            <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-1">Our Journal</p>
+            <h2 className="text-4xl md:text-5xl font-serif font-light tracking-widest uppercase text-[#373A36]">
+              Magik <strong className="font-bold">Blog</strong>
             </h2>
+            <div className="flex justify-center mt-3 mb-4">
+              <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
+            </div>
           </div>
-          <a href="#" className="flex items-center gap-2 text-xs font-bold text-[#373A36]/60 hover:text-[#373A36] transition-all tracking-[0.1em] uppercase border-b border-transparent hover:border-[#373A36]">
-            View All <span className="text-lg">→</span>
-          </a>
+          <div className="md:absolute md:right-0 md:bottom-0 mt-4 text-center md:text-right">
+            <a href="#" className="flex items-center justify-center md:justify-end gap-2 text-xs font-bold text-[#373A36]/60 hover:text-[#373A36] transition-all tracking-[0.1em] uppercase border-b border-transparent hover:border-[#373A36]">
+              View All <span className="text-lg">→</span>
+            </a>
+          </div>
         </div>
 
         {/* Filter tabs + arrows */}
-        <div className="flex items-center justify-between mb-10">
-          <div className="flex gap-3 overflow-x-auto pb-2" style={{ scrollbarWidth: 'none' }}>
+        <div className="relative flex items-center justify-center mb-4">
+          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
             {tabs.map(tab => (
               <button key={tab} onClick={() => setActiveTab(tab)}
                 className={`px-6 py-2 rounded-full text-[10px] font-bold tracking-widest uppercase transition-all duration-300 flex-shrink-0 ${
@@ -155,21 +160,20 @@ function MagikBlog() {
               >{tab}</button>
             ))}
           </div>
-          <div className="flex gap-3 ml-4">
-            <button onClick={() => scroll('left')} className="w-10 h-10 rounded-full border border-[#E8E8E0] flex items-center justify-center hover:bg-[#373A36] hover:text-white transition-all duration-300">
+          <div className="absolute right-0 hidden md:flex gap-3">
+            <button onClick={() => scroll('left')} className="w-10 h-10 rounded-full border border-[#E8E8E0] flex items-center justify-center hover:bg-[#373A36] hover:text-white transition-all duration-300 bg-white shadow-sm">
               <ChevronLeft size={18} />
             </button>
-            <button onClick={() => scroll('right')} className="w-10 h-10 rounded-full border border-[#E8E8E0] flex items-center justify-center hover:bg-[#373A36] hover:text-white transition-all duration-300">
+            <button onClick={() => scroll('right')} className="w-10 h-10 rounded-full border border-[#E8E8E0] flex items-center justify-center hover:bg-[#373A36] hover:text-white transition-all duration-300 bg-white shadow-sm">
               <ChevronRight size={18} />
             </button>
           </div>
         </div>
 
-        {/* Cards */}
-        <div ref={scrollRef} className="flex gap-6 overflow-x-auto pb-6" style={{ scrollbarWidth: 'none' }}>
+        <div ref={scrollRef} className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
           {filtered.map((post, idx) => (
-            <div key={idx} className="flex-shrink-0 group bg-white rounded-3xl overflow-hidden border border-[#F0F0F0] hover:shadow-2xl transition-all duration-500" style={{ width: '280px' }}>
-              <div className="relative h-32 overflow-hidden">
+            <div key={idx} className="flex-shrink-0 group bg-white rounded-3xl overflow-hidden border border-[#F0F0F0] hover:shadow-2xl transition-all duration-500" style={{ width: '340px' }}>
+              <div className="relative h-44 overflow-hidden">
                 <img src={post.img} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <span className={`absolute top-2 left-3 text-[7px] font-black tracking-[0.2em] px-2 py-1 rounded-full uppercase shadow-sm ${tagColors[post.category] || "bg-gray-100 text-gray-600"}`}>
                   {post.category}
@@ -579,6 +583,8 @@ function QuickEnquiry() {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [heroIndex, setHeroIndex] = useState(0);
   const [videoMuted, setVideoMuted] = useState(true);
   const [userUnmuted, setUserUnmuted] = useState(false);
@@ -630,10 +636,27 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Update scrolled state for background changes
+      setScrolled(currentScrollY > 10);
+      
+      // Handle hide/show logic
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down
+        setIsVisible(false);
+      } else {
+        // Scrolling up
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [lastScrollY]);
 
   // Sync muted state to actual video element whenever it changes
   useEffect(() => {
@@ -742,7 +765,7 @@ export default function Home() {
     <div className="min-h-screen bg-[#F7F7F0]">
       
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white">
+      <header className={`fixed top-0 left-0 right-0 z-50 bg-white transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
 
         {/* Top row: Logo center, icons right */}
         <div className="hidden md:flex items-center px-8 pt-5 pb-2 relative">
@@ -1436,9 +1459,17 @@ export default function Home() {
           <div className="absolute bottom-[15%] left-[30%] w-80 h-80 bg-[#4A86B0] rounded-full blur-[100px] opacity-30 animate-pulse delay-1000" />
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 text-center mb-8">
-          <h2 className="text-white text-5xl md:text-7xl font-bold mb-4 tracking-tight uppercase">Become a Distributor</h2>
-          <p className="text-white/60 text-lg">Partner with India's fastest growing lighting brand.</p>
+        <div className="container mx-auto px-6 relative z-10 text-center mb-10">
+          <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-1">Join Our Network</p>
+          <h2 className="text-white text-4xl md:text-5xl font-serif font-light tracking-widest uppercase">
+            Become a <strong className="font-bold text-white">Distributor</strong>
+          </h2>
+          <div className="flex justify-center mt-3 mb-4">
+            <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
+          </div>
+          <p className="text-white/60 text-sm max-w-xl mx-auto leading-relaxed">
+            Partner with India's fastest growing lighting brand and illuminate the future together.
+          </p>
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -1544,11 +1575,14 @@ export default function Home() {
             
             {/* Left side: Search Controls */}
             <div className="lg:w-[45%] w-full text-left">
-              <div className="mb-6">
-                <p className="text-[#373A36]/60 text-sm tracking-[0.2em] uppercase mb-1 font-medium">FIND YOUR</p>
-                <h2 className="text-[#373A36] text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
-                  NEAREST STORE
+              <div className="mb-8">
+                <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-1">Find Your</p>
+                <h2 className="text-[#373A36] text-4xl md:text-5xl font-serif font-light tracking-widest uppercase">
+                  Nearest <strong className="font-bold text-[#373A36]">Store</strong>
                 </h2>
+                <div className="flex justify-start mt-3 mb-4">
+                  <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
+                </div>
               </div>
               
               <div className="space-y-4 max-w-sm">
