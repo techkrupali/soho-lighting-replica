@@ -601,6 +601,7 @@ export default function Home() {
     light1: true,
     light2: true,
     light3: true,
+    light4: true,
     dayNight: true,
   });
   const [showSpaceModal, setShowSpaceModal] = useState(false);
@@ -639,6 +640,11 @@ export default function Home() {
     light3: {
       name: "Fabio Bollard",
       image: "/Experience/Bathroom/Fabio Bollard.jpg",
+      description: "",
+    },
+    light4: {
+      name: "Downlights",
+      image: "/Experience/Bathroom/Downlights.jpeg",
       description: "",
     },
   };
@@ -1367,6 +1373,17 @@ export default function Home() {
             />
           </div>
         )}
+
+        {/* Light 4 Layer (Downlights) */}
+        {bathroomLights.light4 && (
+          <div className="absolute inset-0" style={{ mixBlendMode: 'lighten' }}>
+            <img
+              src="/Experience/Bathroom/light4.png"
+              alt="Downlights"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
         <div className="absolute inset-0 bg-black/20" />
 
         {/* Product Detail Modal */}
@@ -1377,11 +1394,11 @@ export default function Home() {
               style={{
                 position: 'absolute',
                 top: (() => {
-                  const buttonTop = showProductModal === 'light1' ? 9 : showProductModal === 'light2' ? 10 : 43;
+                  const buttonTop = showProductModal === 'light1' ? 9 : showProductModal === 'light2' ? 10 : showProductModal === 'light4' ? 9 : 43;
                   return `max(20px, min(calc(${buttonTop}% - 120px), calc(100% - 380px)))`;
                 })(),
                 left: (() => {
-                  const buttonLeft = showProductModal === 'light1' ? '72%' : showProductModal === 'light2' ? '36%' : '77%';
+                  const buttonLeft = showProductModal === 'light1' ? '72%' : showProductModal === 'light2' ? '36%' : showProductModal === 'light4' ? '55%' : '77%';
                   if (showProductModal === 'light1' || showProductModal === 'light3') {
                     return `max(20px, calc(${buttonLeft} - 240px))`;
                   }
@@ -1391,15 +1408,15 @@ export default function Home() {
             >
               <div className="relative h-48 bg-gray-100 p-4">
                 <img
-                  src={bathroomProducts[showProductModal as 'light1' | 'light2' | 'light3']?.image || ''}
-                  alt={bathroomProducts[showProductModal as 'light1' | 'light2' | 'light3']?.name || ''}
+                  src={bathroomProducts[showProductModal as 'light1' | 'light2' | 'light3' | 'light4']?.image || ''}
+                  alt={bathroomProducts[showProductModal as 'light1' | 'light2' | 'light3' | 'light4']?.name || ''}
                   className="w-full h-full object-cover shadow-[0_4px_6px_-1px_rgba(0,0,0,0.3)]"
                 />
               </div>
 
               <div className="p-4">
                 <h3 className="text-base font-light text-[#373A36] mb-3">
-                  {bathroomProducts[showProductModal as 'light1' | 'light2' | 'light3']?.name || ''}
+                  {bathroomProducts[showProductModal as 'light1' | 'light2' | 'light3' | 'light4']?.name || ''}
                 </h3>
                 <button className="w-full px-4 py-2 bg-[#6B8E7F] text-white hover:bg-[#5a7669] transition-all duration-300 text-sm tracking-wide rounded">
                   Explore
@@ -1545,7 +1562,7 @@ export default function Home() {
             )}
           </button>
 
-          {/* Downlights (Light 3) + Button - BOTTOM RIGHT */}
+          {/* Fabio Bollard (Light 3) + Button - BOTTOM RIGHT */}
           <button
             onClick={() => setShowProductModal(showProductModal === 'light3' ? null : 'light3')}
             className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
@@ -1555,6 +1572,26 @@ export default function Home() {
               <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
             )}
             {showProductModal === 'light3' ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            )}
+          </button>
+
+          {/* Downlights (Light 4) + Button - BOTTOM CENTER */}
+          <button
+            onClick={() => setShowProductModal(showProductModal === 'light4' ? null : 'light4')}
+            className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
+            style={{ top: '9%', left: '55%' }}
+          >
+            {showProductModal !== 'light4' && (
+              <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
+            )}
+            {showProductModal === 'light4' ? (
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
@@ -1593,6 +1630,7 @@ export default function Home() {
                 { label: "Pendants", key: "light1", active: bathroomLights.light1 },
                 { label: "Fabio Bollard", key: "light2", active: bathroomLights.light2 },
                 { label: "Tape Lights", key: "light3", active: bathroomLights.light3 },
+                { label: "Downlights", key: "light4", active: bathroomLights.light4 },
                 { label: "Day / Night", key: "dayNight", active: bathroomLights.dayNight },
               ].map((btn) => (
                 <div key={btn.key} className="flex flex-col items-center gap-2">
