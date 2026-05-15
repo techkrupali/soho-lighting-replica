@@ -619,13 +619,14 @@ export default function Home() {
   };
 
   const spaces = [
-    { name: "Living Room", image: "/Experience/LivingRoom.webp", description: "Create the perfect ambiance for relaxation" },
+    { name: "Living Room", image: "/Experience/LivingRoom.jpeg", description: "Create the perfect ambiance for relaxation" },
     { name: "Bedroom", image: "/Experience/badroom.webp", description: "Soft curves and smooth lighting for peaceful rest" },
-    { name: "Kitchen", image: "/Experience/Kitchen.webp", description: "Bright and functional lighting for your space" },
+    { name: "Kitchen", image: "/Experience/Kitchen.jpeg", description: "Bright and functional lighting for your space" },
     { name: "Outdoor", image: "/Experience/outdoor.webp", description: "Illuminate your exterior spaces beautifully" },
+    { name: "Bathroom", image: "/Experience/Bathroom.jpeg", description: "Illuminate your exterior spaces beautifully" },
   ];
 
-  const heroSlides = [
+  const heroSlides = [  
     {
       type: "video" as const,
       src: "/Factory Video without Logo.mp4",
