@@ -653,7 +653,6 @@ export default function Home() {
     { name: "Living Room", image: "/Experience/LivingRoom.jpeg", description: "Create the perfect ambiance for relaxation" },
     { name: "Bedroom", image: "/Experience/badroom.webp", description: "Soft curves and smooth lighting for peaceful rest" },
     { name: "Kitchen", image: "/Experience/Kitchen.jpeg", description: "Bright and functional lighting for your space" },
-    { name: "Outdoor", image: "/Experience/outdoor.webp", description: "Illuminate your exterior spaces beautifully" },
     { name: "Bathroom", image: "/Experience/Bathroom.jpeg", description: "Illuminate your exterior spaces beautifully" },
   ];
 
