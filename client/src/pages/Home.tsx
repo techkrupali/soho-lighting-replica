@@ -606,7 +606,7 @@ export default function Home() {
   });
   const [showSpaceModal, setShowSpaceModal] = useState(false);
   const [showProductModal, setShowProductModal] = useState<string | null>(null);
-  const [activeSpace, setActiveSpace] = useState<'Kitchen' | 'Bathroom' | 'Livingroom'>('Kitchen');
+  const [activeSpace, setActiveSpace] = useState<'Kitchen' | 'Bathroom' | 'Livingroom'>('Livingroom');
   const [livingroomLights, setLivingroomLights] = useState({
     light1: true,
     light2: true,
@@ -1487,6 +1487,8 @@ export default function Home() {
                             setActiveSpace('Kitchen');
                           } else if (space.name === 'Bathroom') {
                             setActiveSpace('Bathroom');
+                          } else if (space.name === 'Living Room') {
+                            setActiveSpace('Livingroom');
                           }
                         }}
                         className="group flex-shrink-0 cursor-pointer"
