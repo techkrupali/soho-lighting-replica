@@ -13,6 +13,21 @@ const GlobalStyles = () => (
       50% { transform: translate(-10px, -10px) rotate(10deg); }
     }
     .animate-fadeSlideIn { animation: fadeSlideIn 0.8s ease forwards; }
+    
+    /* Counter card animation */
+    .counter-card {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .counter-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .counter-card:nth-child(1).visible { transition-delay: 0s; }
+    .counter-card:nth-child(2).visible { transition-delay: 0.1s; }
+    .counter-card:nth-child(3).visible { transition-delay: 0.2s; }
+    .counter-card:nth-child(4).visible { transition-delay: 0.3s; }
   `}} />
 );
 
@@ -818,6 +833,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#F7F7F0]">
+      <GlobalStyles />
       
       {/* Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 bg-white transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
@@ -2047,6 +2063,78 @@ export default function Home() {
           </div>
         </div>
 
+      </section>
+
+      {/* Statistics Counter - Glassmorphism */}
+      <section className="py-16 bg-gradient-to-br from-[#F7F7F0] via-[#EEF3F1] to-[#F7F7F0] relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute top-10 left-10 w-32 h-32 bg-[#C9A961]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-40 h-40 bg-[#6B8E7F]/10 rounded-full blur-3xl" />
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { number: 10, suffix: "+", label: "Years in Industry", duration: 2000 },
+              { number: 1000, suffix: "+", label: "Distributors", duration: 2500 },
+              { number: 100000, suffix: "+", label: "Products per Day", duration: 3000 },
+            ].map((stat, idx) => (
+              <div 
+                key={idx} 
+                className="counter-card relative group"
+                ref={(el) => {
+                  if (!el) return;
+                  const observer = new IntersectionObserver(
+                    ([entry]) => {
+                      if (entry.isIntersecting) {
+                        el.classList.add('visible');
+                        
+                        // Counter animation
+                        const counter = el.querySelector('.counter-number');
+                        if (counter && !counter.classList.contains('counted')) {
+                          counter.classList.add('counted');
+                          let current = 0;
+                          const increment = stat.number / (stat.duration / 16);
+                          const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= stat.number) {
+                              counter.textContent = stat.number.toLocaleString();
+                              clearInterval(timer);
+                            } else {
+                              counter.textContent = Math.floor(current).toLocaleString();
+                            }
+                          }, 16);
+                        }
+                        observer.disconnect();
+                      }
+                    },
+                    { threshold: 0.3 }
+                  );
+                  observer.observe(el);
+                }}
+              >
+                {/* Glassmorphism card */}
+                <div className="relative bg-white/40 backdrop-blur-xl border border-white/60 rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden">
+                  {/* Shine effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Content */}
+                  <div className="relative z-10 text-center">
+                    <div className="flex items-center justify-center mb-3">
+                      <h3 className="text-5xl md:text-6xl font-light text-[#C9A961] tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+                        <span className="counter-number">0</span>
+                        <span className="counter-suffix">{stat.suffix}</span>
+                      </h3>
+                    </div>
+                    <p className="text-[#373A36] text-sm font-medium tracking-wide uppercase">{stat.label}</p>
+                  </div>
+                  
+                  {/* Bottom accent line */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C9A961] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Why Choose Magik Lighting */}
