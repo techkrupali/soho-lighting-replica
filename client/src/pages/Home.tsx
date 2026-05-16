@@ -657,18 +657,18 @@ export default function Home() {
 
   const livingroomProducts = {
     light1: {
-      name: "Light 1",
-      image: "/Experience/livingroom/light1.png",
+      name: "Celina",
+      image: "/Experience/livingroom/Celina.jpg",
       description: "",
     },
     light2: {
-      name: "Light 2",
-      image: "/Experience/livingroom/light2.png",
+      name: "Shine Wall Spot",
+      image: "/Experience/livingroom/Shine Wall Spot.jpg",
       description: "",
     },
     light3: {
-      name: "Light 3",
-      image: "/Experience/livingroom/light3.png",
+      name: "Tape Lights",
+      image: "/Experience/livingroom/Tape-Lights.jpeg",
       description: "",
     },
   };
@@ -1744,14 +1744,24 @@ export default function Home() {
         )}
         <div className="absolute inset-0 bg-black/20" />
 
+        {/* Product Detail Modal */}
         {showProductModal && activeSpace === 'Livingroom' && (
           <div className="absolute inset-0 flex items-start justify-start z-40 pointer-events-none" style={{ padding: '20px' }}>
             <div 
               className="relative bg-white rounded-md w-64 overflow-hidden shadow-2xl pointer-events-auto"
               style={{
                 position: 'absolute',
-                top: '20px',
-                left: '20px',
+                top: (() => {
+                  const buttonTop = showProductModal === 'light1' ? 6 : showProductModal === 'light2' ? 10 : 45;
+                  return `max(20px, min(calc(${buttonTop}% - 120px), calc(100% - 380px)))`;
+                })(),
+                left: (() => {
+                  const buttonLeft = showProductModal === 'light1' ? '45%' : showProductModal === 'light2' ? '75%' : '50%';
+                  if (showProductModal === 'light2') {
+                    return `max(20px, calc(${buttonLeft} - 240px))`;
+                  }
+                  return `min(calc(${buttonLeft} + 60px), calc(100% - 244px))`;
+                })(),
               }}
             >
               <div className="relative h-48 bg-gray-100 p-4">
@@ -1773,6 +1783,69 @@ export default function Home() {
             </div>
           </div>
         )}
+
+        {/* Hotspot Buttons */}
+        <div className="absolute inset-0 pointer-events-none z-10">
+          {/* Celina (Light 1) + Button */}
+          <button
+            onClick={() => setShowProductModal(showProductModal === 'light1' ? null : 'light1')}
+            className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
+            style={{ top: '6%', left: '45%' }}
+          >
+            {showProductModal !== 'light1' && (
+              <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
+            )}
+            {showProductModal === 'light1' ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            )}
+          </button>
+
+          {/* Shine Wall Spot (Light 2) + Button */}
+          <button
+            onClick={() => setShowProductModal(showProductModal === 'light2' ? null : 'light2')}
+            className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
+            style={{ top: '10%', left: '75%' }}
+          >
+            {showProductModal !== 'light2' && (
+              <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
+            )}
+            {showProductModal === 'light2' ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            )}
+          </button>
+
+          {/* Tape Lights (Light 3) + Button */}
+          <button
+            onClick={() => setShowProductModal(showProductModal === 'light3' ? null : 'light3')}
+            className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
+            style={{ top: '45%', left: '50%' }}
+          >
+            {showProductModal !== 'light3' && (
+              <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
+            )}
+            {showProductModal === 'light3' ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-all duration-500">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            )}
+          </button>
+        </div>
 
         {showSpaceModal && (
           <div className="absolute inset-0 bg-black/90 flex items-center justify-center p-4 z-30">
@@ -1889,9 +1962,9 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
             <div className="flex flex-wrap gap-8">
               {[
-                { label: "Light 1", key: "light1", active: livingroomLights.light1 },
-                { label: "Light 2", key: "light2", active: livingroomLights.light2 },
-                { label: "Light 3", key: "light3", active: livingroomLights.light3 },
+                { label: "Shine Wall Spot", key: "light1", active: livingroomLights.light1 },
+                { label: "Tape Lights", key: "light2", active: livingroomLights.light2 },
+                { label: "Celina", key: "light3", active: livingroomLights.light3 },
                 { label: "Day / Night", key: "dayNight", active: livingroomLights.dayNight },
               ].map((btn) => (
                 <div key={btn.key} className="flex flex-col items-center gap-2">
