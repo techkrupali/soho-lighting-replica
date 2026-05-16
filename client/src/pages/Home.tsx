@@ -690,7 +690,7 @@ export default function Home() {
 
   const spaces = [
     { name: "Living Room", image: "/Experience/LivingRoom.jpeg", description: "Create the perfect ambiance for relaxation" },
-    { name: "Bedroom", image: "/Experience/badroom.webp", description: "Soft curves and smooth lighting for peaceful rest" },
+    { name: "Bedroom", image: "/Experience/badroom.jpeg", description: "Soft curves and smooth lighting for peaceful rest" },
     { name: "Kitchen", image: "/Experience/Kitchen.jpeg", description: "Bright and functional lighting for your space" },
     { name: "Bathroom", image: "/Experience/Bathroom.jpeg", description: "Illuminate your exterior spaces beautifully" },
   ];
@@ -2030,41 +2030,6 @@ export default function Home() {
         ) : null}
       </section>
 
-      {/* About Us */}
-      <section className="relative h-[650px] md:h-[90vh] overflow-hidden mt-16">
-        <img
-          src="/centuryhouse33.png"
-          alt="About Us"
-          className="w-full h-full object-cover"
-          style={{ objectPosition: "20% 30%" }}
-        />
-        <div className="absolute inset-0 bg-black/60"></div>
-
-        {/* Left: Dynamic Text — image style layout */}
-        <div className="absolute inset-0 flex items-start" style={{ paddingLeft: "5%", paddingRight: "50%", paddingTop: "4%" }}>
-          <div key={activeAbout} className="animate-fadeSlideIn">
-            <h2 className="text-white leading-tight mb-3"
-                style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700 }}>
-              <span style={{ fontWeight: 300 }}>ABOUT </span>Magik Lighting
-            </h2>
-            
-            <div className="text-white/90 leading-relaxed" style={{ maxWidth: "520px" }}>
-              {aboutItems[safeAbout].description.split("\n\n").map((para, i) => (
-                <p key={i} style={{ fontSize: "16px", marginBottom: "8px" }}>{para}</p>
-              ))}
-            </div>
-            <a
-              href="#"
-              className="inline-block mt-6 text-white border border-white hover:bg-white hover:text-[#373A36] transition-all duration-300"
-              style={{ fontSize: "14px", padding: "10px 32px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}
-            >
-              Read More
-            </a>
-          </div>
-        </div>
-
-      </section>
-
       {/* Statistics Counter - Glassmorphism */}
       <section className="py-16 bg-gradient-to-br from-[#F7F7F0] via-[#EEF3F1] to-[#F7F7F0] relative overflow-hidden">
         {/* Background decorative elements */}
@@ -2072,11 +2037,12 @@ export default function Home() {
         <div className="absolute bottom-10 right-10 w-40 h-40 bg-[#6B8E7F]/10 rounded-full blur-3xl" />
         
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
               { number: 10, suffix: "+", label: "Years in Industry", duration: 2000 },
               { number: 1000, suffix: "+", label: "Distributors", duration: 2500 },
               { number: 100000, suffix: "+", label: "Products per Day", duration: 3000 },
+              { number: 10000, suffix: "+", label: "Happy Clients", duration: 2500 },
             ].map((stat, idx) => (
               <div 
                 key={idx} 
@@ -2120,7 +2086,7 @@ export default function Home() {
                   {/* Content */}
                   <div className="relative z-10 text-center">
                     <div className="flex items-center justify-center mb-3">
-                      <h3 className="text-5xl md:text-6xl font-light text-[#C9A961] tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+                      <h3 className="text-4xl md:text-5xl font-light text-[#C9A961] tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
                         <span className="counter-number">0</span>
                         <span className="counter-suffix">{stat.suffix}</span>
                       </h3>
@@ -2135,6 +2101,41 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* About Us */}
+      <section className="relative h-[650px] md:h-[90vh] overflow-hidden mt-16">
+        <img
+          src="/centuryhouse33.png"
+          alt="About Us"
+          className="w-full h-full object-cover"
+          style={{ objectPosition: "20% 30%" }}
+        />
+        <div className="absolute inset-0 bg-black/60"></div>
+
+        {/* Left: Dynamic Text — image style layout */}
+        <div className="absolute inset-0 flex items-start" style={{ paddingLeft: "5%", paddingRight: "50%", paddingTop: "4%" }}>
+          <div key={activeAbout} className="animate-fadeSlideIn">
+            <h2 className="text-white leading-tight mb-3"
+                style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700 }}>
+              <span style={{ fontWeight: 300 }}>ABOUT </span>Magik Lighting
+            </h2>
+            
+            <div className="text-white/90 leading-relaxed" style={{ maxWidth: "520px" }}>
+              {aboutItems[safeAbout].description.split("\n\n").map((para, i) => (
+                <p key={i} style={{ fontSize: "16px", marginBottom: "8px" }}>{para}</p>
+              ))}
+            </div>
+            <a
+              href="#"
+              className="inline-block mt-6 text-white border border-white hover:bg-white hover:text-[#373A36] transition-all duration-300"
+              style={{ fontSize: "14px", padding: "10px 32px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}
+            >
+              Read More
+            </a>
+          </div>
+        </div>
+
       </section>
 
       {/* Why Choose Magik Lighting */}
