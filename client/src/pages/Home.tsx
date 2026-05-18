@@ -2110,12 +2110,12 @@ export default function Home() {
               style={{
                 position: 'absolute',
                 top: (() => {
-                  const buttonTop = showProductModal === 'light1' ? 15 : showProductModal === 'light2' ? 25 : 50;
+                  const buttonTop = showProductModal === 'light1' ? 80 : showProductModal === 'light2' ? 55 : 12;
                   return `max(20px, min(calc(${buttonTop}% - 120px), calc(100% - 380px)))`;
                 })(),
                 left: (() => {
-                  const buttonLeft = showProductModal === 'light1' ? '70%' : showProductModal === 'light2' ? '40%' : '60%';
-                  if (showProductModal === 'light1') {
+                  const buttonLeft = showProductModal === 'light1' ? '70%' : showProductModal === 'light2' ? '80%' : '52%';
+                  if (showProductModal === 'light1' || showProductModal === 'light2') {
                     return `max(20px, calc(${buttonLeft} - 240px))`;
                   }
                   return `min(calc(${buttonLeft} + 60px), calc(100% - 244px))`;
@@ -2148,7 +2148,7 @@ export default function Home() {
           <button
             onClick={() => setShowProductModal(showProductModal === 'light1' ? null : 'light1')}
             className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
-            style={{ top: '15%', left: '70%' }}
+            style={{ top: '80%', left: '70%' }}
           >
             {showProductModal !== 'light1' && (
               <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
@@ -2168,7 +2168,7 @@ export default function Home() {
           <button
             onClick={() => setShowProductModal(showProductModal === 'light2' ? null : 'light2')}
             className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
-            style={{ top: '25%', left: '40%' }}
+            style={{ top: '55%', left: '80%' }}
           >
             {showProductModal !== 'light2' && (
               <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
@@ -2188,7 +2188,7 @@ export default function Home() {
           <button
             onClick={() => setShowProductModal(showProductModal === 'light3' ? null : 'light3')}
             className="absolute pointer-events-auto w-8 h-8 rounded-full bg-white border-2 border-white flex items-center justify-center text-[#6B8E7F] hover:bg-[#6B8E7F] hover:text-white transition-all duration-500 shadow-lg group"
-            style={{ top: '50%', left: '60%' }}
+            style={{ top: '12%', left: '52%' }}
           >
             {showProductModal !== 'light3' && (
               <span className="absolute inset-0 rounded-full border-2 border-white animate-slow-pulse"></span>
@@ -2322,9 +2322,9 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
             <div className="flex flex-wrap gap-8">
               {[
-                { label: "Tape Lights", key: "light1", active: bedroomLights.light1 },
+                { label: "Downlights", key: "light1", active: bedroomLights.light1 },
                 { label: "Pendants", key: "light2", active: bedroomLights.light2 },
-                { label: "Downlights", key: "light3", active: bedroomLights.light3 },
+                { label: "Tape Lights", key: "light3", active: bedroomLights.light3 },
                 { label: "Day / Night", key: "dayNight", active: bedroomLights.dayNight },
               ].map((btn) => (
                 <div key={btn.key} className="flex flex-col items-center gap-2">
