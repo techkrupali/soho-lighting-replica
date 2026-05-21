@@ -14,6 +14,11 @@ const GlobalStyles = () => (
     }
     .animate-fadeSlideIn { animation: fadeSlideIn 0.8s ease forwards; }
     
+    /* Hero video full cover */
+    video {
+      background: transparent;
+    }
+    
     /* Counter card animation */
     .counter-card {
       opacity: 0;
@@ -923,7 +928,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section ref={heroSectionRef} className="relative overflow-hidden" style={{ marginTop: 0, height: '100vh', minHeight: '100vh' }}>
+      <section ref={heroSectionRef} className="relative overflow-hidden" style={{ marginTop: 0, height: '100vh', minHeight: '600px' }}>
         {heroSlides.map((slide, idx) => (
           <div
             key={idx}
@@ -932,8 +937,8 @@ export default function Home() {
             {slide.type === "video" ? (
               <video
                 key={slide.src}
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{ objectPosition: "center center" }}
+                className="absolute top-0 left-0 w-full h-full object-cover"
+                style={{ objectPosition: "center center", display: 'block' }}
                 src={slide.src}
                 poster="/Magiklight factory.jpeg"
                 autoPlay
