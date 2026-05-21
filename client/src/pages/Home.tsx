@@ -796,7 +796,7 @@ export default function Home() {
   const safeAbout = Math.min(activeAbout, aboutItems.length - 1);
 
   const shopCategoryList = [
-    { name: "PANEL & SPOTLIGHT", image: "/panel.png", objectPosition: "center top" },
+    { name: "PANEL & SPOTLIGHT", image: "/panel and spotlights.png", objectPosition: "center top" },
     { name: "OUTDOOR LIGHTS", image: "/outdorr lightsss.png", objectPosition: "center top" },
     { name: "TABLE LAMPS", image: "/Sidelamp 2.png", objectPosition: "85% 0%" },
     { name: "LAMPS", image: "/lampssss.png", objectPosition: "center top" },
@@ -856,7 +856,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F7F0]">
+    <div className="min-h-screen bg-[#F7F7F0]" style={{ backgroundColor: '#F7F7F0' }}>
       <GlobalStyles />
       
       {/* Header */}
@@ -923,7 +923,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section ref={heroSectionRef} className="relative h-[92vh] overflow-hidden">
+      <section ref={heroSectionRef} className="relative overflow-hidden" style={{ marginTop: 0, height: '100vh', minHeight: '100vh' }}>
         {heroSlides.map((slide, idx) => (
           <div
             key={idx}
@@ -932,9 +932,10 @@ export default function Home() {
             {slide.type === "video" ? (
               <video
                 key={slide.src}
-                className="w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover"
                 style={{ objectPosition: "center center" }}
                 src={slide.src}
+                poster="/Magiklight factory.jpeg"
                 autoPlay
                 muted
                 loop
@@ -2857,7 +2858,7 @@ export default function Home() {
               <div>
                 <h4 className="text-sm font-bold text-white mb-3 pb-2 border-b-2 border-[#C9A961]">NEWSLETTER</h4>
                 <div className="flex gap-2">
-                  <input type="email" placeholder="Your email..." className="flex-1 bg-black text-white placeholder-gray-500 px-4 py-2 rounded-full focus:outline-none text-sm" />
+                  <input type="email" placeholder="Your email..." className="flex-1 bg-white/10 text-white placeholder-gray-400 px-4 py-2 rounded-full focus:outline-none text-sm border border-white/20" />
                   <button className="border border-gray-500 text-white px-4 py-2 rounded-full hover:bg-white hover:text-black transition-colors duration-200 text-sm font-medium whitespace-nowrap">Subscribe</button>
                 </div>
               </div>
