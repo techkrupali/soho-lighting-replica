@@ -803,9 +803,9 @@ export default function Home() {
   const shopCategoryList = [
     { name: "PANEL & SPOTLIGHT", image: "/panel and spotlights.png", objectPosition: "center top" },
     { name: "OUTDOOR LIGHTS", image: "/outdorr lightsss.png", objectPosition: "center top" },
-    { name: "TABLE LAMPS", image: "/Sidelamp 2.png", objectPosition: "85% 0%" },
-    { name: "LAMPS", image: "/lampssss.png", objectPosition: "center top" },
-    { name: "BATTEN", image: "/Batten.png", objectPosition: "center top" },
+    { name: "TABLE LAMPS", image: "/lamppp.png", objectPosition: "center center" },
+    { name: "LAMPS", image: "/lamppppppp.png", objectPosition: "center center" },
+    { name: "BATTEN", image: "/batteenn.png", objectPosition: "center center" },
     { name: "ACCESSORIES", image: "/accessries.png", objectPosition: "center top" },
     { name: "STREET LIGHTING", image: "/Streetlightss.png", objectPosition: "center top" },
     { name: "SOLAR LIGHTING", image: "/solarlights.png", objectPosition: "70% center" },
