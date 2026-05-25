@@ -64,110 +64,67 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
 
   const prevSlide = () => go((active - 1 + cards.length) % cards.length, 'left');
   const nextSlide = () => go((active + 1) % cards.length, 'right');
-  const getIdx = (offset: number) => (active + offset + cards.length) % cards.length;
 
   return (
-    <div className="relative w-full bg-[#0a0a0a] overflow-hidden" style={{ aspectRatio: '17/9' }}>
+    <div className="relative w-full overflow-hidden" style={{ aspectRatio: '17/9' }}>
 
-      {/* ── MAIN STAGE with peeking sides ── */}
-      <div className="relative flex items-stretch" style={{ aspectRatio: '17/9' }}>
-
-        {/* Prev peek */}
+      {/* Exiting */}
+      {prev !== null && (
         <div
-          className="relative flex-shrink-0 cursor-pointer group overflow-hidden"
-          style={{ width: '10%' }}
-          onClick={prevSlide}
+          key={`out-${prev}`}
+          className="absolute inset-0 w-full h-full"
+          style={{ animation: `${dir === 'right' ? 'slideOutLeft' : 'slideOutRight'} 0.6s cubic-bezier(0.77,0,0.175,1) forwards`, zIndex: 1 }}
         >
-          <img
-            src={cards[getIdx(-1)].img}
-            alt=""
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            style={{ objectPosition: cards[getIdx(-1)].objectPosition, filter: 'brightness(0.3)' }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-transparent to-transparent" />
+          <img src={cards[prev].img} alt="" className="w-full h-full object-cover" style={{ objectPosition: cards[prev].objectPosition }} />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
         </div>
+      )}
 
-        {/* Active main card */}
-        <div className="relative flex-1 overflow-hidden">
-          {/* Exiting */}
-          {prev !== null && (
-            <div
-              key={`out-${prev}`}
-              className="absolute inset-0"
-              style={{ animation: `${dir === 'right' ? 'slideOutLeft' : 'slideOutRight'} 0.6s cubic-bezier(0.77,0,0.175,1) forwards`, zIndex: 1 }}
-            >
-              <img src={cards[prev].img} alt="" className="w-full h-full object-cover" style={{ objectPosition: cards[prev].objectPosition }} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-            </div>
-          )}
-          {/* Entering */}
-          <div
-            key={`in-${active}`}
-            className="absolute inset-0"
-            style={{ animation: `${dir === 'right' ? 'slideInRight' : 'slideInLeft'} 0.6s cubic-bezier(0.77,0,0.175,1) forwards`, zIndex: 2 }}
-          >
-            <img src={cards[active].img} alt={cards[active].title} className="w-full h-full object-cover" style={{ objectPosition: cards[active].objectPosition }} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+      {/* Entering */}
+      <div
+        key={`in-${active}`}
+        className="absolute inset-0 w-full h-full"
+        style={{ animation: `${dir === 'right' ? 'slideInRight' : 'slideInLeft'} 0.6s cubic-bezier(0.77,0,0.175,1) forwards`, zIndex: 2 }}
+      >
+        <img src={cards[active].img} alt={cards[active].title} className="w-full h-full object-cover" style={{ objectPosition: cards[active].objectPosition }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
 
-            {/* Content overlay */}
-            <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 z-10">
-              <div className="flex items-end justify-between gap-4">
-                <div>
-                  <p className="text-[#C9A961] text-xs tracking-[0.3em] uppercase mb-3 font-medium">
-                    {String(active + 1).padStart(2, '0')} &nbsp;/&nbsp; {String(cards.length).padStart(2, '0')}
-                  </p>
-                  <h3 className="text-white text-2xl md:text-4xl font-serif font-light leading-tight">
-                    {cards[active].title}
-                  </h3>
-                  <div className="flex items-center gap-3 mt-3">
-                    <div className="h-px w-10 bg-[#6B8E7F]" />
-                    <p className="text-white/60 text-xs tracking-[0.2em] uppercase">{cards[active].location}</p>
-                  </div>
-                </div>
+        {/* Content */}
+        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 z-10">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-[#C9A961] text-xs tracking-[0.3em] uppercase mb-2 font-medium">
+                {String(active + 1).padStart(2, '0')} / {String(cards.length).padStart(2, '0')}
+              </p>
+              <h3 className="text-white text-2xl md:text-4xl font-serif font-light leading-tight">
+                {cards[active].title}
+              </h3>
+              <div className="flex items-center gap-3 mt-2">
+                <div className="h-px w-10 bg-[#6B8E7F]" />
+                <p className="text-white/60 text-xs tracking-[0.2em] uppercase">{cards[active].location}</p>
               </div>
             </div>
-
-            {/* Left / Right arrows on image */}
-            <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-[#6B8E7F] flex items-center justify-center hover:bg-[#5a7669] transition-all duration-300">
-              <ChevronLeft size={18} className="text-white" />
-            </button>
-            <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-[#6B8E7F] flex items-center justify-center hover:bg-[#5a7669] transition-all duration-300">
-              <ChevronRight size={18} className="text-white" />
-            </button>
+            {/* Arrows */}
+            <div className="flex gap-2 flex-shrink-0">
+              <button onClick={prevSlide} className="w-11 h-11 rounded-full bg-[#6B8E7F] flex items-center justify-center hover:bg-[#5a7669] transition-all duration-300">
+                <ChevronLeft size={18} className="text-white" />
+              </button>
+              <button onClick={nextSlide} className="w-11 h-11 rounded-full bg-[#6B8E7F] flex items-center justify-center hover:bg-[#5a7669] transition-all duration-300">
+                <ChevronRight size={18} className="text-white" />
+              </button>
+            </div>
           </div>
-        </div>
-
-        {/* Next peek */}
-        <div
-          className="relative flex-shrink-0 cursor-pointer group overflow-hidden"
-          style={{ width: '10%' }}
-          onClick={nextSlide}
-        >
-          <img
-            src={cards[getIdx(1)].img}
-            alt=""
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            style={{ objectPosition: cards[getIdx(1)].objectPosition, filter: 'brightness(0.3)' }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#0a0a0a] via-transparent to-transparent" />
         </div>
       </div>
 
-      {/* ── FILMSTRIP THUMBNAILS ── */}
-      <div className="flex items-center justify-center gap-2 py-4 px-8 bg-[#0f0f0f]">
-        {cards.map((card, i) => (
+      {/* Filmstrip thumbnails */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-2">
+        {cards.map((_, i) => (
           <button
             key={i}
             onClick={() => go(i, i > active ? 'right' : 'left')}
-            className={`relative overflow-hidden flex-shrink-0 rounded-sm transition-all duration-500 ${
-              i === active
-                ? 'w-24 h-14 ring-2 ring-[#6B8E7F] opacity-100'
-                : 'w-14 h-10 opacity-35 hover:opacity-65 hover:w-20'
-            }`}
-          >
-            <img src={card.img} alt={card.title} className="w-full h-full object-cover" style={{ objectPosition: card.objectPosition }} />
-            {i === active && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#6B8E7F]" />}
-          </button>
+            className={`rounded-full transition-all duration-300 ${i === active ? 'bg-[#6B8E7F] w-8 h-1.5' : 'bg-white/40 w-2 h-1.5 hover:bg-white/70'}`}
+          />
         ))}
       </div>
     </div>
@@ -2671,118 +2628,156 @@ export default function Home() {
       {/* Client Love */}
       <ClientLove />
 
-      {/* Distributor Network Banner - Glassmorphism Distributor Theme */}
-      <section className="w-full relative pt-10 pb-20 md:pt-16 md:pb-16 bg-[#373A36] overflow-hidden">
-        {/* Background Colorful Circles - Matching Second Image Colors */}
+      {/* Distributor Network - Premium Light Redesign */}
+      <section className="w-full relative overflow-hidden bg-[#F0F4FF]">
+
+        {/* Background image */}
         <div className="absolute inset-0 z-0">
-          {/* Pink Circle */}
-          <div className="absolute top-[10%] left-[15%] w-64 h-64 bg-[#B05B8A] rounded-full blur-[80px] opacity-40 animate-pulse" />
-          {/* Green Circle */}
-          <div className="absolute top-[40%] right-[10%] w-72 h-72 bg-[#4D8B63] rounded-full blur-[90px] opacity-30 animate-pulse delay-700" />
-          {/* Blue Circle */}
-          <div className="absolute bottom-[15%] left-[30%] w-80 h-80 bg-[#4A86B0] rounded-full blur-[100px] opacity-30 animate-pulse delay-1000" />
+          <img src="/Magiklight factory.jpeg" alt="" className="w-full h-full object-cover" style={{ objectPosition: 'center center' }} />
+          <div className="absolute inset-0 bg-black/55" />
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 text-center mb-10">
-          <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-1">Join Our Network</p>
-          <h2 className="text-white text-4xl md:text-5xl font-serif font-light tracking-widest uppercase">
-            Become a <strong className="font-bold text-white">Distributor</strong>
-          </h2>
-          <div className="flex justify-center mt-3 mb-4">
-            <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-[#6B8E7F]/8 blur-[120px]" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#C9A961]/10 blur-[100px]" />
+          {/* Decorative grid lines */}
+          <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#373A36" strokeWidth="1"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+
+        <div className="relative z-10 container mx-auto px-6 py-16 md:py-24">
+
+          {/* Top label */}
+          <div className="text-center mb-14">
+            <span className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-[10px] tracking-[0.3em] uppercase px-5 py-2 rounded-full font-semibold mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C9A961] animate-pulse" />
+              Join Our Network
+            </span>
+            <h2 className="text-4xl md:text-6xl font-serif font-light text-white leading-tight mt-4">
+              Grow With <em className="not-italic font-bold text-[#C9A961]">Magik</em>
+            </h2>
+            <p className="text-white/70 text-sm md:text-base max-w-lg mx-auto mt-4 leading-relaxed">
+              Partner with India's fastest growing lighting brand. Join 1000+ distributors illuminating the nation.
+            </p>
           </div>
-          <p className="text-white/60 text-sm max-w-xl mx-auto leading-relaxed">
-            Partner with India's fastest growing lighting brand and illuminate the future together.
-          </p>
-        </div>
 
-        <div className="container mx-auto px-6 relative z-10">
+          {/* Main card */}
           <div className="max-w-6xl mx-auto">
-            {/* Glassmorphism Card */}
-            <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
-              
-              {/* Left: Contact Support */}
-              <div className="w-full md:w-2/5 bg-white/5 p-8 md:p-12 flex flex-col justify-center relative overflow-hidden">
-                {/* Internal accent circles */}
-                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#B05B8A]/20 rounded-full blur-3xl" />
-                <div className="absolute top-10 left-10 w-20 h-20 bg-[#4A86B0]/10 rounded-full blur-2xl" />
-                
-                <div className="relative z-10">
-                  <div className="space-y-8">
-                    <div className="flex items-center gap-4 group">
-                      <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#C9A961] transition-colors duration-500">
-                        <Mail size={16} className="text-white" />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Email Support</span>
-                        <span className="text-white/80 text-sm">Info@magiklights.com</span>
-                        <span className="text-white/80 text-sm">helpdesk@magiklights.com</span>
-                      </div>
+            <div className="bg-white rounded-3xl shadow-[0_8px_60px_rgba(0,0,0,0.08)] overflow-hidden border border-[#E8E8E0]">
+              <div className="flex flex-col lg:flex-row">
+
+                {/* Left: Benefits panel */}
+                <div className="lg:w-2/5 bg-gradient-to-br from-[#373A36] to-[#2a2d2a] p-10 md:p-14 flex flex-col justify-between relative overflow-hidden">
+                  {/* Decorative circle */}
+                  <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full border border-white/5" />
+                  <div className="absolute -bottom-10 -left-10 w-48 h-48 rounded-full border border-white/5" />
+                  <div className="absolute top-1/2 right-0 w-32 h-32 bg-[#6B8E7F]/10 rounded-full blur-3xl" />
+
+                  <div className="relative z-10">
+                    <p className="text-[#C9A961] text-[10px] tracking-[0.3em] uppercase font-bold mb-3 font-sans">Why Partner With Us</p>
+                    <h3 className="text-white text-2xl md:text-3xl font-serif font-light leading-snug mb-8">
+                      Power your business<br />with Magik
+                    </h3>
+
+                    <div className="space-y-5">
+                      {[
+                        { icon: '◈', title: 'Marketing Support', desc: 'Full branding & promotional materials' },
+                        { icon: '◈', title: 'Pan-India Reach', desc: '1000+ distributor strong network' },
+                        { icon: '◈', title: 'Dedicated Support', desc: '24/7 sales & technical assistance' },
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-start gap-4 group">
+                          <span className="text-[#C9A961] text-lg mt-0.5 flex-shrink-0">{item.icon}</span>
+                          <div>
+                            <p className="text-white text-sm font-semibold tracking-wide font-sans">{item.title}</p>
+                            <p className="text-white/40 text-xs mt-0.5 font-sans">{item.desc}</p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                    <div className="flex items-center gap-4 group">
-                      <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#C9A961] transition-colors duration-500">
-                        <Phone size={16} className="text-white" />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Phone Support</span>
-                        <span className="text-white/80 text-sm">Toll Free: 18003451345</span>
-                      </div>
+                  </div>
+
+                  {/* Contact info */}
+                  <div className="relative z-10 mt-10 pt-8 border-t border-white/10 space-y-3">
+                    <div className="flex items-center gap-3">
+                      <Mail size={14} className="text-[#C9A961] flex-shrink-0" />
+                      <span className="text-white/60 text-xs">Info@magiklights.com</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Phone size={14} className="text-[#C9A961] flex-shrink-0" />
+                      <span className="text-white/60 text-xs">Toll Free: 18003451345</span>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Right: Distributor Form */}
-              <div className="w-full md:w-3/5 p-8 md:p-12 bg-transparent flex flex-col justify-center">
-                <form className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-12" onSubmit={(e) => e.preventDefault()}>
-                  <div className="space-y-2">
-                    <label className="text-white text-[10px] uppercase tracking-widest font-bold">Full Name</label>
-                    <input type="text" className="w-full bg-transparent border-b border-white py-2 text-white text-sm focus:outline-none focus:border-[#C9A961] transition-all" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-white text-[10px] uppercase tracking-widest font-bold">Company Name</label>
-                    <input type="text" className="w-full bg-transparent border-b border-white py-2 text-white text-sm focus:outline-none focus:border-[#C9A961] transition-all" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-white text-[10px] uppercase tracking-widest font-bold">Email Address</label>
-                    <input type="email" className="w-full bg-transparent border-b border-white py-2 text-white text-sm focus:outline-none focus:border-[#C9A961] transition-all" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-white text-[10px] uppercase tracking-widest font-bold">Phone Number</label>
-                    <input type="tel" className="w-full bg-transparent border-b border-white py-2 text-white text-sm focus:outline-none focus:border-[#C9A961] transition-all placeholder:text-white" placeholder="+91" />
-                  </div>
+                {/* Right: Form */}
+                <div className="lg:w-3/5 p-10 md:p-14">
+                  <p className="text-[#373A36] text-sm font-semibold tracking-widest uppercase mb-1">Apply Now</p>
+                  <h4 className="text-2xl md:text-3xl font-serif font-light text-[#373A36] mb-8">
+                    Become a <strong className="font-bold">Distributor</strong>
+                  </h4>
 
-                  <div className="md:col-span-2 flex justify-end mt-4 relative">
-                    {/* Paper Plane Path Animation */}
-                    <div className="absolute -bottom-16 right-24 w-48 h-24 pointer-events-none hidden md:block">
-                      <svg viewBox="0 0 200 100" className="w-full h-full fill-none">
-                        <path 
-                          d="M20,80 Q60,20 100,60 T180,20" 
-                          stroke="white" 
-                          strokeWidth="1" 
-                          strokeDasharray="4 4" 
-                          className="opacity-20"
-                        />
-                        <g className="animate-[float_4s_ease-in-out_infinite]">
-                          <path 
-                            d="M175,15 L185,25 L170,25 Z" 
-                            fill="white" 
-                            className="opacity-60"
-                            transform="rotate(15 180 20)"
+                  <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {[
+                        { label: 'Full Name', type: 'text', placeholder: 'Your full name' },
+                        { label: 'Company Name', type: 'text', placeholder: 'Your company' },
+                        { label: 'Email Address', type: 'email', placeholder: 'you@company.com' },
+                        { label: 'Phone Number', type: 'tel', placeholder: '+91 00000 00000' },
+                      ].map((field) => (
+                        <div key={field.label} className="group">
+                          <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2">{field.label}</label>
+                          <input
+                            type={field.type}
+                            placeholder={field.placeholder}
+                            className="w-full bg-[#F7F7F0] border border-[#E8E8E0] rounded-xl px-4 py-3 text-sm text-[#373A36] placeholder:text-[#aaa] focus:outline-none focus:border-[#6B8E7F] focus:bg-white transition-all duration-300"
                           />
-                        </g>
-                      </svg>
+                        </div>
+                      ))}
                     </div>
 
-                    <button className="bg-[#C9A961] text-[#373A36] px-12 py-4 rounded-xl font-bold text-sm tracking-widest uppercase hover:bg-white hover:text-[#373A36] transition-all duration-500 shadow-xl group flex items-center gap-3 relative z-10">
-                      Become a Distributor
-                      <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </button>
-                  </div>
-                </form>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2">City / State</label>
+                        <input
+                          type="text"
+                          placeholder="Where are you based?"
+                          className="w-full bg-[#F7F7F0] border border-[#E8E8E0] rounded-xl px-4 py-3 text-sm text-[#373A36] placeholder:text-[#aaa] focus:outline-none focus:border-[#6B8E7F] focus:bg-white transition-all duration-300"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2">Budget</label>
+                        <input
+                          type="text"
+                          placeholder="e.g. ₹1L – ₹5L"
+                          className="w-full bg-[#F7F7F0] border border-[#E8E8E0] rounded-xl px-4 py-3 text-sm text-[#373A36] placeholder:text-[#aaa] focus:outline-none focus:border-[#6B8E7F] focus:bg-white transition-all duration-300"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-2">
+                      <p className="text-[#999] text-xs">We'll get back to you within 24 hours.</p>
+                      <button
+                        type="submit"
+                        className="flex items-center gap-3 bg-[#373A36] text-white px-8 py-3.5 rounded-xl text-sm font-bold tracking-widest uppercase hover:bg-[#6B8E7F] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
+                      >
+                        Submit
+                        <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
