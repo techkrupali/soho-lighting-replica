@@ -2638,7 +2638,7 @@ export default function Home() {
         <div className="mb-10 text-center container mx-auto px-4">
           <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-2">B2B Solutions</p>
           <h2 className="text-4xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] mb-2 leading-tight">
-            B2B Project Showcase
+            Projects We've Illuminated
           </h2>
           <div className="flex justify-center mb-4">
             <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
