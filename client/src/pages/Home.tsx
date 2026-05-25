@@ -816,7 +816,7 @@ export default function Home() {
     { name: "INDOOR LIGHTING", image: "/indorr lighting.png", objectPosition: "center top" },
     { name: "ARCHITECTURAL LIGHTING", image: "/towerimage.png", objectPosition: "center top" },
     { name: "SMART LIGHTING", image: "/smartlightingggg.png", objectPosition: "center top" },
-    { name: "WIRE", image: "/wireeeeeeee.png", objectPosition: "center top" },
+    { name: "WIRE", image: "/wireee.png", objectPosition: "center center" },
   ];
 
   const products = [
