@@ -104,15 +104,13 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
                 <p className="text-white/60 text-xs tracking-[0.2em] uppercase">{cards[active].location}</p>
               </div>
             </div>
-            {/* Arrows */}
-            <div className="flex gap-2 flex-shrink-0">
-              <button onClick={prevSlide} className="w-11 h-11 rounded-full bg-[#6B8E7F] flex items-center justify-center hover:bg-[#5a7669] transition-all duration-300">
-                <ChevronLeft size={18} className="text-white" />
-              </button>
-              <button onClick={nextSlide} className="w-11 h-11 rounded-full bg-[#6B8E7F] flex items-center justify-center hover:bg-[#5a7669] transition-all duration-300">
-                <ChevronRight size={18} className="text-white" />
-              </button>
-            </div>
+            {/* Arrows - inside image on left/right center */}
+            <button onClick={prevSlide} className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-[#6B8E7F] flex items-center justify-center hover:bg-[#5a7669] transition-all duration-300">
+              <ChevronLeft size={18} className="text-white" />
+            </button>
+            <button onClick={nextSlide} className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-[#6B8E7F] flex items-center justify-center hover:bg-[#5a7669] transition-all duration-300">
+              <ChevronRight size={18} className="text-white" />
+            </button>
           </div>
         </div>
       </div>
