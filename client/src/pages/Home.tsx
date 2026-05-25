@@ -2390,7 +2390,7 @@ export default function Home() {
               { number: 10, suffix: "+", label: "Years in Industry", duration: 2000 },
               { number: 1000, suffix: "+", label: "Distributors", duration: 2500 },
               { number: 100000, suffix: "+", label: "Products per Day", duration: 3000 },
-              { number: 10000, suffix: "+", label: "Happy Clients", duration: 2500 },
+              { number: 500, suffix: "+", label: "Commercial Projects", duration: 2500 },
             ].map((stat, idx) => (
               <div 
                 key={idx} 
@@ -2502,18 +2502,18 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
             {[
               {
-                icon: <span className="text-4xl">⚡</span>,
+                icon: <svg className="w-10 h-10 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>,
                 title: "ENERGY EFFICIENT",
                 desc: "Up to 80% less energy than traditional lighting.",
               },
               {
-                icon: <span className="text-4xl">🏆</span>,
+                icon: <svg className="w-10 h-10 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" /></svg>,
                 title: "ISO CERTIFIED QUALITY",
                 desc: "ISO, CE & RoHS certified for international standards.",
                 featured: true,
               },
               {
-                icon: <span className="text-4xl">🌐</span>,
+                icon: <svg className="w-10 h-10 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>,
                 title: "PAN-INDIA NETWORK",
                 desc: "10 Years in Industry | 1000+ Distributors | 1 Lakh+ products per day.",
               },
@@ -2539,17 +2539,17 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
               {
-                icon: <span className="text-4xl">🏭</span>,
+                icon: <svg className="w-10 h-10 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" /></svg>,
                 title: "MADE IN INDIA",
                 desc: "State-of-the-art facility with world-class machinery.",
               },
               {
-                icon: <span className="text-4xl">🔧</span>,
+                icon: <svg className="w-10 h-10 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" /></svg>,
                 title: "END-TO-END SOLUTIONS",
                 desc: "Complete lighting solutions for every project scale.",
               },
               {
-                icon: <span className="text-4xl">💎</span>,
+                icon: <svg className="w-10 h-10 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>,
                 title: "SUSTAINABLE FUTURE",
                 desc: "Eco-friendly materials for a greener tomorrow.",
               },
