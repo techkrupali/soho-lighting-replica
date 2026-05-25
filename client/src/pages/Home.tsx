@@ -812,7 +812,7 @@ export default function Home() {
     { name: "AREA LIGHTING", image: "/arealighting.png", objectPosition: "center 50%" },
     { name: "INDUSTRIAL LIGHTING", image: "/starcementplant.png", objectPosition: "center 80%" },
     { name: "LANDSCAPE LIGHTING", image: "/The Agri Horticulture, Kolkata.jpeg", objectPosition: "center top" },
-    { name: "RETAIL LIGHTING", image: "/retailllhdimage.png", objectPosition: "center top" },
+    { name: "RETAIL LIGHTING", image: "/showroom.png", objectPosition: "center 30%" },
     { name: "INDOOR LIGHTING", image: "/indorr lighting.png", objectPosition: "center top" },
     { name: "ARCHITECTURAL LIGHTING", image: "/towerimage.png", objectPosition: "center top" },
     { name: "SMART LIGHTING", image: "/smartlightingggg.png", objectPosition: "center top" },
