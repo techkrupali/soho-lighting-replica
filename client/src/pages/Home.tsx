@@ -815,7 +815,7 @@ export default function Home() {
     { name: "RETAIL LIGHTING", image: "/showroom.png", objectPosition: "center 30%" },
     { name: "INDOOR LIGHTING", image: "/indorr lighting.png", objectPosition: "center top" },
     { name: "ARCHITECTURAL LIGHTING", image: "/towerimage.png", objectPosition: "center top" },
-    { name: "SMART LIGHTING", image: "/smartlightingggg.png", objectPosition: "center top" },
+    { name: "SMART LIGHTING", image: "/smrt.png", objectPosition: "center center" },
     { name: "WIRE", image: "/wireee.png", objectPosition: "center center" },
   ];
 
