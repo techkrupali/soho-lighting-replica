@@ -50,53 +50,139 @@ type B2BCard = { img: string; title: string; location: string; objectPosition: s
 function B2BCarousel({ cards }: { cards: B2BCard[] }) {
   const [active, setActive] = useState(0);
   const [animating, setAnimating] = useState(false);
-  const [dir, setDir] = useState<'left'|'right'>('right');
-  const [prev, setPrev] = useState<number|null>(null);
+  const [dir, setDir] = useState<'left' | 'right'>('right');
+  const [bgCurrent, setBgCurrent] = useState(0);
+  const [bgNext, setBgNext] = useState<number | null>(null);
+  const [bgAnimating, setBgAnimating] = useState(false);
+  const autoRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const go = (newIdx: number, direction: 'left'|'right') => {
+  const prevIdx = (active - 1 + cards.length) % cards.length;
+  const nextIdx = (active + 1) % cards.length;
+
+  const go = (newIdx: number, direction: 'left' | 'right') => {
     if (animating || newIdx === active) return;
     setDir(direction);
-    setPrev(active);
     setActive(newIdx);
     setAnimating(true);
-    setTimeout(() => { setPrev(null); setAnimating(false); }, 600);
+    // Trigger background crossfade
+    setBgNext(newIdx);
+    setBgAnimating(true);
+    setTimeout(() => {
+      setBgCurrent(newIdx);
+      setBgNext(null);
+      setBgAnimating(false);
+      setAnimating(false);
+    }, 800);
   };
 
-  const prevSlide = () => go((active - 1 + cards.length) % cards.length, 'left');
-  const nextSlide = () => go((active + 1) % cards.length, 'right');
+  const prevSlide = () => go(prevIdx, 'left');
+  const nextSlide = () => go(nextIdx, 'right');
+
+  // Auto-play
+  useEffect(() => {
+    autoRef.current = setTimeout(() => nextSlide(), 4000);
+    return () => { if (autoRef.current) clearTimeout(autoRef.current); };
+  }, [active]);
 
   return (
-    <div className="relative w-full overflow-hidden" style={{ aspectRatio: '17/9' }}>
+    <div className="relative w-full" style={{ minHeight: '520px' }}>
+      {/* ── Full-bleed background slideshow ── */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Current bg */}
+        <img
+          key={`bg-cur-${bgCurrent}`}
+          src={cards[bgCurrent].img}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: cards[bgCurrent].objectPosition, transition: 'opacity 0.8s ease' }}
+        />
+        {/* Next bg fading in */}
+        {bgNext !== null && (
+          <img
+            key={`bg-next-${bgNext}`}
+            src={cards[bgNext].img}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{
+              objectPosition: cards[bgNext].objectPosition,
+              opacity: bgAnimating ? 1 : 0,
+              animation: 'bgFadeIn 0.8s ease forwards',
+            }}
+          />
+        )}
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/60" />
+        {/* Subtle blur vignette on sides */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.5) 100%)' }} />
+      </div>
 
-      {/* Exiting */}
-      {prev !== null && (
+      {/* ── 3-card layout ── */}
+      <div className="relative z-10 flex items-center justify-center py-14 px-0" style={{ minHeight: '520px' }}>
+
+        {/* LEFT peek card */}
         <div
-          key={`out-${prev}`}
-          className="absolute inset-0 w-full h-full"
-          style={{ animation: `${dir === 'right' ? 'slideOutLeft' : 'slideOutRight'} 0.6s cubic-bezier(0.77,0,0.175,1) forwards`, zIndex: 1 }}
+          className="flex-shrink-0 cursor-pointer group"
+          style={{ width: '14%', marginRight: '-2%', zIndex: 1 }}
+          onClick={prevSlide}
         >
-          <img src={cards[prev].img} alt="" className="w-full h-full object-cover" style={{ objectPosition: cards[prev].objectPosition }} />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+          <div
+            className="relative overflow-hidden rounded-r-2xl"
+            style={{
+              height: '340px',
+              boxShadow: '4px 0 30px rgba(0,0,0,0.4)',
+              transform: 'scale(0.88)',
+              transformOrigin: 'right center',
+              transition: 'transform 0.3s ease',
+            }}
+          >
+            <img
+              src={cards[prevIdx].img}
+              alt={cards[prevIdx].title}
+              className="w-full h-full object-cover"
+              style={{ objectPosition: cards[prevIdx].objectPosition }}
+            />
+            <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all duration-300" />
+            {/* Arrow */}
+            <div className="absolute inset-0 flex items-center justify-end pr-3">
+              <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center group-hover:bg-[#6B8E7F] transition-all duration-300">
+                <ChevronLeft size={16} className="text-white" />
+              </div>
+            </div>
+          </div>
         </div>
-      )}
 
-      {/* Entering */}
-      <div
-        key={`in-${active}`}
-        className="absolute inset-0 w-full h-full"
-        style={{ animation: `${dir === 'right' ? 'slideInRight' : 'slideInLeft'} 0.6s cubic-bezier(0.77,0,0.175,1) forwards`, zIndex: 2 }}
-      >
-        <img src={cards[active].img} alt={cards[active].title} className="w-full h-full object-cover" style={{ objectPosition: cards[active].objectPosition }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+        {/* CENTER main card */}
+        <div className="flex-shrink-0 relative" style={{ width: '62%', zIndex: 3 }}>
+          <div
+            className="relative overflow-hidden rounded-2xl"
+            style={{
+              height: '440px',
+              boxShadow: '0 25px 80px rgba(0,0,0,0.6)',
+            }}
+          >
+            {/* Sliding image inside center card */}
+            <div
+              key={`center-${active}`}
+              className="absolute inset-0"
+              style={{
+                animation: `${dir === 'right' ? 'slideInRight' : 'slideInLeft'} 0.7s cubic-bezier(0.77,0,0.175,1) forwards`,
+              }}
+            >
+              <img
+                src={cards[active].img}
+                alt={cards[active].title}
+                className="w-full h-full object-cover"
+                style={{ objectPosition: cards[active].objectPosition }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+            </div>
 
-        {/* Content */}
-        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 z-10">
-          <div className="flex items-end justify-between gap-4">
-            <div>
+            {/* Content overlay */}
+            <div className="absolute bottom-0 left-0 right-0 p-8 z-10">
               <p className="text-[#C9A961] text-xs tracking-[0.3em] uppercase mb-2 font-medium">
                 {String(active + 1).padStart(2, '0')} / {String(cards.length).padStart(2, '0')}
               </p>
-              <h3 className="text-white text-2xl md:text-4xl font-serif font-light leading-tight">
+              <h3 className="text-white text-2xl md:text-3xl font-serif font-light leading-tight">
                 {cards[active].title}
               </h3>
               <div className="flex items-center gap-3 mt-2">
@@ -104,26 +190,51 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
                 <p className="text-white/60 text-xs tracking-[0.2em] uppercase">{cards[active].location}</p>
               </div>
             </div>
-            {/* Arrows - inside image on left/right center */}
-            <button onClick={prevSlide} className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-[#6B8E7F] flex items-center justify-center hover:bg-[#5a7669] transition-all duration-300">
-              <ChevronLeft size={18} className="text-white" />
-            </button>
-            <button onClick={nextSlide} className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-[#6B8E7F] flex items-center justify-center hover:bg-[#5a7669] transition-all duration-300">
-              <ChevronRight size={18} className="text-white" />
-            </button>
+
+            {/* Dot indicators */}
+            <div className="absolute top-5 right-5 z-10 flex gap-1.5">
+              {cards.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={(e) => { e.stopPropagation(); go(i, i > active ? 'right' : 'left'); }}
+                  className={`rounded-full transition-all duration-300 ${i === active ? 'bg-[#C9A961] w-6 h-1.5' : 'bg-white/40 w-1.5 h-1.5 hover:bg-white/70'}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Filmstrip thumbnails */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-2">
-        {cards.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => go(i, i > active ? 'right' : 'left')}
-            className={`rounded-full transition-all duration-300 ${i === active ? 'bg-[#6B8E7F] w-8 h-1.5' : 'bg-white/40 w-2 h-1.5 hover:bg-white/70'}`}
-          />
-        ))}
+        {/* RIGHT peek card */}
+        <div
+          className="flex-shrink-0 cursor-pointer group"
+          style={{ width: '14%', marginLeft: '-2%', zIndex: 1 }}
+          onClick={nextSlide}
+        >
+          <div
+            className="relative overflow-hidden rounded-l-2xl"
+            style={{
+              height: '340px',
+              boxShadow: '-4px 0 30px rgba(0,0,0,0.4)',
+              transform: 'scale(0.88)',
+              transformOrigin: 'left center',
+              transition: 'transform 0.3s ease',
+            }}
+          >
+            <img
+              src={cards[nextIdx].img}
+              alt={cards[nextIdx].title}
+              className="w-full h-full object-cover"
+              style={{ objectPosition: cards[nextIdx].objectPosition }}
+            />
+            <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all duration-300" />
+            {/* Arrow */}
+            <div className="absolute inset-0 flex items-center justify-start pl-3">
+              <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center group-hover:bg-[#6B8E7F] transition-all duration-300">
+                <ChevronRight size={16} className="text-white" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
