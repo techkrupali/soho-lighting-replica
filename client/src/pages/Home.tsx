@@ -808,7 +808,7 @@ export default function Home() {
     { name: "BATTEN", image: "/batteenn.png", objectPosition: "center center" },
     { name: "ACCESSORIES", image: "/accessries.png", objectPosition: "center top" },
     { name: "STREET LIGHTING", image: "/Streetlightss.png", objectPosition: "center top" },
-    { name: "SOLAR LIGHTING", image: "/solarlights.png", objectPosition: "70% center" },
+    { name: "SOLAR LIGHTING", image: "/solarrlightss.png", objectPosition: "center center" },
     { name: "AREA LIGHTING", image: "/arealighting.png", objectPosition: "center 50%" },
     { name: "INDUSTRIAL LIGHTING", image: "/starcementplant.png", objectPosition: "center 80%" },
     { name: "LANDSCAPE LIGHTING", image: "/The Agri Horticulture, Kolkata.jpeg", objectPosition: "center top" },
