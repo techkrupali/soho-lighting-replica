@@ -49,69 +49,127 @@ type B2BCard = { img: string; title: string; location: string; objectPosition: s
 
 function B2BCarousel({ cards }: { cards: B2BCard[] }) {
   const [active, setActive] = useState(0);
-  const [prev2, setPrev2] = useState<number|null>(null);
+  const [animating, setAnimating] = useState(false);
   const [dir, setDir] = useState<'left'|'right'>('right');
+  const [prev, setPrev] = useState<number|null>(null);
 
   const go = (newIdx: number, direction: 'left'|'right') => {
+    if (animating || newIdx === active) return;
     setDir(direction);
-    setPrev2(active);
+    setPrev(active);
     setActive(newIdx);
-    setTimeout(() => setPrev2(null), 450);
+    setAnimating(true);
+    setTimeout(() => { setPrev(null); setAnimating(false); }, 600);
   };
 
   const prevSlide = () => go((active - 1 + cards.length) % cards.length, 'left');
   const nextSlide = () => go((active + 1) % cards.length, 'right');
-  const goTo = (i: number) => go(i, i > active ? 'right' : 'left');
   const getIdx = (offset: number) => (active + offset + cards.length) % cards.length;
 
-  const slideInAnim  = dir === 'right' ? 'slideInRight'  : 'slideInLeft';
-  const slideOutAnim = dir === 'right' ? 'slideOutLeft'  : 'slideOutRight';
-
   return (
-    <div className="relative w-full overflow-hidden" style={{ aspectRatio: '17/9' }}>
+    <div className="relative w-full bg-[#0a0a0a] overflow-hidden" style={{ aspectRatio: '17/9' }}>
 
-      {/* Exiting card */}
-      {prev2 !== null && (
-        <div key={`out-${prev2}`} className="absolute inset-0 w-full h-full"
-          style={{ animation: `${slideOutAnim} 0.45s ease forwards`, zIndex: 1 }}>
-          <img src={cards[prev2].img} alt="" className="w-full h-full object-cover object-center" style={{ objectPosition: cards[prev2].objectPosition }} />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-          <div className="absolute bottom-0 left-0 p-8 md:p-16 lg:p-24">
-            <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-serif font-light leading-snug">{cards[prev2].title}</h3>
-            <p className="text-white/70 text-base md:text-lg mt-2 tracking-widest uppercase">{cards[prev2].location}</p>
-            <div className="h-1 w-16 bg-[#6B8E7F] mt-4 rounded-full" />
+      {/* ── MAIN STAGE with peeking sides ── */}
+      <div className="relative flex items-stretch" style={{ aspectRatio: '17/9' }}>
+
+        {/* Prev peek */}
+        <div
+          className="relative flex-shrink-0 cursor-pointer group overflow-hidden"
+          style={{ width: '10%' }}
+          onClick={prevSlide}
+        >
+          <img
+            src={cards[getIdx(-1)].img}
+            alt=""
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            style={{ objectPosition: cards[getIdx(-1)].objectPosition, filter: 'brightness(0.3)' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-transparent to-transparent" />
+        </div>
+
+        {/* Active main card */}
+        <div className="relative flex-1 overflow-hidden">
+          {/* Exiting */}
+          {prev !== null && (
+            <div
+              key={`out-${prev}`}
+              className="absolute inset-0"
+              style={{ animation: `${dir === 'right' ? 'slideOutLeft' : 'slideOutRight'} 0.6s cubic-bezier(0.77,0,0.175,1) forwards`, zIndex: 1 }}
+            >
+              <img src={cards[prev].img} alt="" className="w-full h-full object-cover" style={{ objectPosition: cards[prev].objectPosition }} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+            </div>
+          )}
+          {/* Entering */}
+          <div
+            key={`in-${active}`}
+            className="absolute inset-0"
+            style={{ animation: `${dir === 'right' ? 'slideInRight' : 'slideInLeft'} 0.6s cubic-bezier(0.77,0,0.175,1) forwards`, zIndex: 2 }}
+          >
+            <img src={cards[active].img} alt={cards[active].title} className="w-full h-full object-cover" style={{ objectPosition: cards[active].objectPosition }} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+
+            {/* Content overlay */}
+            <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 z-10">
+              <div className="flex items-end justify-between gap-4">
+                <div>
+                  <p className="text-[#C9A961] text-xs tracking-[0.3em] uppercase mb-3 font-medium">
+                    {String(active + 1).padStart(2, '0')} &nbsp;/&nbsp; {String(cards.length).padStart(2, '0')}
+                  </p>
+                  <h3 className="text-white text-2xl md:text-4xl font-serif font-light leading-tight">
+                    {cards[active].title}
+                  </h3>
+                  <div className="flex items-center gap-3 mt-3">
+                    <div className="h-px w-10 bg-[#6B8E7F]" />
+                    <p className="text-white/60 text-xs tracking-[0.2em] uppercase">{cards[active].location}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Left / Right arrows on image */}
+            <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-[#6B8E7F] flex items-center justify-center hover:bg-[#5a7669] transition-all duration-300">
+              <ChevronLeft size={18} className="text-white" />
+            </button>
+            <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-[#6B8E7F] flex items-center justify-center hover:bg-[#5a7669] transition-all duration-300">
+              <ChevronRight size={18} className="text-white" />
+            </button>
           </div>
         </div>
-      )}
 
-      {/* Entering card */}
-      <div key={`in-${active}`} className="absolute inset-0 w-full h-full"
-        style={{ animation: `${slideInAnim} 0.45s ease forwards`, zIndex: 2 }}>
-        <img src={cards[active].img} alt={cards[active].title} className="w-full h-full object-cover" style={{ objectPosition: cards[active].objectPosition }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 p-8 md:p-16 lg:p-24">
-          <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-serif font-light leading-snug">{cards[active].title}</h3>
-          <p className="text-white/70 text-base md:text-lg mt-2 tracking-widest uppercase">{cards[active].location}</p>
-          <div className="h-1 w-16 bg-[#6B8E7F] mt-4 rounded-full" />
+        {/* Next peek */}
+        <div
+          className="relative flex-shrink-0 cursor-pointer group overflow-hidden"
+          style={{ width: '10%' }}
+          onClick={nextSlide}
+        >
+          <img
+            src={cards[getIdx(1)].img}
+            alt=""
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            style={{ objectPosition: cards[getIdx(1)].objectPosition, filter: 'brightness(0.3)' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-l from-[#0a0a0a] via-transparent to-transparent" />
         </div>
       </div>
 
-      {/* Dots */}
-      <div className="absolute bottom-12 md:bottom-20 left-1/2 -translate-x-1/2 z-30 flex gap-3">
-        {cards.map((_, i) => (
-          <button key={i} onClick={() => goTo(i)} className={`rounded-full transition-all duration-500 ${i === active ? 'bg-[#6B8E7F] w-12 h-1.5' : 'bg-white/40 w-3 h-1.5 hover:bg-white/60'}`} />
+      {/* ── FILMSTRIP THUMBNAILS ── */}
+      <div className="flex items-center justify-center gap-2 py-4 px-8 bg-[#0f0f0f]">
+        {cards.map((card, i) => (
+          <button
+            key={i}
+            onClick={() => go(i, i > active ? 'right' : 'left')}
+            className={`relative overflow-hidden flex-shrink-0 rounded-sm transition-all duration-500 ${
+              i === active
+                ? 'w-24 h-14 ring-2 ring-[#6B8E7F] opacity-100'
+                : 'w-14 h-10 opacity-35 hover:opacity-65 hover:w-20'
+            }`}
+          >
+            <img src={card.img} alt={card.title} className="w-full h-full object-cover" style={{ objectPosition: card.objectPosition }} />
+            {i === active && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#6B8E7F]" />}
+          </button>
         ))}
       </div>
-
-      {/* Prev arrow */}
-      <button onClick={prevSlide} className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-lg transition-all duration-300">
-        <ChevronLeft size={24} className="text-white" />
-      </button>
-
-      {/* Next arrow */}
-      <button onClick={nextSlide} className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-lg transition-all duration-300">
-        <ChevronRight size={24} className="text-white" />
-      </button>
     </div>
   );
 }
