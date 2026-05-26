@@ -55,88 +55,117 @@ type B2BCard = { img: string; title: string; location: string; objectPosition: s
 
 function B2BCarousel({ cards }: { cards: B2BCard[] }) {
   const [active, setActive] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  const handleNext = () => setActive((prev) => (prev + 1) % cards.length);
-  const handlePrev = () => setActive((prev) => (prev - 1 + cards.length) % cards.length);
+  const handleNext = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setActive((prev) => (prev + 1) % cards.length);
+    setTimeout(() => setIsAnimating(false), 500);
+  };
+  const handlePrev = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setActive((prev) => (prev - 1 + cards.length) % cards.length);
+    setTimeout(() => setIsAnimating(false), 500);
+  };
 
-  const getCard = (offset: number) => cards[(active + offset + cards.length) % cards.length];
+  const getCardStyle = (offset: number): React.CSSProperties => {
+    const absOffset = Math.abs(offset);
+    if (absOffset === 0) {
+      return {
+        transform: 'translateX(0%) translateZ(0px) rotateY(0deg) scale(1)',
+        zIndex: 10,
+        opacity: 1,
+        filter: 'brightness(1)',
+      };
+    }
+    if (absOffset === 1) {
+      const dir = offset > 0 ? 1 : -1;
+      return {
+        transform: `translateX(${dir * 62}%) translateZ(-180px) rotateY(${dir * -38}deg) scale(0.82)`,
+        zIndex: 5,
+        opacity: 0.75,
+        filter: 'brightness(0.65)',
+      };
+    }
+    const dir = offset > 0 ? 1 : -1;
+    return {
+      transform: `translateX(${dir * 95}%) translateZ(-320px) rotateY(${dir * -52}deg) scale(0.65)`,
+      zIndex: 1,
+      opacity: 0.35,
+      filter: 'brightness(0.4)',
+    };
+  };
+
+  const visibleOffsets = [-2, -1, 0, 1, 2];
 
   return (
     <div className="relative w-full bg-white py-10 overflow-hidden">
-      <div className="relative flex items-center justify-center" style={{ height: '700px' }}>
+      <div
+        className="relative flex items-center justify-center"
+        style={{ height: '700px', perspective: '1200px', perspectiveOrigin: 'center 45%' }}
+      >
+        {visibleOffsets.map((offset) => {
+          const cardIndex = (active + offset + cards.length) % cards.length;
+          const card = cards[cardIndex];
+          const style = getCardStyle(offset);
+          return (
+            <div
+              key={cardIndex + '-' + offset}
+              onClick={() => {
+                if (offset === -1 || offset === -2) handlePrev();
+                else if (offset === 1 || offset === 2) handleNext();
+              }}
+              style={{
+                position: 'absolute',
+                width: '72%',
+                height: '550px',
+                cursor: offset !== 0 ? 'pointer' : 'default',
+                transition: 'transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.55s ease, filter 0.55s ease',
+                transformStyle: 'preserve-3d',
+                ...style,
+              }}
+            >
+              <div className="w-full h-full overflow-hidden shadow-2xl" style={{ borderRadius: '4px' }}>
+                <img
+                  src={card.img}
+                  alt={card.title}
+                  className="w-full h-full object-cover"
+                  style={{ objectPosition: card.objectPosition }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                {offset === 0 && (
+                  <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+                    <h3 className="text-white text-xl md:text-3xl font-serif font-light leading-tight mb-3">
+                      {card.title}
+                    </h3>
+                    <div className="flex items-center gap-4">
+                      <div className="h-px w-12 bg-[#6B8E7F]" />
+                      <p className="text-white/60 text-xs md:text-sm tracking-[0.2em] uppercase">{card.location}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
 
-        {/* Left peek card */}
-        <div
-          className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer"
-          style={{ width: '8%', height: '550px', zIndex: 1 }}
-          onClick={handlePrev}
-        >
-          <div className="w-full h-full overflow-hidden opacity-50">
-            <img src={getCard(-1).img} alt="" className="w-full h-full object-cover" style={{ objectPosition: getCard(-1).objectPosition }} />
-            <div className="absolute inset-0 bg-black/40" />
-          </div>
-        </div>
-
-        {/* Left arrow — on top of peek card, vertically centered */}
+        {/* Left arrow */}
         <button
           onClick={handlePrev}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-lg transition-all duration-200"
-          style={{ left: '3%' }}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-lg transition-all duration-200"
         >
           <ChevronLeft size={22} className="text-[#373A36]" />
         </button>
 
-        {/* Main center card */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.96 }}
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
-            className="relative z-10 overflow-hidden shadow-2xl"
-            style={{ width: '82%', height: '550px' }}
-          >
-            <img
-              src={cards[active].img}
-              alt={cards[active].title}
-              className="w-full h-full object-cover"
-              style={{ objectPosition: cards[active].objectPosition }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-              <h3 className="text-white text-xl md:text-3xl font-serif font-light leading-tight mb-3">
-                {cards[active].title}
-              </h3>
-              <div className="flex items-center gap-4">
-                <div className="h-px w-12 bg-[#6B8E7F]" />
-                <p className="text-white/60 text-xs md:text-sm tracking-[0.2em] uppercase">{cards[active].location}</p>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Right peek card */}
-        <div
-          className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer"
-          style={{ width: '8%', height: '550px', zIndex: 1 }}
-          onClick={handleNext}
-        >
-          <div className="w-full h-full overflow-hidden opacity-50">
-            <img src={getCard(1).img} alt="" className="w-full h-full object-cover" style={{ objectPosition: getCard(1).objectPosition }} />
-            <div className="absolute inset-0 bg-black/40" />
-          </div>
-        </div>
-
         {/* Right arrow */}
         <button
           onClick={handleNext}
-          className="absolute top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-lg transition-all duration-200"
-          style={{ right: '3%' }}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-lg transition-all duration-200"
         >
           <ChevronRight size={22} className="text-[#373A36]" />
         </button>
-
       </div>
 
       {/* Dots */}
