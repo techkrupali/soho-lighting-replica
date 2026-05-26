@@ -2957,62 +2957,177 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#373A36] text-white">
-        <div className="container mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <footer className="relative bg-[#1a1c18] text-white overflow-hidden">
 
-            {/* Brand + Social */}
-            <div>
-              <h2 className="text-3xl font-serif text-white mb-2">Magik Lighting</h2>
-              <p className="text-white/60 text-sm mb-6">Illuminating spaces with premium LED solutions.</p>
-              <div className="flex gap-3">
-                {[
-                  { label: 'Facebook', href: 'https://facebook.com', icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg> },
-                  { label: 'Instagram', href: 'https://instagram.com/magiklighting', icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" /></svg> },
-                  { label: 'YouTube', href: 'https://youtube.com', icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" /><polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" /></svg> },
-                  { label: 'LinkedIn', href: 'https://linkedin.com', icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg> },
-                  { label: 'Twitter', href: 'https://twitter.com', icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg> },
-                ].map((s) => (
-                  <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
-                    className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center text-white/70 hover:text-[#C9A961] hover:border-[#C9A961] transition-colors duration-200">
-                    {s.icon}
-                  </a>
-                ))}
+        {/* Decorative glow orbs */}
+        <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[260px] rounded-full opacity-20"
+          style={{ background: 'radial-gradient(ellipse at center, #C9A961 0%, transparent 70%)' }} />
+        <div className="pointer-events-none absolute top-0 left-0 w-[300px] h-[300px] rounded-full opacity-10"
+          style={{ background: 'radial-gradient(ellipse at center, #C9A961 0%, transparent 70%)' }} />
+        <div className="pointer-events-none absolute bottom-0 right-0 w-[400px] h-[300px] rounded-full opacity-10"
+          style={{ background: 'radial-gradient(ellipse at center, #C9A961 0%, transparent 70%)' }} />
+
+        {/* Top accent line */}
+        <div className="w-full h-px" style={{ background: 'linear-gradient(90deg, transparent 0%, #C9A961 30%, #fff8e7 50%, #C9A961 70%, transparent 100%)' }} />
+
+        {/* Big brand statement */}
+        <div className="relative text-center pt-14 pb-10 px-6">
+          <p className="text-xs tracking-[0.35em] text-[#C9A961] uppercase mb-3 font-sans">Crafting Light. Defining Spaces.</p>
+          <h2 className="font-serif text-5xl md:text-7xl font-light text-white/90 leading-none tracking-tight select-none"
+            style={{ textShadow: '0 0 60px rgba(201,169,97,0.25)' }}>
+            MAGIK <span className="text-[#C9A961]">LIGHTING</span>
+          </h2>
+          {/* Decorative filament line */}
+          <div className="flex items-center justify-center gap-3 mt-6">
+            <div className="h-px w-16 bg-gradient-to-r from-transparent to-[#C9A961]" />
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-[#C9A961]">
+              <circle cx="12" cy="12" r="3" fill="currentColor" />
+              <path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+            <div className="h-px w-16 bg-gradient-to-l from-transparent to-[#C9A961]" />
+          </div>
+        </div>
+
+        {/* Main grid */}
+        <div className="relative container mx-auto px-6 pb-14">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 border-t border-white/10 pt-12">
+
+            {/* Col 1 — Brand + Contact + Social */}
+            <div className="md:col-span-1 flex flex-col gap-7">
+              {/* Tagline */}
+              <p className="text-white/50 text-sm leading-relaxed font-sans">
+                Premium LED solutions engineered for brilliance — from residential warmth to industrial power.
+              </p>
+
+              {/* Contact */}
+              <div>
+                <h4 className="text-[10px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-4">Get In Touch</h4>
+                <ul className="space-y-3 text-sm text-white/70">
+                  <li className="flex items-start gap-2.5">
+                    <svg className="w-4 h-4 mt-0.5 shrink-0 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span>Info@magiklights.com</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <svg className="w-4 h-4 mt-0.5 shrink-0 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span>helpdesk@magiklights.com</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <svg className="w-4 h-4 mt-0.5 shrink-0 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+                    <span>Toll Free: 18003451345</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Social */}
+              <div>
+                <h4 className="text-[10px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-4">Follow Us</h4>
+                <div className="flex gap-2.5 flex-wrap">
+                  {[
+                    { label: 'Facebook', href: 'https://facebook.com', icon: <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg> },
+                    { label: 'Instagram', href: 'https://instagram.com/magiklighting', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" /></svg> },
+                    { label: 'YouTube', href: 'https://youtube.com', icon: <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" /><polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" /></svg> },
+                    { label: 'LinkedIn', href: 'https://linkedin.com', icon: <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg> },
+                    { label: 'Twitter', href: 'https://twitter.com', icon: <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg> },
+                  ].map((s) => (
+                    <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
+                      className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-[#C9A961] hover:border-[#C9A961] hover:shadow-[0_0_12px_rgba(201,169,97,0.4)] transition-all duration-300">
+                      {s.icon}
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Quick Links */}
+            {/* Col 2 — Footer Links */}
             <div>
-              <h4 className="text-sm font-bold text-white mb-3 pb-2 border-b-2 border-[#C9A961]">QUICK LINKS</h4>
-              <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
+              <h4 className="text-[10px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-6">Footer Links</h4>
+              <ul className="space-y-3">
                 {[
-                  { label: 'Brochures', href: '#' }, { label: 'Ledpedia', href: '#' },
-                  { label: 'Become a Distributor', href: '#' }, { label: 'News & Media', href: '#' },
-                  { label: 'Gallery', href: '#' }, { label: 'Blogs', href: '#' },
-                  { label: 'Career', href: '#' }, { label: 'Contact Us', href: '#' },
+                  { label: 'Home', href: '#' },
+                  { label: 'About Us', href: '#' },
+                  { label: 'Shop By Category', href: '#shop-by-category' },
+                  { label: 'Contact Us', href: '#' },
+                  { label: 'Brochures', href: '#' },
+                  { label: 'Ledpedia', href: '#' },
+                  { label: 'Become a Distributor', href: '#' },
+                  { label: 'News & Media', href: '#' },
+                  { label: 'Gallery', href: '#' },
+                  { label: 'Blogs', href: '#' },
+                  { label: 'Career', href: '#' },
                 ].map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className="text-sm text-gray-300 hover:text-white transition-colors duration-200">{link.label}</a>
+                    <a href={link.href}
+                      className="group flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-200">
+                      <span className="w-0 group-hover:w-3 h-px bg-[#C9A961] transition-all duration-300 shrink-0" />
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Contact + Newsletter */}
-            <div className="space-y-6">
-              <div>
-                <h4 className="text-sm font-bold text-white mb-3 pb-2 border-b-2 border-[#C9A961]">CONTACT</h4>
-                <div className="space-y-2 text-sm text-gray-300">
-                  <p>📧 Info@magiklights.com</p>
-                  <p>📧 helpdesk@magiklights.com</p>
-                  <p>📞 Toll Free: 18003451345</p>
-                </div>
+            {/* Col 3 — Shop By Category */}
+            <div>
+              <h4 className="text-[10px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-6">Shop By Category</h4>
+              <ul className="space-y-3">
+                {[
+                  'Panel & Spotlight',
+                  'Outdoor Lights',
+                  'Table Lamps',
+                  'Lamps',
+                  'Batten',
+                  'Accessories',
+                  'Street Lighting',
+                  'Solar Lighting',
+                  'Area Lighting',
+                  'Industrial Lighting',
+                  'Landscape Lighting',
+                  'Retail Lighting',
+                  'Indoor Lighting',
+                  'Architectural Lighting',
+                  'Smart Lighting',
+                  'Wire',
+                ].map((cat) => (
+                  <li key={cat}>
+                    <a href="#shop-by-category"
+                      className="group flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-200">
+                      <span className="w-0 group-hover:w-3 h-px bg-[#C9A961] transition-all duration-300 shrink-0" />
+                      {cat}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 4 — Glowing CTA card */}
+            <div className="flex flex-col gap-6">
+              {/* Light bulb CTA */}
+              <div className="relative rounded-2xl overflow-hidden border border-white/10 p-6"
+                style={{ background: 'linear-gradient(135deg, rgba(201,169,97,0.12) 0%, rgba(255,255,255,0.03) 100%)' }}>
+                <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-20 -translate-y-8 translate-x-8"
+                  style={{ background: 'radial-gradient(circle, #C9A961 0%, transparent 70%)' }} />
+                <svg className="w-10 h-10 text-[#C9A961] mb-4" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                  <path d="M9 21h6M12 3a6 6 0 0 1 6 6c0 2.22-1.21 4.16-3 5.2V17H9v-2.8A6 6 0 0 1 6 9a6 6 0 0 1 6-6z" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <h5 className="text-white font-serif text-lg mb-2">Light Up Your Space</h5>
+                <p className="text-white/50 text-xs leading-relaxed mb-4">Explore our full range of premium LED solutions crafted for every environment.</p>
+                <a href="#shop-by-category"
+                  className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#C9A961] hover:text-white transition-colors duration-200">
+                  Explore Products
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </a>
               </div>
+
+              {/* Certifications / trust badges */}
               <div>
-                <h4 className="text-sm font-bold text-white mb-3 pb-2 border-b-2 border-[#C9A961]">NEWSLETTER</h4>
-                <div className="flex gap-2">
-                  <input type="email" placeholder="Your email..." className="flex-1 bg-white/10 text-white placeholder-gray-400 px-4 py-2 rounded-full focus:outline-none text-sm border border-white/20" />
-                  <button className="border border-gray-500 text-white px-4 py-2 rounded-full hover:bg-white hover:text-black transition-colors duration-200 text-sm font-medium whitespace-nowrap">Subscribe</button>
+                <h4 className="text-[10px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-4">Certifications</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['BIS Certified', 'ISO 9001', 'Energy Star', 'RoHS'].map((badge) => (
+                    <span key={badge}
+                      className="text-[10px] tracking-wider uppercase px-3 py-1.5 rounded-full border border-white/20 text-white/50 font-medium">
+                      {badge}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -3021,9 +3136,18 @@ export default function Home() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-gray-700">
-          <div className="container mx-auto px-6 py-3 flex items-center justify-between flex-wrap gap-2">
-            <p className="text-sm text-gray-300">© 2026 Magik LED | <a href="#" className="hover:text-white">Terms of Use</a> | <a href="#" className="hover:text-white">Sitemap</a></p>
+        <div className="relative border-t border-white/10">
+          <div className="container mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="text-xs text-white/40 tracking-wide">
+              © 2026 Magik LED Pvt. Ltd. All rights reserved.
+            </p>
+            <div className="flex items-center gap-5 text-xs text-white/40">
+              <a href="#" className="hover:text-[#C9A961] transition-colors duration-200">Terms of Use</a>
+              <span className="w-px h-3 bg-white/20" />
+              <a href="#" className="hover:text-[#C9A961] transition-colors duration-200">Privacy Policy</a>
+              <span className="w-px h-3 bg-white/20" />
+              <a href="#" className="hover:text-[#C9A961] transition-colors duration-200">Sitemap</a>
+            </div>
           </div>
         </div>
       </footer>
