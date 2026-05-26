@@ -725,7 +725,7 @@ export default function Home() {
   });
   const [showSpaceModal, setShowSpaceModal] = useState(false);
   const [showProductModal, setShowProductModal] = useState<string | null>(null);
-  const [activeSpace, setActiveSpace] = useState<'Kitchen' | 'Bathroom' | 'Livingroom' | 'Bedroom'>('Livingroom');
+  const [activeSpace, setActiveSpace] = useState<'Kitchen' | 'Bathroom' | 'Livingroom' | 'Bedroom'>('Bedroom');
   const [livingroomLights, setLivingroomLights] = useState({
     light1: true,
     light2: true,
@@ -2488,7 +2488,7 @@ export default function Home() {
             {[
               { number: 10, suffix: "+", label: "Years in Industry", duration: 2000 },
               { number: 1000, suffix: "+", label: "Distributors", duration: 2500 },
-              { number: 100000, suffix: "+", label: "Products per Day", duration: 3000 },
+              { number: 100000, suffix: "+", label: "Product Production per Day", duration: 3000 },
               { number: 500, suffix: "+", label: "Commercial Projects", duration: 2500 },
             ].map((stat, idx) => (
               <div 
@@ -2767,9 +2767,10 @@ export default function Home() {
 
                     <div className="space-y-5">
                       {[
-                        { icon: '◈', title: 'Marketing Support', desc: 'Full branding & promotional materials' },
-                        { icon: '◈', title: 'Pan-India Reach', desc: '1000+ distributor strong network' },
-                        { icon: '◈', title: 'Dedicated Support', desc: '24/7 sales & technical assistance' },
+                        { icon: '◈', title: "Eastern India's Largest LED Manufacturing Facility", desc: '' },
+                        { icon: '◈', title: 'NABL Certified Lab & In-House R&D Centre', desc: '' },
+                        { icon: '◈', title: '750+ Top Quality Products', desc: '' },
+                        { icon: '◈', title: 'High ROI', desc: '' },
                       ].map((item, i) => (
                         <div key={i} className="flex items-start gap-4 group">
                           <span className="text-[#C9A961] text-lg mt-0.5 flex-shrink-0">{item.icon}</span>
@@ -2831,10 +2832,21 @@ export default function Home() {
                         />
                       </div>
                       <div>
-                        <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Budget</label>
+                        <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Investment</label>
                         <input
                           type="text"
                           placeholder="e.g. ₹1L – ₹5L"
+                          className="w-full bg-[#F7F7F0] border border-[#E8E8E0] rounded-xl px-4 py-3 text-sm text-[#373A36] placeholder:text-[#aaa] focus:outline-none focus:border-[#6B8E7F] focus:bg-white transition-all duration-300"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Distribution Area</label>
+                        <input
+                          type="text"
+                          placeholder="e.g. West Bengal, Odisha"
                           className="w-full bg-[#F7F7F0] border border-[#E8E8E0] rounded-xl px-4 py-3 text-sm text-[#373A36] placeholder:text-[#aaa] focus:outline-none focus:border-[#6B8E7F] focus:bg-white transition-all duration-300"
                         />
                       </div>
