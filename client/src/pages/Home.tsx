@@ -2672,7 +2672,7 @@ export default function Home() {
                             <p className="text-white/40 text-xs mt-0.5" style={{ fontFamily: "'Lora', serif" }}>{item.desc}</p>
                           </div>
                         </div>
-                      ))}}
+                      ))}
                     </div>
                   </div>
 
