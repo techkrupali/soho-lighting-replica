@@ -217,7 +217,7 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
 
 const blogPosts = [
   { category: "TRENDS",    img: "/indorr lighting.png",                    title: "Top 5 Lighting Trends for Luxury Hospitality in 2024",          excerpt: "From warm tunable whites to architectural accent lighting — what top hotels are choosing.",          date: "Feb 28, 2024", read: "4 min read" },
-  { category: "QUALITY",   img: "/The Agri Horticulture, Kolkata2.jpeg",    title: "BIS Certification: Why It Matters for Your LED Purchase",        excerpt: "Understanding quality certifications and why BIS-certified LEDs are the only safe choice.",          date: "Feb 10, 2024", read: "3 min read" },
+  { category: "QUALITY",   img: "/The Agri Horticulture, Kolkata2.png",    title: "BIS Certification: Why It Matters for Your LED Purchase",        excerpt: "Understanding quality certifications and why BIS-certified LEDs are the only safe choice.",          date: "Feb 10, 2024", read: "3 min read" },
   { category: "INDUSTRIAL",img: "/starcementplant.png",                    title: "Industrial Lighting: High-Bay LEDs for Maximum Output",          excerpt: "A complete guide to choosing the right high-bay LED fixtures for warehouses and factories.",          date: "Jan 22, 2024", read: "6 min read" },
   { category: "TRENDS",    img: "/towerimage.png",                         title: "Smart Lighting Controls: Dimming & Automation Guide",            excerpt: "How smart dimming systems and automation can reduce energy waste and improve ambiance.",              date: "Jan 10, 2024", read: "5 min read" },
   { category: "INDUSTRIAL",img: "/Durgapur Steel Plant, West Bengal.jpeg", title: "Outdoor LED Flood Lights: Installation Tips",                   excerpt: "Everything you need to know about choosing and installing outdoor flood lights.",                    date: "Dec 18, 2023", read: "4 min read" },
@@ -2736,10 +2736,10 @@ export default function Home() {
           </svg>
         </div>
 
-        <div className="relative z-10 container mx-auto px-6 py-16 md:py-24">
+        <div className="relative z-10 container mx-auto px-6 py-8 md:py-12">
 
           {/* Top label */}
-          <div className="text-center mb-14">
+          <div className="text-center mb-6">
             <span className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-[10px] tracking-[0.3em] uppercase px-5 py-2 rounded-full font-semibold mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C9A961] animate-pulse" />
               Join Our Network
@@ -2760,8 +2760,8 @@ export default function Home() {
                   <div className="absolute top-1/2 right-0 w-32 h-32 bg-[#6B8E7F]/10 rounded-full blur-3xl" />
 
                   <div className="relative z-10">
-                    <p className="text-[#C9A961] text-[10px] tracking-[0.3em] uppercase font-bold mb-3 font-sans">Why Partner With Us</p>
-                    <h3 className="text-white text-2xl md:text-3xl font-serif font-light leading-snug mb-8">
+                    <p className="text-[#C9A961] text-[10px] tracking-[0.3em] uppercase font-bold mb-3" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Why Partner With Us</p>
+                    <h3 className="text-white text-2xl md:text-3xl font-light leading-snug mb-8" style={{ fontFamily: "'Lora', serif" }}>
                       Power your business<br />with Magik
                     </h3>
 
@@ -2774,8 +2774,8 @@ export default function Home() {
                         <div key={i} className="flex items-start gap-4 group">
                           <span className="text-[#C9A961] text-lg mt-0.5 flex-shrink-0">{item.icon}</span>
                           <div>
-                            <p className="text-white text-sm font-semibold tracking-wide font-sans">{item.title}</p>
-                            <p className="text-white/40 text-xs mt-0.5 font-sans">{item.desc}</p>
+                            <p className="text-white text-sm font-semibold tracking-wide" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>{item.title}</p>
+                            <p className="text-white/40 text-xs mt-0.5" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>{item.desc}</p>
                           </div>
                         </div>
                       ))}
@@ -2786,19 +2786,19 @@ export default function Home() {
                   <div className="relative z-10 mt-10 pt-8 border-t border-white/10 space-y-3">
                     <div className="flex items-center gap-3">
                       <Mail size={14} className="text-[#C9A961] flex-shrink-0" />
-                      <span className="text-white/60 text-xs">Info@magiklights.com</span>
+                      <span className="text-white/60 text-xs" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Info@magiklights.com</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <Phone size={14} className="text-[#C9A961] flex-shrink-0" />
-                      <span className="text-white/60 text-xs">Toll Free: 18003451345</span>
+                      <span className="text-white/60 text-xs" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Toll Free: 18003451345</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Right: Form */}
                 <div className="lg:w-3/5 p-10 md:p-14">
-                  <p className="text-[#373A36] text-sm font-semibold tracking-widest uppercase mb-1">Apply Now</p>
-                  <h4 className="text-2xl md:text-3xl font-serif font-light text-[#373A36] mb-8">
+                  <p className="text-[#373A36] text-sm font-semibold tracking-widest uppercase mb-1" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Apply Now</p>
+                  <h4 className="text-2xl md:text-3xl font-light text-[#373A36] mb-8" style={{ fontFamily: "'Lora', serif" }}>
                     Become a <strong className="font-bold">Distributor</strong>
                   </h4>
 
@@ -2811,7 +2811,7 @@ export default function Home() {
                         { label: 'Phone Number', type: 'tel', placeholder: '+91 00000 00000' },
                       ].map((field) => (
                         <div key={field.label} className="group">
-                          <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2">{field.label}</label>
+                          <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>{field.label}</label>
                           <input
                             type={field.type}
                             placeholder={field.placeholder}
@@ -2823,7 +2823,7 @@ export default function Home() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2">City / State</label>
+                        <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>City / State</label>
                         <input
                           type="text"
                           placeholder="Where are you based?"
@@ -2831,7 +2831,7 @@ export default function Home() {
                         />
                       </div>
                       <div>
-                        <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2">Budget</label>
+                        <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Budget</label>
                         <input
                           type="text"
                           placeholder="e.g. ₹1L – ₹5L"
@@ -2841,7 +2841,7 @@ export default function Home() {
                     </div>
 
                     <div className="flex items-center justify-between pt-2">
-                      <p className="text-[#999] text-xs">We'll get back to you within 24 hours.</p>
+                      <p className="text-[#999] text-xs" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>We'll get back to you within 24 hours.</p>
                       <button
                         type="submit"
                         className="flex items-center gap-3 bg-[#373A36] text-white px-8 py-3.5 rounded-xl text-sm font-bold tracking-widest uppercase hover:bg-[#6B8E7F] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
@@ -2866,72 +2866,88 @@ export default function Home() {
       {/* Instagram Reels */}
       <InstagramReels />
 
-      {/* Find a Store Banner - Light Gold Theme */}
-      <section className="w-full relative py-8 md:py-12 bg-[#FDF7E7] overflow-hidden">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
-            
-            {/* Left side: Search Controls */}
-            <div className="lg:w-[45%] w-full text-left">
-              <div className="mb-8">
-                <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-1">Find Your</p>
-                <h2 className="text-[#373A36] text-4xl md:text-5xl font-serif font-light tracking-widest uppercase">
-                  Nearest <strong className="font-bold text-[#373A36]">Store</strong>
-                </h2>
-                <div className="flex justify-start mt-3 mb-4">
-                  <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
-                </div>
-              </div>
-              
-              <div className="space-y-4 max-w-sm">
-                {/* Choose City Dropdown */}
-                <div className="relative group">
-                  <select className="w-full bg-white text-[#373A36] px-6 py-3.5 rounded-full text-sm appearance-none cursor-pointer focus:outline-none shadow-lg border border-[#C9A961]/20">
-                    <option>Choose City</option>
-                    <option>Kolkata</option>
-                    <option>Nagpur</option>
-                    <option>Delhi</option>
-                  </select>
-                  <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <ChevronDown size={18} className="text-[#373A36]" />
-                  </div>
-                </div>
+      {/* Find a Store — Redesigned Light */}
+      <section className="w-full relative overflow-hidden bg-[#EEF3F1]" style={{ minHeight: '520px' }}>
+        {/* Ambient glow blobs */}
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-[#C9A961]/10 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-[#6B8E7F]/10 blur-[100px] pointer-events-none" />
 
-                {/* Enter Pincode with Find Us button */}
-                <div className="relative flex items-center bg-white rounded-full overflow-hidden shadow-lg border border-[#C9A961]/20">
-                  <input 
-                    type="text" 
-                    placeholder="Enter Pincode" 
-                    className="flex-1 bg-transparent text-[#373A36] px-6 py-3.5 text-sm focus:outline-none placeholder:text-gray-400"
-                  />
-                  <button className="bg-[#373A36] text-white px-8 py-3.5 text-sm font-bold hover:bg-[#C9A961] transition-colors uppercase tracking-widest">
-                    Find us
-                  </button>
-                </div>
+        {/* Subtle dot-grid texture */}
+        <div className="absolute inset-0 opacity-[0.4] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #C9A961 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+
+        <div className="relative z-10 container mx-auto px-6 py-8 md:py-10">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+
+            {/* LEFT */}
+            <div className="lg:w-[42%] w-full">
+              {/* Label */}
+              <div className="inline-flex items-center gap-2 bg-[#C9A961]/10 border border-[#C9A961]/30 px-4 py-1.5 rounded-full mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C9A961] animate-pulse" />
+                <span className="text-[#C9A961] text-[10px] tracking-[0.3em] uppercase font-semibold">1000+ Stores Across India</span>
               </div>
+
+              {/* Heading */}
+              <h2 className="text-[#373A36] text-5xl md:text-6xl font-light leading-tight mb-3" style={{ fontFamily: "'Lora', serif" }}>
+                Find Your<br />
+                <span className="text-[#C9A961]">Nearest</span> Store
+              </h2>
+              <div className="h-px w-16 bg-[#6B8E7F] mb-8" />
+
+              {/* City pills */}
+              <div className="flex flex-wrap gap-2 mb-8">
+                {['Kolkata', 'Mumbai', 'Delhi', 'Bangalore', 'Nagpur', 'Hyderabad'].map((city) => (
+                  <button key={city}
+                    className="px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border border-[#E8E8E0] text-[#373A36]/60 hover:border-[#C9A961] hover:text-[#C9A961] transition-all duration-200 bg-white hover:bg-[#C9A961]/10"
+                  >
+                    {city}
+                  </button>
+                ))}
+              </div>
+
+              {/* Search bar */}
+              <div className="relative flex items-center bg-white border border-[#E8E8E0] rounded-2xl overflow-hidden shadow-md hover:border-[#C9A961]/60 transition-all duration-300">
+                <svg className="w-4 h-4 text-[#C9A961] ml-5 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+                </svg>
+                <input
+                  type="text"
+                  placeholder="Enter city or pincode…"
+                  className="flex-1 bg-transparent text-[#373A36] px-4 py-4 text-sm focus:outline-none placeholder:text-[#aaa]"
+                />
+                <button className="m-1.5 bg-[#373A36] hover:bg-[#C9A961] text-white px-6 py-3 rounded-xl text-xs font-black tracking-widest uppercase transition-all duration-200 hover:scale-105">
+                  Locate
+                </button>
+              </div>
+
+
             </div>
 
-            {/* Right side: Real Interactive Map */}
-            <div className="lg:w-[55%] w-full">
-              <div className="relative rounded-[2rem] overflow-hidden shadow-2xl border-8 border-white/10 group">
-                <div className="aspect-video bg-[#f8f9fa]">
-                  <iframe 
+            {/* RIGHT — Map */}
+            <div className="lg:w-[58%] w-full">
+              <div className="relative group">
+                {/* Soft border frame */}
+                <div className="absolute -inset-px rounded-3xl bg-gradient-to-br from-[#C9A961]/30 via-[#6B8E7F]/15 to-[#C9A961]/10 blur-sm" />
+                <div className="relative rounded-3xl overflow-hidden border border-[#E8E8E0] shadow-xl" style={{ height: '420px' }}>
+                  <iframe
                     title="Magik Store Locator"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.072223403328!2d88.361309315403!3d22.576404985181285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02764f6974241d%3A0xc3f12467a840e5a6!2sMagik%20Lighting!5e0!3m2!1sen!2sin!4v1652610000000!5m2!1sen!2sin" 
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0, filter: 'grayscale(0.2) contrast(1.1)' }} 
-                    allowFullScreen={true} 
-                    loading="lazy" 
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="grayscale-[20%] hover:grayscale-0 transition-all duration-700"
-                  ></iframe>
-                </div>
-                
-                {/* Floating "Interactive" Indicator */}
-                <div className="absolute bottom-6 right-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2 shadow-lg pointer-events-none group-hover:opacity-0 transition-opacity">
-                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                  <span className="text-[10px] font-bold tracking-widest uppercase text-[#373A36]">Interactive Map</span>
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.072223403328!2d88.361309315403!3d22.576404985181285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02764f6974241d%3A0xc3f12467a840e5a6!2sMagik%20Lighting!5e0!3m2!1sen!2sin!4v1652610000000!5m2!1sen!2sin&markers=color:red%7C22.5764,88.3636"
+                    width="100%" height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+                  />
+                  {/* Top overlay bar */}
+                  <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white/40 to-transparent pointer-events-none" />
+                  {/* Bottom overlay bar */}
+                  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white/40 to-transparent pointer-events-none" />
+                  {/* Floating badge */}
+                  <div className="absolute top-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur-md border border-[#E8E8E0] px-3 py-1.5 rounded-full shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-[#C9A961] animate-pulse" />
+                    <span className="text-[#373A36] text-[10px] font-semibold tracking-widest uppercase">Live Map</span>
+                  </div>
+                  {/* Bottom store badge */}
+                  <div className="absolute bottom-4 right-4 bg-[#C9A961] text-white px-4 py-2 rounded-xl text-xs font-black tracking-wide shadow-lg">
+                    📍 Magik Lighting, Kolkata
+                  </div>
                 </div>
               </div>
             </div>
