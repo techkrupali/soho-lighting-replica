@@ -1,6 +1,12 @@
 import { ChevronLeft, ChevronRight, Search, User, ShoppingCart, Menu, ArrowRight, Zap, Factory, Award, Globe, Wrench, Leaf, Mail, MapPin, Twitter, Instagram, Linkedin, Send, Phone, ChevronDown } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 const GlobalStyles = () => (
   <style dangerouslySetInnerHTML={{ __html: `
@@ -54,130 +60,57 @@ const testimonials = [
 type B2BCard = { img: string; title: string; location: string; objectPosition: string };
 
 function B2BCarousel({ cards }: { cards: B2BCard[] }) {
-  const [active, setActive] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  const handleNext = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setActive((prev) => (prev + 1) % cards.length);
-    setTimeout(() => setIsAnimating(false), 500);
-  };
-  const handlePrev = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setActive((prev) => (prev - 1 + cards.length) % cards.length);
-    setTimeout(() => setIsAnimating(false), 500);
-  };
-
-  const getCardStyle = (offset: number): React.CSSProperties => {
-    const absOffset = Math.abs(offset);
-    if (absOffset === 0) {
-      return {
-        transform: 'translateX(0%) translateZ(0px) rotateY(0deg) scale(1)',
-        zIndex: 10,
-        opacity: 1,
-        filter: 'brightness(1)',
-      };
-    }
-    if (absOffset === 1) {
-      const dir = offset > 0 ? 1 : -1;
-      return {
-        transform: `translateX(${dir * 62}%) translateZ(-180px) rotateY(${dir * -38}deg) scale(0.82)`,
-        zIndex: 5,
-        opacity: 0.75,
-        filter: 'brightness(0.65)',
-      };
-    }
-    const dir = offset > 0 ? 1 : -1;
-    return {
-      transform: `translateX(${dir * 95}%) translateZ(-320px) rotateY(${dir * -52}deg) scale(0.65)`,
-      zIndex: 1,
-      opacity: 0.35,
-      filter: 'brightness(0.4)',
-    };
-  };
-
-  const visibleOffsets = [-2, -1, 0, 1, 2];
-
   return (
-    <div className="relative w-full bg-white py-10 overflow-hidden">
-      <div
-        className="relative flex items-center justify-center"
-        style={{ height: '700px', perspective: '1200px', perspectiveOrigin: 'center 45%' }}
+    <div className="relative w-full bg-white py-10" style={{ overflow: 'hidden' }}>
+      <style>{`
+        .b2b-swiper { padding: 40px 0 60px !important; }
+        .b2b-swiper .swiper-slide { width: 72% !important; height: 550px; }
+        .b2b-swiper .swiper-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .b2b-swiper .swiper-slide:not(.swiper-slide-active) { filter: blur(3px) brightness(0.6); transition: filter 0.5s ease; }
+        .b2b-swiper .swiper-slide-active { filter: blur(0px) brightness(1); transition: filter 0.5s ease; }
+        .b2b-swiper .swiper-pagination-bullet { background: #373A36; opacity: 0.2; width: 8px; height: 4px; border-radius: 9999px; transition: all 0.4s; }
+        .b2b-swiper .swiper-pagination-bullet-active { background: #C9A961; opacity: 1; width: 40px; }
+        .b2b-swiper .swiper-button-prev,
+        .b2b-swiper .swiper-button-next { width: 40px; height: 40px; background: rgba(255,255,255,0.85); border-radius: 9999px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); top: 50%; transform: translateY(-60%); }
+        .b2b-swiper .swiper-button-prev::after,
+        .b2b-swiper .swiper-button-next::after { font-size: 14px; color: #373A36; font-weight: 700; }
+        .b2b-swiper .swiper-button-prev { left: 16px; }
+        .b2b-swiper .swiper-button-next { right: 16px; }
+      `}</style>
+      <Swiper
+        className="b2b-swiper"
+        modules={[EffectCoverflow, Pagination, Navigation]}
+        effect="coverflow"
+        grabCursor
+        centeredSlides
+        slidesPerView="auto"
+        loop
+        coverflowEffect={{
+          rotate: 40,
+          stretch: 0,
+          depth: 200,
+          modifier: 1,
+          slideShadows: true,
+        }}
+        pagination={{ clickable: true }}
+        navigation
       >
-        {visibleOffsets.map((offset) => {
-          const cardIndex = (active + offset + cards.length) % cards.length;
-          const card = cards[cardIndex];
-          const style = getCardStyle(offset);
-          return (
-            <div
-              key={cardIndex + '-' + offset}
-              onClick={() => {
-                if (offset === -1 || offset === -2) handlePrev();
-                else if (offset === 1 || offset === 2) handleNext();
-              }}
-              style={{
-                position: 'absolute',
-                width: '72%',
-                height: '550px',
-                cursor: offset !== 0 ? 'pointer' : 'default',
-                transition: 'transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.55s ease, filter 0.55s ease',
-                transformStyle: 'preserve-3d',
-                ...style,
-              }}
-            >
-              <div className="w-full h-full overflow-hidden shadow-2xl" style={{ borderRadius: '4px' }}>
-                <img
-                  src={card.img}
-                  alt={card.title}
-                  className="w-full h-full object-cover"
-                  style={{ objectPosition: card.objectPosition }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                {offset === 0 && (
-                  <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-                    <h3 className="text-white text-xl md:text-3xl font-serif font-light leading-tight mb-3">
-                      {card.title}
-                    </h3>
-                    <div className="flex items-center gap-4">
-                      <div className="h-px w-12 bg-[#6B8E7F]" />
-                      <p className="text-white/60 text-xs md:text-sm tracking-[0.2em] uppercase">{card.location}</p>
-                    </div>
-                  </div>
-                )}
+        {cards.map((card, i) => (
+          <SwiperSlide key={i}>
+            <div className="relative w-full h-full overflow-hidden shadow-2xl">
+              <img src={card.img} alt={card.title} style={{ objectPosition: card.objectPosition }} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+                <h3 className="text-white text-xl md:text-3xl font-serif font-light leading-tight mb-3">{card.title}</h3>
+                <div className="flex items-center gap-4">
+                  <div className="h-px w-12 bg-[#6B8E7F]" />
+                  <p className="text-white/60 text-xs md:text-sm tracking-[0.2em] uppercase">{card.location}</p>
+                </div>
               </div>
             </div>
-          );
-        })}
-
-        {/* Left arrow */}
-        <button
-          onClick={handlePrev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-lg transition-all duration-200"
-        >
-          <ChevronLeft size={22} className="text-[#373A36]" />
-        </button>
-
-        {/* Right arrow */}
-        <button
-          onClick={handleNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-lg transition-all duration-200"
-        >
-          <ChevronRight size={22} className="text-[#373A36]" />
-        </button>
-      </div>
-
-      {/* Dots */}
-      <div className="flex justify-center gap-3 mt-4">
-        {cards.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setActive(i)}
-            className={`h-1 rounded-full transition-all duration-500 ${i === active ? 'bg-[#C9A961] w-10' : 'bg-[#373A36]/20 w-2 hover:bg-[#373A36]/40'}`}
-          />
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </div>
   );
 }
