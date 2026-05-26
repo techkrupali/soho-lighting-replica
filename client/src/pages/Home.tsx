@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, Search, User, ShoppingCart, Menu, ArrowRight, Zap, Factory, Award, Globe, Wrench, Leaf, Mail, MapPin, Twitter, Instagram, Linkedin, Send, Phone, ChevronDown } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
 
 const GlobalStyles = () => (
   <style dangerouslySetInnerHTML={{ __html: `
@@ -33,6 +34,11 @@ const GlobalStyles = () => (
     .counter-card:nth-child(2).visible { transition-delay: 0.1s; }
     .counter-card:nth-child(3).visible { transition-delay: 0.2s; }
     .counter-card:nth-child(4).visible { transition-delay: 0.3s; }
+
+    .perspective-container {
+      perspective: 2000px;
+      perspective-origin: center 40%;
+    }
   `}} />
 );
 
@@ -49,196 +55,175 @@ type B2BCard = { img: string; title: string; location: string; objectPosition: s
 
 function B2BCarousel({ cards }: { cards: B2BCard[] }) {
   const [active, setActive] = useState(0);
-  const [animating, setAnimating] = useState(false);
-  const [dir, setDir] = useState<'left' | 'right'>('right');
-  const [bgCurrent, setBgCurrent] = useState(0);
-  const [bgNext, setBgNext] = useState<number | null>(null);
-  const [bgAnimating, setBgAnimating] = useState(false);
+  const [dragX, setDragX] = useState(0);
   const autoRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
-  const prevIdx = (active - 1 + cards.length) % cards.length;
-  const nextIdx = (active + 1) % cards.length;
+  const rotateY = useMotionValue(0);
+  const springRotateY = useSpring(rotateY, { stiffness: 300, damping: 30 });
 
-  const go = (newIdx: number, direction: 'left' | 'right') => {
-    if (animating || newIdx === active) return;
-    setDir(direction);
-    setActive(newIdx);
-    setAnimating(true);
-    // Trigger background crossfade
-    setBgNext(newIdx);
-    setBgAnimating(true);
-    setTimeout(() => {
-      setBgCurrent(newIdx);
-      setBgNext(null);
-      setBgAnimating(false);
-      setAnimating(false);
-    }, 800);
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const xOffset = windowWidth < 768 ? 320 : Math.min(650, windowWidth * 0.45);
+
+  const handleNext = () => {
+    setActive((prev) => (prev + 1) % cards.length);
   };
 
-  const prevSlide = () => go(prevIdx, 'left');
-  const nextSlide = () => go(nextIdx, 'right');
+  const handlePrev = () => {
+    setActive((prev) => (prev - 1 + cards.length) % cards.length);
+  };
 
   // Auto-play
   useEffect(() => {
-    autoRef.current = setTimeout(() => nextSlide(), 4000);
+    autoRef.current = setTimeout(() => handleNext(), 5000);
     return () => { if (autoRef.current) clearTimeout(autoRef.current); };
   }, [active]);
 
+  const onDragEnd = (event: any, info: any) => {
+    const threshold = 50;
+    if (info.offset.x < -threshold) {
+      handleNext();
+    } else if (info.offset.x > threshold) {
+      handlePrev();
+    }
+    setDragX(0);
+  };
+
   return (
-    <div className="relative w-full" style={{ minHeight: '520px' }}>
-      {/* ── Full-bleed background slideshow ── */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Current bg */}
-        <img
-          key={`bg-cur-${bgCurrent}`}
-          src={cards[bgCurrent].img}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: cards[bgCurrent].objectPosition, transition: 'opacity 0.8s ease' }}
-        />
-        {/* Next bg fading in */}
-        {bgNext !== null && (
-          <img
-            key={`bg-next-${bgNext}`}
-            src={cards[bgNext].img}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{
-              objectPosition: cards[bgNext].objectPosition,
-              opacity: bgAnimating ? 1 : 0,
-              animation: 'bgFadeIn 0.8s ease forwards',
-            }}
-          />
-        )}
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/60" />
-        {/* Subtle blur vignette on sides */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.5) 100%)' }} />
-      </div>
+    <div className="relative w-full overflow-hidden py-20 bg-white">
+      <div className="perspective-container relative flex items-center justify-center h-[700px] md:h-[800px]">
+        <div className="relative flex items-center justify-center w-full max-w-7xl">
+          <AnimatePresence initial={false}>
+            {cards.map((card, i) => {
+              // Calculate relative position to active card
+              let position = i - active;
+              
+              // Handle infinite loop logic for visual position
+              if (position < -Math.floor(cards.length / 2)) position += cards.length;
+              if (position > Math.floor(cards.length / 2)) position -= cards.length;
 
-      {/* ── 3-card layout ── */}
-      <div className="relative z-10 flex items-center justify-center py-14 px-0" style={{ minHeight: '520px' }}>
+              const isActive = position === 0;
+              const isVisible = Math.abs(position) <= 1; // Show active + 1 on each side
 
-        {/* LEFT peek card */}
-        <div
-          className="flex-shrink-0 cursor-pointer group"
-          style={{ width: '14%', marginRight: '-2%', zIndex: 1 }}
-          onClick={prevSlide}
-        >
-          <div
-            className="relative overflow-hidden rounded-r-2xl"
-            style={{
-              height: '340px',
-              boxShadow: '4px 0 30px rgba(0,0,0,0.4)',
-              transform: 'scale(0.88)',
-              transformOrigin: 'right center',
-              transition: 'transform 0.3s ease',
-            }}
-          >
-            <img
-              src={cards[prevIdx].img}
-              alt={cards[prevIdx].title}
-              className="w-full h-full object-cover"
-              style={{ objectPosition: cards[prevIdx].objectPosition }}
-            />
-            <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all duration-300" />
-            {/* Arrow */}
-            <div className="absolute inset-0 flex items-center justify-end pr-3">
-              <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center group-hover:bg-[#6B8E7F] transition-all duration-300">
-                <ChevronLeft size={16} className="text-white" />
-              </div>
-            </div>
-          </div>
+              if (!isVisible) return null;
+
+              return (
+                <motion.div
+                  key={`${card.title}-${i}`}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8, x: position > 0 ? 600 : -600, z: -200 }}
+                  animate={{
+                    opacity: isVisible ? (isActive ? 1 : 0.4) : 0,
+                    scale: isActive ? 1 : 0.75,
+                    x: position * xOffset,
+                    y: isActive ? 0 : 40,
+                    z: isActive ? 0 : -500,
+                    rotateY: position * -60,
+                    rotateX: isActive ? 0 : 5,
+                    zIndex: 10 - Math.abs(position),
+                    filter: isActive ? "blur(0px) brightness(1)" : "blur(8px) brightness(0.5)",
+                  }}
+                  exit={{ 
+                    opacity: 0, 
+                    scale: 0.8, 
+                    x: position > 0 ? 600 : -600,
+                    z: -200,
+                    transition: { duration: 0.4 }
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: isActive ? 120 : 80,
+                    damping: isActive ? 28 : 22,
+                    mass: isActive ? 1.8 : 2.5,
+                    restDelta: 0.001,
+                    // Stagger the movement to make it feel more "physical"
+                    delay: isActive ? 0 : 0.15,
+                  }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  onDragEnd={onDragEnd}
+                  className="absolute cursor-grab active:cursor-grabbing"
+                  style={{
+                    width: isActive ? "95%" : "60%",
+                    maxWidth: isActive ? "1000px" : "500px",
+                    height: isActive ? "550px" : "400px",
+                    transformStyle: "preserve-3d",
+                  }}
+                >
+                  <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/20 backdrop-blur-sm">
+                    <motion.img
+                      src={card.img}
+                      alt={card.title}
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: card.objectPosition }}
+                      animate={{ 
+                        scale: isActive ? 1 : 1.1,
+                        filter: isActive ? "grayscale(0%)" : "grayscale(30%)"
+                      }}
+                      transition={{ duration: 1 }}
+                    />
+                    
+                    {/* Glassmorphism Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                    
+                    {/* Content */}
+                    <motion.div 
+                      className="absolute bottom-0 left-0 right-0 p-8 md:p-12"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ 
+                        opacity: isActive ? 1 : 0, 
+                        y: isActive ? 0 : 30,
+                        transition: { delay: 0.3, duration: 0.6, ease: "easeOut" }
+                      }}
+                    >
+                      <h3 className="text-white text-3xl md:text-5xl font-serif font-light leading-tight mb-4">
+                        {card.title}
+                      </h3>
+                      <div className="flex items-center gap-4">
+                        <div className="h-px w-12 bg-[#6B8E7F]" />
+                        <p className="text-white/60 text-xs md:text-sm tracking-[0.2em] uppercase">{card.location}</p>
+                      </div>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </div>
 
-        {/* CENTER main card */}
-        <div className="flex-shrink-0 relative" style={{ width: '62%', zIndex: 3 }}>
-          <div
-            className="relative overflow-hidden rounded-2xl"
-            style={{
-              height: '440px',
-              boxShadow: '0 25px 80px rgba(0,0,0,0.6)',
-            }}
-          >
-            {/* Sliding image inside center card */}
-            <div
-              key={`center-${active}`}
-              className="absolute inset-0"
-              style={{
-                animation: `${dir === 'right' ? 'slideInRight' : 'slideInLeft'} 0.7s cubic-bezier(0.77,0,0.175,1) forwards`,
-              }}
-            >
-              <img
-                src={cards[active].img}
-                alt={cards[active].title}
-                className="w-full h-full object-cover"
-                style={{ objectPosition: cards[active].objectPosition }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-            </div>
-
-            {/* Content overlay */}
-            <div className="absolute bottom-0 left-0 right-0 p-8 z-10">
-              <p className="text-[#C9A961] text-xs tracking-[0.3em] uppercase mb-2 font-medium">
-                {String(active + 1).padStart(2, '0')} / {String(cards.length).padStart(2, '0')}
-              </p>
-              <h3 className="text-white text-2xl md:text-3xl font-serif font-light leading-tight">
-                {cards[active].title}
-              </h3>
-              <div className="flex items-center gap-3 mt-2">
-                <div className="h-px w-10 bg-[#6B8E7F]" />
-                <p className="text-white/60 text-xs tracking-[0.2em] uppercase">{cards[active].location}</p>
-              </div>
-            </div>
-
-            {/* Dot indicators */}
-            <div className="absolute top-5 right-5 z-10 flex gap-1.5">
-              {cards.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={(e) => { e.stopPropagation(); go(i, i > active ? 'right' : 'left'); }}
-                  className={`rounded-full transition-all duration-300 ${i === active ? 'bg-[#C9A961] w-6 h-1.5' : 'bg-white/40 w-1.5 h-1.5 hover:bg-white/70'}`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* RIGHT peek card */}
-        <div
-          className="flex-shrink-0 cursor-pointer group"
-          style={{ width: '14%', marginLeft: '-2%', zIndex: 1 }}
-          onClick={nextSlide}
+        <button 
+          onClick={handlePrev}
+          className="absolute left-4 md:left-20 top-1/2 -translate-y-1/2 w-16 h-16 rounded-full border border-[#373A36]/10 flex items-center justify-center hover:bg-[#373A36] hover:text-white transition-all duration-500 group z-40 bg-white/60 backdrop-blur-md shadow-2xl"
         >
-          <div
-            className="relative overflow-hidden rounded-l-2xl"
-            style={{
-              height: '340px',
-              boxShadow: '-4px 0 30px rgba(0,0,0,0.4)',
-              transform: 'scale(0.88)',
-              transformOrigin: 'left center',
-              transition: 'transform 0.3s ease',
-            }}
-          >
-            <img
-              src={cards[nextIdx].img}
-              alt={cards[nextIdx].title}
-              className="w-full h-full object-cover"
-              style={{ objectPosition: cards[nextIdx].objectPosition }}
+          <ChevronLeft size={32} className="group-hover:-translate-x-1.5 transition-transform duration-300" />
+        </button>
+
+        <button 
+          onClick={handleNext}
+          className="absolute right-4 md:right-20 top-1/2 -translate-y-1/2 w-16 h-16 rounded-full border border-[#373A36]/10 flex items-center justify-center hover:bg-[#373A36] hover:text-white transition-all duration-500 group z-40 bg-white/60 backdrop-blur-md shadow-2xl"
+        >
+          <ChevronRight size={32} className="group-hover:translate-x-1.5 transition-transform duration-300" />
+        </button>
+
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4 z-20">
+          {cards.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActive(i)}
+              className={`h-1 rounded-full transition-all duration-700 ${i === active ? 'bg-[#C9A961] w-12 shadow-[0_0_10px_rgba(201,169,97,0.5)]' : 'bg-[#373A36]/20 w-2 hover:bg-[#373A36]/40'}`}
             />
-            <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all duration-300" />
-            {/* Arrow */}
-            <div className="absolute inset-0 flex items-center justify-start pl-3">
-              <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center group-hover:bg-[#6B8E7F] transition-all duration-300">
-                <ChevronRight size={16} className="text-white" />
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
   );
 }
+
 
 const blogPosts = [
   { category: "TRENDS",    img: "/indorr lighting.png",                    title: "Top 5 Lighting Trends for Luxury Hospitality in 2024",          excerpt: "From warm tunable whites to architectural accent lighting — what top hotels are choosing.",          date: "Feb 28, 2024", read: "4 min read" },
