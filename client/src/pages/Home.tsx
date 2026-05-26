@@ -1057,18 +1057,18 @@ export default function Home() {
               style={{ scrollbarWidth: "none" }}
               id="shop-category-scroll"
             >
-              <div className="grid gap-3" style={{ display: "grid", gridTemplateRows: "1fr 1fr", gridAutoFlow: "column", gridAutoColumns: "calc((100% - 3.2 * 12px) / 4.2)" }}>
+              <div className="grid gap-1" style={{ display: "grid", gridTemplateRows: "1fr 1fr", gridAutoFlow: "column", gridAutoColumns: "calc((100% - 4px) / 4)" }}>
                 {shopCategoryList.map((cat) => (
                   <div key={cat.name} className="relative overflow-hidden cursor-pointer group" style={{ height: "240px" }}>
                     <img
                       src={cat.image}
                       alt={cat.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       style={{ objectPosition: cat.objectPosition || "center" }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                    <div className="absolute inset-0 flex items-end justify-center p-4">
-                      <span className="text-white text-sm font-semibold tracking-widest leading-tight text-center">{cat.name}</span>
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500" />
+                    <div className="absolute inset-0 flex items-end justify-center pb-4">
+                      <span className="text-white text-xs font-bold tracking-[0.2em] uppercase text-center px-2">{cat.name}</span>
                     </div>
                   </div>
                 ))}
@@ -1080,15 +1080,14 @@ export default function Home() {
               onClick={() => {
                 const el = document.getElementById("shop-category-scroll");
                 if (el) {
-                  if (el.scrollLeft <= 0) {
-                    el.scrollTo({ left: el.scrollWidth, behavior: "auto" });
-                  }
-                  el.scrollBy({ left: -300, behavior: "smooth" });
+                  if (el.scrollLeft <= 0) el.scrollTo({ left: el.scrollWidth, behavior: "auto" });
+                  el.scrollBy({ left: -600, behavior: "smooth" });
                 }
               }}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 w-10 h-10 bg-white border border-[#E8E8E0] rounded-full flex items-center justify-center shadow-md hover:bg-[#F7F7F0] transition"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-20 bg-black/60 hover:bg-black/80 flex items-center justify-center transition-all duration-200"
+              style={{ borderRadius: '0 40px 40px 0' }}
             >
-              <ChevronLeft size={20} className="text-[#373A36]" />
+              <ChevronLeft size={22} className="text-white" />
             </button>
 
             {/* Right Arrow */}
@@ -1097,15 +1096,14 @@ export default function Home() {
                 const el = document.getElementById("shop-category-scroll");
                 if (el) {
                   const maxScroll = el.scrollWidth - el.clientWidth;
-                  if (el.scrollLeft >= maxScroll) {
-                    el.scrollTo({ left: 0, behavior: "auto" });
-                  }
-                  el.scrollBy({ left: 300, behavior: "smooth" });
+                  if (el.scrollLeft >= maxScroll) el.scrollTo({ left: 0, behavior: "auto" });
+                  el.scrollBy({ left: 600, behavior: "smooth" });
                 }
               }}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 w-10 h-10 bg-white border border-[#E8E8E0] rounded-full flex items-center justify-center shadow-md hover:bg-[#F7F7F0] transition"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-20 bg-black/60 hover:bg-black/80 flex items-center justify-center transition-all duration-200"
+              style={{ borderRadius: '40px 0 0 40px' }}
             >
-              <ChevronRight size={20} className="text-[#373A36]" />
+              <ChevronRight size={22} className="text-white" />
             </button>
           </div>
         </div>
@@ -2427,7 +2425,7 @@ export default function Home() {
             {[
               { number: 10, suffix: "+", label: "Years in Industry", duration: 2000 },
               { number: 1000, suffix: "+", label: "Distributors", duration: 2500 },
-              { number: 100000, suffix: "+", label: "Product Production per Day", duration: 3000 },
+              { number: 100000, suffix: "+", label: "Products Production per Day", duration: 3000 },
               { number: 500, suffix: "+", label: "Commercial Projects", duration: 2500 },
             ].map((stat, idx) => (
               <div 
@@ -2651,28 +2649,22 @@ export default function Home() {
       {/* Client Love */}
       <ClientLove />
 
-      {/* Distributor Network - Premium Light Redesign */}
-      <section className="w-full relative overflow-hidden bg-[#F0F4FF]">
-
-        {/* Background image */}
-        <div className="absolute inset-0 z-0">
-          <img src="/Magiklight factory.jpeg" alt="" className="w-full h-full object-cover" style={{ objectPosition: 'center center' }} />
-          <div className="absolute inset-0 bg-black/55" />
-        </div>
+      {/* Distributor Network */}
+      <section className="w-full relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #1a1c18 0%, #2a2d24 40%, #1e2a20 70%, #1a1c18 100%)' }}>
 
         {/* Decorative background elements */}
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-[#6B8E7F]/8 blur-[120px]" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#C9A961]/10 blur-[100px]" />
-          {/* Decorative grid lines */}
-          <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#373A36" strokeWidth="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
+          {/* Gold glow top center */}
+          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full opacity-20" style={{ background: 'radial-gradient(ellipse, #C9A961 0%, transparent 70%)' }} />
+          {/* Green glow bottom left */}
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-15" style={{ background: 'radial-gradient(ellipse, #6B8E7F 0%, transparent 70%)' }} />
+          {/* Gold glow bottom right */}
+          <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full opacity-10" style={{ background: 'radial-gradient(ellipse, #C9A961 0%, transparent 70%)' }} />
+          {/* Subtle dot grid */}
+          <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle, #C9A961 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+          {/* Diagonal light streak */}
+          <div className="absolute top-0 left-1/3 w-px h-full opacity-10" style={{ background: 'linear-gradient(to bottom, transparent, #C9A961, transparent)' }} />
+          <div className="absolute top-0 right-1/3 w-px h-full opacity-5" style={{ background: 'linear-gradient(to bottom, transparent, #C9A961, transparent)' }} />
         </div>
 
         <div className="relative z-10 container mx-auto px-6 py-8 md:py-12">
@@ -2701,7 +2693,7 @@ export default function Home() {
                   <div className="relative z-10">
                     <p className="text-[#C9A961] text-[10px] tracking-[0.3em] uppercase font-bold mb-3" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Why Partner With Us</p>
                     <h3 className="text-white text-2xl md:text-3xl font-light leading-snug mb-8" style={{ fontFamily: "'Lora', serif" }}>
-                      Power your business<br />with Magik
+                      Partner with <strong className="font-bold">Eastern India's</strong> Fastest Growing Lighting Brand
                     </h3>
 
                     <div className="space-y-5">
@@ -2737,8 +2729,7 @@ export default function Home() {
 
                 {/* Right: Form */}
                 <div className="lg:w-3/5 p-10 md:p-14">
-                  <p className="text-[#373A36] text-sm font-semibold tracking-widest uppercase mb-1" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Apply Now</p>
-                  <h4 className="text-2xl md:text-3xl font-light text-[#373A36] mb-8" style={{ fontFamily: "'Lora', serif" }}>
+                  <h4 className="text-3xl md:text-4xl font-light text-[#373A36] mb-8" style={{ fontFamily: "'Lora', serif" }}>
                     Become a <strong className="font-bold">Distributor</strong>
                   </h4>
 
