@@ -56,7 +56,6 @@ type B2BCard = { img: string; title: string; location: string; objectPosition: s
 function B2BCarousel({ cards }: { cards: B2BCard[] }) {
   const [active, setActive] = useState(0);
   const [dragX, setDragX] = useState(0);
-  const autoRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   const rotateY = useMotionValue(0);
@@ -79,11 +78,6 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
   };
 
   // Auto-play
-  useEffect(() => {
-    autoRef.current = setTimeout(() => handleNext(), 5000);
-    return () => { if (autoRef.current) clearTimeout(autoRef.current); };
-  }, [active]);
-
   const onDragEnd = (event: any, info: any) => {
     const threshold = 50;
     if (info.offset.x < -threshold) {
@@ -95,7 +89,7 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
   };
 
   return (
-    <div className="relative w-full overflow-hidden py-20 bg-white">
+    <div className="relative w-full overflow-hidden py-0 bg-white">
       <div className="perspective-container relative flex items-center justify-center h-[700px] md:h-[800px]">
         <div className="relative flex items-center justify-center w-full max-w-7xl">
           <AnimatePresence initial={false}>
@@ -172,23 +166,19 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
                     
                     {/* Content */}
-                    <motion.div 
+                    {isActive && <motion.div 
                       className="absolute bottom-0 left-0 right-0 p-8 md:p-12"
                       initial={{ opacity: 0, y: 30 }}
-                      animate={{ 
-                        opacity: isActive ? 1 : 0, 
-                        y: isActive ? 0 : 30,
-                        transition: { delay: 0.3, duration: 0.6, ease: "easeOut" }
-                      }}
+                      animate={{ opacity: 1, y: 0, transition: { delay: 0.3, duration: 0.6, ease: "easeOut" } }}
                     >
-                      <h3 className="text-white text-3xl md:text-5xl font-serif font-light leading-tight mb-4">
+                      <h3 className="text-white text-xl md:text-3xl font-serif font-light leading-tight mb-4">
                         {card.title}
                       </h3>
                       <div className="flex items-center gap-4">
                         <div className="h-px w-12 bg-[#6B8E7F]" />
                         <p className="text-white/60 text-xs md:text-sm tracking-[0.2em] uppercase">{card.location}</p>
                       </div>
-                    </motion.div>
+                    </motion.div>}
                   </div>
                 </motion.div>
               );
@@ -198,14 +188,14 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
 
         <button 
           onClick={handlePrev}
-          className="absolute left-4 md:left-20 top-1/2 -translate-y-1/2 w-16 h-16 rounded-full border border-[#373A36]/10 flex items-center justify-center hover:bg-[#373A36] hover:text-white transition-all duration-500 group z-40 bg-white/60 backdrop-blur-md shadow-2xl"
+          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/30 flex items-center justify-center hover:bg-white/20 transition-all duration-300 group z-40 bg-black/30 backdrop-blur-md"
         >
           <ChevronLeft size={32} className="group-hover:-translate-x-1.5 transition-transform duration-300" />
         </button>
 
         <button 
           onClick={handleNext}
-          className="absolute right-4 md:right-20 top-1/2 -translate-y-1/2 w-16 h-16 rounded-full border border-[#373A36]/10 flex items-center justify-center hover:bg-[#373A36] hover:text-white transition-all duration-500 group z-40 bg-white/60 backdrop-blur-md shadow-2xl"
+          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/30 flex items-center justify-center hover:bg-white/20 transition-all duration-300 group z-40 bg-black/30 backdrop-blur-md"
         >
           <ChevronRight size={32} className="group-hover:translate-x-1.5 transition-transform duration-300" />
         </button>
@@ -378,7 +368,7 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
 
 function MagikClients() {
   return (
-    <section className="py-20 bg-white overflow-hidden relative -mt-10 md:-mt-16 rounded-t-[40px] md:rounded-t-[80px] z-20">
+    <section className="py-20 bg-[#F5F0E8] overflow-hidden relative -mt-10 md:-mt-16 rounded-t-[40px] md:rounded-t-[80px] z-20">
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-14">
           <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-3">Trusted By The Best</p>
@@ -2684,9 +2674,9 @@ export default function Home() {
       </section>
 
       {/* B2B Solutions */}
-      <section className="pt-8 md:pt-14 pb-0 bg-white">
+      <section className="pt-2 pb-0 bg-white">
         {/* Header */}
-        <div className="mb-10 text-center container mx-auto px-4">
+        <div className="mb-0 pt-8 text-center container mx-auto px-4">
           <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-2">B2B Solutions</p>
           <h2 className="text-4xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] mb-2 leading-tight">
             Projects We've Illuminated
@@ -2754,12 +2744,7 @@ export default function Home() {
               <span className="w-1.5 h-1.5 rounded-full bg-[#C9A961] animate-pulse" />
               Join Our Network
             </span>
-            <h2 className="text-4xl md:text-6xl font-serif font-light text-white leading-tight mt-4">
-              Grow With <em className="not-italic font-bold text-[#C9A961]">Magik</em>
-            </h2>
-            <p className="text-white/70 text-sm md:text-base max-w-lg mx-auto mt-4 leading-relaxed">
-              Partner with India's fastest growing lighting brand. Join 1000+ distributors illuminating the nation.
-            </p>
+
           </div>
 
           {/* Main card */}
