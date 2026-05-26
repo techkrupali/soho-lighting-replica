@@ -2939,6 +2939,20 @@ export default function Home() {
                   <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white/40 to-transparent pointer-events-none" />
                   {/* Bottom overlay bar */}
                   <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white/40 to-transparent pointer-events-none" />
+                  {/* Custom map point markers */}
+                  {[
+                    { top: '38%', left: '52%', label: 'Kolkata HQ' },
+                    { top: '28%', left: '30%', label: 'Patna' },
+                    { top: '55%', left: '68%', label: 'Bhubaneswar' },
+                    { top: '20%', left: '58%', label: 'Siliguri' },
+                  ].map((pin) => (
+                    <div key={pin.label} className="absolute pointer-events-none" style={{ top: pin.top, left: pin.left, transform: 'translate(-50%, -100%)' }}>
+                      <div className="flex flex-col items-center">
+                        <div className="bg-white rounded-full px-2 py-0.5 text-[9px] font-bold text-[#373A36] shadow mb-1 whitespace-nowrap">{pin.label}</div>
+                        <img src="/map point.png" alt="store" className="w-7 h-7 object-contain drop-shadow-lg" />
+                      </div>
+                    </div>
+                  ))}
                   {/* Floating badge */}
                   <div className="absolute top-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur-md border border-[#E8E8E0] px-3 py-1.5 rounded-full shadow-sm">
                     <span className="w-2 h-2 rounded-full bg-[#C9A961] animate-pulse" />
