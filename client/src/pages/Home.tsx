@@ -1214,7 +1214,7 @@ export default function Home() {
                             alt={space.name}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                         </div>
                         <div className="mt-4">
                           <h3 className="text-white text-xl font-light mb-1 tracking-wide">{space.name.toUpperCase()} &gt;</h3>
@@ -1548,7 +1548,7 @@ export default function Home() {
                             alt={space.name}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                         </div>
                         <div className="mt-4">
                           <h3 className="text-white text-xl font-light mb-1 tracking-wide">{space.name.toUpperCase()} &gt;</h3>
@@ -1948,7 +1948,7 @@ export default function Home() {
                             alt={space.name}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                         </div>
                         <div className="mt-4">
                           <h3 className="text-white text-xl font-light mb-1 tracking-wide">{space.name.toUpperCase()} &gt;</h3>
@@ -2260,7 +2260,7 @@ export default function Home() {
                             alt={space.name}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                         </div>
                         <div className="mt-4">
                           <h3 className="text-white text-xl font-light mb-1 tracking-wide">{space.name.toUpperCase()} &gt;</h3>
