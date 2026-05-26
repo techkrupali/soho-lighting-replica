@@ -2612,28 +2612,28 @@ export default function Home() {
       <ClientLove />
 
       {/* Distributor Network */}
-      <section className="w-full relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #1a1c18 0%, #2a2d24 40%, #1e2a20 70%, #1a1c18 100%)' }}>
+      <section className="w-full relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #F5F0E8 0%, #EEF3F1 40%, #F0EDE6 70%, #F5F0E8 100%)' }}>
 
         {/* Decorative background elements */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           {/* Gold glow top center */}
-          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full opacity-20" style={{ background: 'radial-gradient(ellipse, #C9A961 0%, transparent 70%)' }} />
+          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full opacity-30" style={{ background: 'radial-gradient(ellipse, #C9A961 0%, transparent 70%)' }} />
           {/* Green glow bottom left */}
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-15" style={{ background: 'radial-gradient(ellipse, #6B8E7F 0%, transparent 70%)' }} />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-20" style={{ background: 'radial-gradient(ellipse, #6B8E7F 0%, transparent 70%)' }} />
           {/* Gold glow bottom right */}
-          <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full opacity-10" style={{ background: 'radial-gradient(ellipse, #C9A961 0%, transparent 70%)' }} />
+          <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full opacity-15" style={{ background: 'radial-gradient(ellipse, #C9A961 0%, transparent 70%)' }} />
           {/* Subtle dot grid */}
-          <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle, #C9A961 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+          <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: 'radial-gradient(circle, #C9A961 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
           {/* Diagonal light streak */}
-          <div className="absolute top-0 left-1/3 w-px h-full opacity-10" style={{ background: 'linear-gradient(to bottom, transparent, #C9A961, transparent)' }} />
-          <div className="absolute top-0 right-1/3 w-px h-full opacity-5" style={{ background: 'linear-gradient(to bottom, transparent, #C9A961, transparent)' }} />
+          <div className="absolute top-0 left-1/3 w-px h-full opacity-20" style={{ background: 'linear-gradient(to bottom, transparent, #C9A961, transparent)' }} />
+          <div className="absolute top-0 right-1/3 w-px h-full opacity-10" style={{ background: 'linear-gradient(to bottom, transparent, #6B8E7F, transparent)' }} />
         </div>
 
         <div className="relative z-10 container mx-auto px-6 py-8 md:py-12">
 
           {/* Top label */}
           <div className="text-center mb-6">
-            <span className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-[10px] tracking-[0.3em] uppercase px-5 py-2 rounded-full font-semibold mb-5">
+            <span className="inline-flex items-center gap-2 bg-[#373A36]/10 border border-[#373A36]/20 text-[#373A36] text-[10px] tracking-[0.3em] uppercase px-5 py-2 rounded-full font-semibold mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C9A961] animate-pulse" />
               Join Our Network
             </span>
@@ -2653,8 +2653,8 @@ export default function Home() {
                   <div className="absolute top-1/2 right-0 w-32 h-32 bg-[#6B8E7F]/10 rounded-full blur-3xl" />
 
                   <div className="relative z-10">
-                    <p className="text-[#C9A961] text-[10px] tracking-[0.3em] uppercase font-bold mb-3" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Why Partner With Us</p>
-                    <h3 className="text-white text-2xl md:text-3xl font-light leading-snug mb-8" style={{ fontFamily: "'Lora', serif" }}>
+                    <p className="text-[#C9A961] text-[10px] tracking-[0.3em] uppercase font-bold mb-3" style={{ fontFamily: "'Playfair Display', serif" }}>Why Partner With Us</p>
+                    <h3 className="text-white text-2xl md:text-3xl font-light leading-snug mb-8" style={{ fontFamily: "'Playfair Display', serif" }}>
                       Partner with <strong className="font-bold">Eastern India's</strong> Fastest Growing Lighting Brand
                     </h3>
 
@@ -2668,11 +2668,11 @@ export default function Home() {
                         <div key={i} className="flex items-start gap-4 group">
                           <span className="text-[#C9A961] text-lg mt-0.5 flex-shrink-0">{item.icon}</span>
                           <div>
-                            <p className="text-white text-sm font-semibold tracking-wide" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>{item.title}</p>
-                            <p className="text-white/40 text-xs mt-0.5" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>{item.desc}</p>
+                            <p className="text-white text-sm font-semibold tracking-wide" style={{ fontFamily: "'Lora', serif" }}>{item.title}</p>
+                            <p className="text-white/40 text-xs mt-0.5" style={{ fontFamily: "'Lora', serif" }}>{item.desc}</p>
                           </div>
                         </div>
-                      ))}
+                      ))}}
                     </div>
                   </div>
 
@@ -2680,11 +2680,11 @@ export default function Home() {
                   <div className="relative z-10 mt-10 pt-8 border-t border-white/10 space-y-3">
                     <div className="flex items-center gap-3">
                       <Mail size={14} className="text-[#C9A961] flex-shrink-0" />
-                      <span className="text-white/60 text-xs" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Info@magiklights.com</span>
+                      <span className="text-white/60 text-xs" style={{ fontFamily: "'Lora', serif" }}>Info@magiklights.com</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <Phone size={14} className="text-[#C9A961] flex-shrink-0" />
-                      <span className="text-white/60 text-xs" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Toll Free: 18003451345</span>
+                      <span className="text-white/60 text-xs" style={{ fontFamily: "'Lora', serif" }}>Toll Free: 18003451345</span>
                     </div>
                   </div>
                 </div>
