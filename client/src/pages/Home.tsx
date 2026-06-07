@@ -60,115 +60,54 @@ const testimonials = [
 type B2BCard = { img: string; title: string; location: string; objectPosition: string };
 
 function B2BCarousel({ cards }: { cards: B2BCard[] }) {
-  const [active, setActive] = useState(0);
-  const [prev, setPrev] = useState<number | null>(null);
-  const [direction, setDirection] = useState<'next' | 'prev'>('next');
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const goTo = (idx: number, dir: 'next' | 'prev') => {
-    setPrev(active);
-    setDirection(dir);
-    setActive(idx);
-  };
-
-  const next = () => goTo((active + 1) % cards.length, 'next');
-  const prevSlide = () => goTo((active - 1 + cards.length) % cards.length, 'prev');
-
-  useEffect(() => {
-    timerRef.current = setTimeout(next, 4000);
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [active]);
-
   return (
-    <div className="relative w-full bg-white overflow-hidden" style={{ height: '580px' }}>
+    <div className="w-full bg-white">
       <style>{`
-        @keyframes kenburns {
-          0%   { transform: scale(1.08) translateX(0px); }
-          100% { transform: scale(1.18) translateX(-20px); }
-        }
-        @keyframes fadeSlideNext {
-          0%   { opacity: 0; transform: translateX(60px); }
-          100% { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes fadeSlidePrev {
-          0%   { opacity: 0; transform: translateX(-60px); }
-          100% { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes titleReveal {
-          0%   { opacity: 0; transform: translateY(24px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        .b2b-slide-next { animation: fadeSlideNext 0.7s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
-        .b2b-slide-prev { animation: fadeSlidePrev 0.7s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
-        .b2b-kenburns   { animation: kenburns 4.5s ease-out forwards; }
-        .b2b-title      { animation: titleReveal 0.8s 0.3s ease-out forwards; opacity: 0; }
+        .proj-card { position: relative; cursor: pointer; border-radius: 16px; overflow: hidden; }
+        .proj-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .proj-card:hover img { transform: scale(1.06); }
+        .proj-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 45%, transparent 100%); transition: background 0.4s ease; z-index: 1; }
+        .proj-card:hover .proj-overlay { background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.45) 55%, transparent 100%); }
+        .proj-content { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 20px 24px; }
+        .proj-content h3 { color: white; font-family: 'Lora', serif; font-weight: 300; line-height: 1.35; transition: color 0.3s ease; margin: 0; }
+        .proj-card:hover .proj-content h3 { color: #C9A961; }
+        .proj-loc { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .proj-loc span { color: rgba(201,169,97,0.9); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 600; }
+        .proj-line { height: 1px; width: 20px; background: #C9A961; flex-shrink: 0; }
       `}</style>
 
-      {/* Slides */}
-      {cards.map((card, i) => (
-        <div
-          key={i}
-          className={`absolute inset-0 ${i === active ? (direction === 'next' ? 'b2b-slide-next' : 'b2b-slide-prev') : 'opacity-0 pointer-events-none'}`}
-          style={{ zIndex: i === active ? 2 : 1 }}
-        >
-          {/* Image with Ken Burns */}
-          <div className="absolute inset-0 overflow-hidden">
-            <img
-              src={card.img}
-              alt={card.title}
-              className={`w-full h-full object-cover ${i === active ? 'b2b-kenburns' : ''}`}
-              style={{ objectPosition: card.objectPosition }}
-            />
-          </div>
+      <div className="flex flex-col md:flex-row gap-3 p-4">
 
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
-
-          {/* Content */}
-          <div className="absolute bottom-0 left-0 right-0 px-12 pb-16">
-            <div className={`${i === active ? 'b2b-title' : 'opacity-0'}`}>
-              <h3 className="text-white text-3xl md:text-5xl font-serif font-light leading-tight mb-4">
-                {card.title}
-              </h3>
-              <div className="flex items-center gap-4">
-                <div className="h-px w-16 bg-[#C9A961]" />
-                <p className="text-white/70 text-xs tracking-[0.3em] uppercase">{card.location}</p>
-              </div>
+        {/* BIG LEFT card */}
+        <div className="proj-card md:w-[50%] flex-shrink-0" style={{ height: '640px' }}>
+          <img src={cards[0].img} alt={cards[0].title} style={{ objectPosition: cards[0].objectPosition }} />
+          <div className="proj-overlay" />
+          <div className="proj-content" style={{ padding: '24px 32px 28px 32px' }}>
+            <div className="proj-loc">
+              <div className="proj-line" />
+              <span>{cards[0].location}</span>
             </div>
+            <h3 style={{ fontSize: '1.75rem' }}>{cards[0].title}</h3>
           </div>
         </div>
-      ))}
 
-      {/* Prev / Next buttons */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
-      <button
-        onClick={next}
-        className="absolute right-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
-      </button>
+        {/* RIGHT 2×2 grid */}
+        <div className="md:w-[50%] grid grid-cols-2 gap-3" style={{ height: '640px' }}>
+          {cards.slice(1, 5).map((card, i) => (
+            <div key={i} className="proj-card" style={{ height: '100%' }}>
+              <img src={card.img} alt={card.title} style={{ objectPosition: card.objectPosition }} />
+              <div className="proj-overlay" />
+              <div className="proj-content">
+                <div className="proj-loc">
+                  <div className="proj-line" />
+                  <span>{card.location}</span>
+                </div>
+                <h3 style={{ fontSize: '0.92rem' }}>{card.title}</h3>
+              </div>
+            </div>
+          ))}
+        </div>
 
-      {/* Dot indicators */}
-      <div className="absolute bottom-6 right-12 z-10 flex gap-2">
-        {cards.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i, i > active ? 'next' : 'prev')}
-            className="transition-all duration-400"
-            style={{
-              width: i === active ? '32px' : '8px',
-              height: '4px',
-              borderRadius: '9999px',
-              background: i === active ? '#C9A961' : 'rgba(255,255,255,0.4)',
-            }}
-          />
-        ))}
       </div>
     </div>
   );
@@ -2719,10 +2658,7 @@ export default function Home() {
           <div className="flex justify-center mb-4">
             <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
           </div>
-          <p className="text-[#666] text-base max-w-xl leading-relaxed mx-auto">
-            Trusted by builders, contractors, and enterprises across India —
-            delivering end-to-end lighting solutions for every scale.
-          </p>
+
         </div>
 
         {/* Carousel: full width, no clipping */}
@@ -2747,148 +2683,86 @@ export default function Home() {
       {/* Client Love */}
       <ClientLove />
 
-      {/* Distributor Network */}
-      <section className="w-full relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #F5F0E8 0%, #EEF3F1 40%, #F0EDE6 70%, #F5F0E8 100%)' }}>
+      {/* Distributor Network — Jaquar style split panel */}
+      <section className="w-full" style={{ minHeight: '560px' }}>
+        <style>{`
+          .split-panel { position: relative; overflow: hidden; cursor: pointer; }
+          .split-panel img { transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+          .split-panel:hover img { transform: scale(1.06); }
+          .split-panel .split-overlay { transition: background 0.5s ease; }
+          .split-panel:hover .split-overlay { background: rgba(0,0,0,0.55) !important; }
+          .split-btn { transition: all 0.3s ease; }
+          .split-btn:hover { background: white !important; color: #1a1a1a !important; }
+        `}</style>
 
-        {/* Decorative background elements */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          {/* Gold glow top center */}
-          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full opacity-30" style={{ background: 'radial-gradient(ellipse, #C9A961 0%, transparent 70%)' }} />
-          {/* Green glow bottom left */}
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-20" style={{ background: 'radial-gradient(ellipse, #6B8E7F 0%, transparent 70%)' }} />
-          {/* Gold glow bottom right */}
-          <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full opacity-15" style={{ background: 'radial-gradient(ellipse, #C9A961 0%, transparent 70%)' }} />
-          {/* Subtle dot grid */}
-          <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: 'radial-gradient(circle, #C9A961 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-          {/* Diagonal light streak */}
-          <div className="absolute top-0 left-1/3 w-px h-full opacity-20" style={{ background: 'linear-gradient(to bottom, transparent, #C9A961, transparent)' }} />
-          <div className="absolute top-0 right-1/3 w-px h-full opacity-10" style={{ background: 'linear-gradient(to bottom, transparent, #6B8E7F, transparent)' }} />
-        </div>
+        <div className="flex flex-col md:flex-row" style={{ minHeight: '560px' }}>
 
-        <div className="relative z-10 container mx-auto px-6 py-8 md:py-12">
+          {/* LEFT — Store Locator */}
+          <div className="split-panel flex-1 relative" style={{ minHeight: '560px' }}>
+            <img
+              src="/indorr lighting2.png"
+              alt="Store Locator"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div
+              className="split-overlay absolute inset-0"
+              style={{ background: 'rgba(0,0,0,0.45)' }}
+            />
+            {/* Vertical divider line */}
+            <div className="hidden md:block absolute right-0 top-[10%] bottom-[10%] w-px bg-white/20 z-10" />
 
-          {/* Top label */}
-          <div className="text-center mb-6">
-
+            <div className="absolute inset-0 flex flex-col justify-end p-10 md:p-14 z-10">
+              <h2
+                className="text-white text-4xl md:text-5xl font-light leading-tight mb-4"
+                style={{ fontFamily: "'Lora', serif" }}
+              >
+                Store Locator
+              </h2>
+              <p className="text-white/70 text-sm leading-relaxed mb-8 max-w-xs">
+                Find your nearest Magik Lights authorised dealer or experience centre across India.
+              </p>
+              <div>
+                <a
+                  href="#"
+                  className="split-btn inline-flex items-center gap-3 border border-white text-white text-xs tracking-[0.2em] uppercase font-semibold px-7 py-3.5 rounded-full"
+                >
+                  Find a Store
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
           </div>
 
-          {/* Main card */}
-          <div className="max-w-6xl mx-auto">
-            <div className="bg-white rounded-3xl shadow-[0_8px_60px_rgba(0,0,0,0.08)] overflow-hidden border border-[#E8E8E0]">
-              <div className="flex flex-col lg:flex-row">
+          {/* RIGHT — Become a Distributor */}
+          <div className="split-panel flex-1 relative" style={{ minHeight: '560px' }}>
+            <img
+              src="/magiklight factory.JPG.jpg"
+              alt="Become a Distributor"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div
+              className="split-overlay absolute inset-0"
+              style={{ background: 'rgba(20,18,14,0.58)' }}
+            />
 
-                {/* Left: Benefits panel */}
-                <div className="lg:w-2/5 bg-gradient-to-br from-[#373A36] to-[#2a2d2a] p-10 md:p-14 flex flex-col justify-between relative overflow-hidden">
-                  {/* Decorative circle */}
-                  <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full border border-white/5" />
-                  <div className="absolute -bottom-10 -left-10 w-48 h-48 rounded-full border border-white/5" />
-                  <div className="absolute top-1/2 right-0 w-32 h-32 bg-[#6B8E7F]/10 rounded-full blur-3xl" />
-
-                  <div className="relative z-10">
-                    <p className="text-[#C9A961] text-[10px] tracking-[0.3em] uppercase font-bold mb-3" style={{ fontFamily: "'Playfair Display', serif" }}>Why Partner With Us</p>
-                    <h3 className="text-white text-2xl md:text-3xl font-light leading-snug mb-8" style={{ fontFamily: "'Playfair Display', serif" }}>
-                      Partner with <strong className="font-bold">Eastern India's</strong> Fastest Growing Lighting Brand
-                    </h3>
-
-                    <div className="space-y-5">
-                      {[
-                        { icon: '◈', title: "Eastern India's Largest LED Manufacturing Facility", desc: '' },
-                        { icon: '◈', title: 'NABL Certified Lab & In-House R&D Centre', desc: '' },
-                        { icon: '◈', title: '750+ Top Quality Products', desc: '' },
-                        { icon: '◈', title: 'High ROI', desc: '' },
-                      ].map((item, i) => (
-                        <div key={i} className="flex items-start gap-4 group">
-                          <span className="text-[#C9A961] text-lg mt-0.5 flex-shrink-0">{item.icon}</span>
-                          <div>
-                            <p className="text-white text-sm font-semibold tracking-wide" style={{ fontFamily: "'Lora', serif" }}>{item.title}</p>
-                            <p className="text-white/40 text-xs mt-0.5" style={{ fontFamily: "'Lora', serif" }}>{item.desc}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Contact info */}
-                  <div className="relative z-10 mt-10 pt-8 border-t border-white/10 space-y-3">
-                    <div className="flex items-center gap-3">
-                      <Mail size={14} className="text-[#C9A961] flex-shrink-0" />
-                      <span className="text-white/60 text-xs" style={{ fontFamily: "'Lora', serif" }}>Info@magiklights.com</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Phone size={14} className="text-[#C9A961] flex-shrink-0" />
-                      <span className="text-white/60 text-xs" style={{ fontFamily: "'Lora', serif" }}>Toll Free: 18003451345</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right: Form */}
-                <div className="lg:w-3/5 p-10 md:p-14">
-                  <h4 className="text-3xl md:text-4xl font-serif font-light tracking-widest text-[#373A36] mb-8">
-                    Become a <strong className="font-bold">Distributor</strong>
-                  </h4>
-
-                  <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {[
-                        { label: 'Full Name', type: 'text', placeholder: 'Your full name' },
-                        { label: 'Company Name', type: 'text', placeholder: 'Your company' },
-                        { label: 'Email Address', type: 'email', placeholder: 'you@company.com' },
-                        { label: 'Phone Number', type: 'tel', placeholder: '+91 00000 00000' },
-                      ].map((field) => (
-                        <div key={field.label} className="group">
-                          <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>{field.label}</label>
-                          <input
-                            type={field.type}
-                            placeholder={field.placeholder}
-                            className="w-full bg-[#F7F7F0] border border-[#E8E8E0] rounded-xl px-4 py-3 text-sm text-[#373A36] placeholder:text-[#aaa] focus:outline-none focus:border-[#6B8E7F] focus:bg-white transition-all duration-300"
-                          />
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>City / State</label>
-                        <input
-                          type="text"
-                          placeholder="Where are you based?"
-                          className="w-full bg-[#F7F7F0] border border-[#E8E8E0] rounded-xl px-4 py-3 text-sm text-[#373A36] placeholder:text-[#aaa] focus:outline-none focus:border-[#6B8E7F] focus:bg-white transition-all duration-300"
-                        />
-                      </div>
-                      <div>
-                        <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Investment</label>
-                        <input
-                          type="text"
-                          placeholder="e.g. ₹1L – ₹5L"
-                          className="w-full bg-[#F7F7F0] border border-[#E8E8E0] rounded-xl px-4 py-3 text-sm text-[#373A36] placeholder:text-[#aaa] focus:outline-none focus:border-[#6B8E7F] focus:bg-white transition-all duration-300"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="text-[#373A36] text-[10px] uppercase tracking-widest font-bold block mb-2" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>Distribution Area</label>
-                        <input
-                          type="text"
-                          placeholder="e.g. West Bengal, Odisha"
-                          className="w-full bg-[#F7F7F0] border border-[#E8E8E0] rounded-xl px-4 py-3 text-sm text-[#373A36] placeholder:text-[#aaa] focus:outline-none focus:border-[#6B8E7F] focus:bg-white transition-all duration-300"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-2">
-                      <p className="text-[#999] text-xs" style={{ fontFamily: "'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>We'll get back to you within 24 hours.</p>
-                      <button
-                        type="submit"
-                        className="flex items-center gap-3 bg-[#373A36] text-white px-8 py-3.5 rounded-xl text-sm font-bold tracking-widest uppercase hover:bg-[#6B8E7F] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
-                      >
-                        Submit
-                        <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-                      </button>
-                    </div>
-                  </form>
-                </div>
-
+            <div className="absolute inset-0 flex flex-col justify-end p-10 md:p-14 z-10">
+              <h2
+                className="text-white text-4xl md:text-5xl font-light leading-tight mb-4"
+                style={{ fontFamily: "'Lora', serif" }}
+              >
+                Become a <strong className="font-bold">Distributor</strong>
+              </h2>
+              <p className="text-white/70 text-sm leading-relaxed mb-8 max-w-xs">
+                Partner with Eastern India's fastest growing lighting brand. High ROI, 750+ products, full support.
+              </p>
+              <div>
+                <a
+                  href="#"
+                  className="split-btn inline-flex items-center gap-3 border border-white text-white text-xs tracking-[0.2em] uppercase font-semibold px-7 py-3.5 rounded-full"
+                >
+                  Let's Connect
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
               </div>
             </div>
           </div>
