@@ -238,10 +238,13 @@ function MagikBlog() {
       <div className="container mx-auto px-6 md:px-12">
 
         {/* Header — matches photo style */}
-        <h2 className="text-center text-2xl md:text-3xl tracking-[0.25em] uppercase text-[#373A36] mb-12"
+        <h2 className="text-center text-2xl md:text-3xl tracking-[0.25em] uppercase text-[#373A36] mb-4"
             style={{ fontFamily: "'Lora', serif", fontWeight: 300 }}>
           Lighting <strong style={{ fontWeight: 700 }}>Insights</strong>
         </h2>
+        <div className="flex justify-center mb-10">
+          <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
+        </div>
 
         {/* 3 equal cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -2572,7 +2575,7 @@ export default function Home() {
               Why Choose <strong className="font-bold">Magik Lights</strong>
             </h2>
             <div className="flex justify-center mt-4">
-              <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
+            <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
             </div>
           </div>
 
