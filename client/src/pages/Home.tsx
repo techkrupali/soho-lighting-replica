@@ -392,7 +392,7 @@ function ClientLove() {
           <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
         </div>
         <p className="text-[#666] text-sm max-w-xl mx-auto">
-          Hear from the visionaries who have transformed their spaces with Magik Lighting.
+          Hear from the visionaries who have transformed their spaces with Magik Lights.
         </p>
       </div>
 
@@ -872,7 +872,7 @@ export default function Home() {
 
           {/* Center: Magik Logo */}
           <div className="absolute left-1/2 -translate-x-1/2">
-            <img src="/companylogo-2.png" alt="Magik Lighting" className="h-16 w-auto object-contain" />
+            <img src="/companylogo-2.png" alt="Magik Lights" className="h-16 w-auto object-contain" />
           </div>
 
           {/* Right: icons + CenturyPly */}
@@ -909,7 +909,7 @@ export default function Home() {
           <button onClick={() => setMenuOpen(!menuOpen)} className="p-2">
             <Menu size={24} className="text-[#373A36]" />
           </button>
-          <img src="/companylogo-2.png" alt="Magik Lighting" className="h-10 w-auto object-contain" />
+          <img src="/companylogo-2.png" alt="Magik Lights" className="h-10 w-auto object-contain" />
           <button className="p-1.5">
             <ShoppingCart size={20} className="text-[#373A36]" />
           </button>
@@ -2464,7 +2464,7 @@ export default function Home() {
           <div key={activeAbout} className="animate-fadeSlideIn">
             <h2 className="text-white leading-tight mb-3"
                 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700 }}>
-              <span style={{ fontWeight: 300 }}>ABOUT </span>Magik Lighting
+              <span style={{ fontWeight: 300 }}>ABOUT </span>Magik Lights
             </h2>
             
             <div className="text-white/90 leading-relaxed" style={{ maxWidth: "520px" }}>
@@ -2484,13 +2484,13 @@ export default function Home() {
 
       </section>
 
-      {/* Why Choose Magik Lighting */}
+      {/* Why Choose Magik Lights */}
       <section className="py-10 md:py-14 bg-[#F7F7F0]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <p className="text-[#C9A961] text-sm tracking-widest uppercase mb-3">Our Advantage</p>
             <h2 className="text-3xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] leading-tight">
-              Why Choose <strong className="font-bold">Magik Lighting</strong>
+              Why Choose <strong className="font-bold">Magik Lights</strong>
             </h2>
             <div className="flex justify-center mt-4">
               <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
@@ -2864,7 +2864,7 @@ export default function Home() {
                   </div>
                   {/* Bottom store badge */}
                   <div className="absolute bottom-4 right-4 bg-[#C9A961] text-white px-4 py-2 rounded-xl text-xs font-black tracking-wide shadow-lg">
-                    📍 Magik Lighting, Kolkata
+                    📍 Magik Lights, Kolkata
                   </div>
                 </div>
               </div>
