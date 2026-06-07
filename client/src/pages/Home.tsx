@@ -351,9 +351,9 @@ function MagikClients() {
     <section className="py-20 bg-[#F5F0E8] overflow-hidden relative -mt-10 md:-mt-16 rounded-t-[40px] md:rounded-t-[80px] z-20">
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-14">
-          <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-3">Trusted By The Best</p>
+          <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-3">In Good Company</p>
           <h2 className="text-4xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] mb-4">
-            Our <strong className="font-bold">Partners</strong>
+            Brands We <strong className="font-bold">Illuminate With</strong>
           </h2>
           <div className="flex justify-center mb-4">
             <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
