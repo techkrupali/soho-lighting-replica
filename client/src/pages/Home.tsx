@@ -2576,7 +2576,6 @@ export default function Home() {
       <section className="pt-2 pb-0 bg-white">
         {/* Header */}
         <div className="mb-0 pt-8 text-center container mx-auto px-4">
-          <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-2">B2B Solutions</p>
           <h2 className="text-4xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] mb-2 leading-tight">
             Projects We've Illuminated
           </h2>
