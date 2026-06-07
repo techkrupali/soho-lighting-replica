@@ -117,12 +117,54 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
 
 
 const blogPosts = [
-  { category: "TRENDS",    img: "/indorr lighting.png",                    title: "Top 5 Lighting Trends for Luxury Hospitality in 2024",          excerpt: "From warm tunable whites to architectural accent lighting — what top hotels are choosing.",          date: "Feb 28, 2024", read: "4 min read" },
-  { category: "QUALITY",   img: "/The Agri Horticulture, Kolkata2.png",    title: "BIS Certification: Why It Matters for Your LED Purchase",        excerpt: "Understanding quality certifications and why BIS-certified LEDs are the only safe choice.",          date: "Feb 10, 2024", read: "3 min read" },
-  { category: "INDUSTRIAL",img: "/starcementplant.png",                    title: "Industrial Lighting: High-Bay LEDs for Maximum Output",          excerpt: "A complete guide to choosing the right high-bay LED fixtures for warehouses and factories.",          date: "Jan 22, 2024", read: "6 min read" },
-  { category: "TRENDS",    img: "/towerimage.png",                         title: "Smart Lighting Controls: Dimming & Automation Guide",            excerpt: "How smart dimming systems and automation can reduce energy waste and improve ambiance.",              date: "Jan 10, 2024", read: "5 min read" },
-  { category: "INDUSTRIAL",img: "/Durgapur Steel Plant, West Bengal.jpeg", title: "Outdoor LED Flood Lights: Installation Tips",                   excerpt: "Everything you need to know about choosing and installing outdoor flood lights.",                    date: "Dec 18, 2023", read: "4 min read" },
-  { category: "QUALITY",   img: "/Kolkata Airport.jpeg",                   title: "Energy Saving with LED: A Complete ROI Analysis",               excerpt: "Calculate your return on investment when switching from traditional lighting to LED solutions.",       date: "Dec 5, 2023",  read: "7 min read" },
+  {
+    category: "TRENDS",
+    img: "/indorr lighting.png",
+    title: "Top 5 Lighting Trends for Luxury Hospitality in 2024",
+    excerpt: "From warm tunable whites to architectural accent lighting — discover what top hotels and resorts across India are choosing to elevate guest experience and ambiance.",
+    date: "Feb 28, 2024",
+    read: "4 min read"
+  },
+  {
+    category: "QUALITY",
+    img: "/The Agri Horticulture, Kolkata2.png",
+    title: "BIS Certification: Why It Matters for Your LED Purchase",
+    excerpt: "BIS, CE, and RoHS labels matter more than you think. We break down what each certification means and how to spot counterfeit LED products before it's too late.",
+    date: "Feb 10, 2024",
+    read: "3 min read"
+  },
+  {
+    category: "INDUSTRIAL",
+    img: "/starcementplant.png",
+    title: "Industrial Lighting: High-Bay LEDs for Maximum Output",
+    excerpt: "A practical guide to choosing high-bay LED fixtures for warehouses and factories — covering lumen output, beam angles, IP ratings, and energy savings.",
+    date: "Jan 22, 2024",
+    read: "6 min read"
+  },
+  {
+    category: "TRENDS",
+    img: "/towerimage.png",
+    title: "Smart Lighting Controls: Dimming & Automation Guide",
+    excerpt: "How smart dimming systems and automation can dramatically reduce energy waste while improving ambiance. From DALI protocols to wireless IoT sensors — we explain how to future-proof your lighting infrastructure for homes, offices, and commercial buildings across India.",
+    date: "Jan 10, 2024",
+    read: "5 min read"
+  },
+  {
+    category: "INDUSTRIAL",
+    img: "/Durgapur Steel Plant, West Bengal.jpeg",
+    title: "Outdoor LED Flood Lights: Installation Tips & Best Practices",
+    excerpt: "Everything you need to know about choosing and installing outdoor LED flood lights for perimeter security, stadiums, parking lots, and architectural facades. We cover wattage selection, weatherproofing, beam spread, and the most common installation mistakes to avoid.",
+    date: "Dec 18, 2023",
+    read: "4 min read"
+  },
+  {
+    category: "QUALITY",
+    img: "/Kolkata Airport.jpeg",
+    title: "Energy Saving with LED: A Complete ROI Analysis",
+    excerpt: "Calculate your real return on investment when switching from traditional halogen or fluorescent lighting to modern LED solutions. With electricity costs rising across India, we present a full cost-benefit breakdown — including payback periods, maintenance savings, and government subsidy options available in 2024.",
+    date: "Dec 5, 2023",
+    read: "7 min read"
+  },
 ];
 
 const categoryColors: Record<string, string> = {
@@ -130,90 +172,68 @@ const categoryColors: Record<string, string> = {
 };
 
 function MagikBlog() {
-  const [activeTab, setActiveTab] = useState("ALL");
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const tabs = ["ALL", "ENERGY SAVING", "TRENDS", "QUALITY", "INDUSTRIAL"];
-  const filtered = activeTab === "ALL" ? blogPosts : blogPosts.filter(p => p.category === activeTab);
-
-  const scroll = (dir: 'left' | 'right') => {
-    scrollRef.current?.scrollBy({ left: dir === 'right' ? 364 : -364, behavior: 'smooth' });
-  };
-
-  const tagColors: Record<string, string> = {
-    TRENDS: "bg-[#E9D5FF] text-[#A855F7]",
-    QUALITY: "bg-[#DBEAFE] text-[#3B82F6]",
-    INDUSTRIAL: "bg-[#FFEDD5] text-[#F97316]",
-    "ENERGY SAVING": "bg-[#DCFCE7] text-[#22C55E]"
-  };
+  const featured = blogPosts.slice(0, 3);
 
   return (
     <section className="py-20 bg-white">
-      <div className="container mx-auto px-8">
-        {/* Header */}
-        <div className="relative mb-4">
-          <div className="flex flex-col items-center text-center">
-            <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-1">Our Journal</p>
-            <h2 className="text-4xl md:text-5xl font-serif font-light tracking-widest uppercase text-[#373A36]">
-              Magik <strong className="font-bold">Blog</strong>
-            </h2>
-            <div className="flex justify-center mt-3 mb-4">
-              <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
-            </div>
-          </div>
-          <div className="md:absolute md:right-0 md:bottom-0 mt-4 text-center md:text-right">
-            <a href="#" className="flex items-center justify-center md:justify-end gap-2 text-xs font-bold text-[#373A36]/60 hover:text-[#373A36] transition-all tracking-[0.1em] uppercase border-b border-transparent hover:border-[#373A36]">
-              View All <span className="text-lg">→</span>
-            </a>
-          </div>
-        </div>
+      <div className="container mx-auto px-6 md:px-12">
 
-        {/* Filter tabs + arrows */}
-        <div className="relative flex items-center justify-center mb-4">
-          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
-            {tabs.map(tab => (
-              <button key={tab} onClick={() => setActiveTab(tab)}
-                className={`px-6 py-2 rounded-full text-[10px] font-bold tracking-widest uppercase transition-all duration-300 flex-shrink-0 ${
-                  activeTab === tab 
-                  ? "bg-[#373A36] text-white shadow-lg" 
-                  : "bg-white border border-[#E8E8E0] text-[#373A36]/60 hover:border-[#373A36] hover:text-[#373A36]"
-                }`}
-              >{tab}</button>
-            ))}
-          </div>
-          <div className="absolute right-0 hidden md:flex gap-3">
-            <button onClick={() => scroll('left')} className="w-10 h-10 rounded-full border border-[#E8E8E0] flex items-center justify-center hover:bg-[#373A36] hover:text-white transition-all duration-300 bg-white shadow-sm">
-              <ChevronLeft size={18} />
-            </button>
-            <button onClick={() => scroll('right')} className="w-10 h-10 rounded-full border border-[#E8E8E0] flex items-center justify-center hover:bg-[#373A36] hover:text-white transition-all duration-300 bg-white shadow-sm">
-              <ChevronRight size={18} />
-            </button>
-          </div>
-        </div>
+        {/* Header — matches photo style */}
+        <h2 className="text-center text-2xl md:text-3xl tracking-[0.25em] uppercase text-[#373A36] mb-12"
+            style={{ fontFamily: "'Lora', serif", fontWeight: 300 }}>
+          Lighting <strong style={{ fontWeight: 700 }}>Insights</strong>
+        </h2>
 
-        <div ref={scrollRef} className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
-          {filtered.map((post, idx) => (
-            <div key={idx} className="flex-shrink-0 group bg-white rounded-3xl overflow-hidden border border-[#F0F0F0] hover:shadow-2xl transition-all duration-500" style={{ width: '340px' }}>
-              <div className="relative h-44 overflow-hidden">
-                <img src={post.img} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <span className={`absolute top-2 left-3 text-[7px] font-black tracking-[0.2em] px-2 py-1 rounded-full uppercase shadow-sm ${tagColors[post.category] || "bg-gray-100 text-gray-600"}`}>
-                  {post.category}
-                </span>
+        {/* 3 equal cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          {featured.map((post, idx) => (
+            <div key={idx} className="flex flex-col group cursor-pointer">
+              {/* Square Image */}
+              <div className="overflow-hidden mb-5" style={{ aspectRatio: '1 / 1' }}>
+                <img
+                  src={post.img}
+                  alt={post.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
               </div>
-              <div className="p-4">
-                <h3 className="text-[#373A36] text-sm font-serif font-bold leading-tight mb-2 group-hover:text-[#6B8E7F] transition-colors line-clamp-2">{post.title}</h3>
-                <p className="text-gray-400 text-[11px] leading-relaxed mb-3 line-clamp-2 font-light">{post.excerpt}</p>
-                <div className="flex items-center justify-between pt-3 border-t border-gray-50">
-                  <div className="flex items-center gap-2 text-gray-300 text-[10px] font-medium tracking-wide uppercase">
-                    <span>{post.date}</span>
-                    <span className="w-1 h-1 rounded-full bg-gray-200" />
-                    <span>{post.read}</span>
-                  </div>
-                  <span className="text-[#C9A961] text-xl transform group-hover:translate-x-2 transition-transform duration-300">→</span>
-                </div>
-              </div>
+
+              {/* Title */}
+              <h3
+                className="text-[#1a1a1a] leading-snug mb-3 tracking-wide uppercase"
+                style={{ fontFamily: "'Lora', serif", fontWeight: 400, fontSize: '1.05rem', letterSpacing: '0.04em' }}
+              >
+                {post.title}
+              </h3>
+
+              {/* Excerpt — fuller content */}
+              <p className="text-[#666] text-[13px] leading-relaxed mb-4 flex-1"
+                 style={{ fontFamily: "'Lora', serif", fontWeight: 300 }}>
+                {post.excerpt}
+              </p>
+
+              {/* Read more */}
+              <a
+                href="#"
+                className="text-[#1a1a1a] text-[12px] underline underline-offset-2 tracking-wide hover:text-[#C9A961] transition-colors"
+                style={{ fontFamily: "'Lora', serif" }}
+              >
+                Read more
+              </a>
             </div>
           ))}
         </div>
+
+        {/* View All button — matches photo */}
+        <div className="flex justify-center">
+          <a
+            href="#"
+            className="inline-block bg-[#1a1a1a] text-white text-[11px] tracking-[0.25em] uppercase px-10 py-4 hover:bg-[#373A36] transition-colors"
+            style={{ fontFamily: "'Lora', serif", fontWeight: 600 }}
+          >
+            View All Articles
+          </a>
+        </div>
+
       </div>
     </section>
   );
@@ -2500,18 +2520,38 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
             {[
               {
-                icon: <svg className="w-10 h-10 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>,
+                icon: (
+                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 64 64">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M32 6 L52 14 L52 32 C52 44 42 54 32 58 C22 54 12 44 12 32 L12 14 Z" />
+                  </svg>
+                ),
                 title: "ENERGY EFFICIENT",
                 desc: "Up to 80% less energy than traditional lighting.",
               },
               {
-                icon: <svg className="w-10 h-10 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" /></svg>,
+                icon: (
+                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 64 64">
+                    <circle cx="32" cy="26" r="14" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M22 40 C18 42 14 46 14 52 L50 52 C50 46 46 42 42 40" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M50 22 C52 18 56 18 56 22 C56 28 50 30 50 30 L50 22" />
+                    <circle cx="50" cy="34" r="2" fill="currentColor" />
+                  </svg>
+                ),
                 title: "ISO CERTIFIED QUALITY",
                 desc: "ISO, CE & RoHS certified for international standards.",
                 featured: true,
               },
               {
-                icon: <svg className="w-10 h-10 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>,
+                icon: (
+                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 64 64">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M18 10 L46 10 L50 18 L50 46 C50 48 48 50 46 50 L18 50 C16 50 14 48 14 46 L14 18 Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14 18 L50 18" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M26 10 L26 18 M38 10 L38 18" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M22 30 L30 30 M34 30 L42 30 M22 38 L30 38 M34 38 L42 38" />
+                    <circle cx="48" cy="48" r="8" fill="white" stroke="currentColor" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M44 48 L47 51 L52 45" />
+                  </svg>
+                ),
                 title: "PAN-INDIA NETWORK",
                 desc: "10 Years in Industry | 1000+ Distributors | 1 Lakh+ products per day.",
               },
@@ -2537,17 +2577,52 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
               {
-                icon: <svg className="w-10 h-10 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" /></svg>,
+                icon: (
+                  <svg className="w-20 h-20" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {/* India map outline */}
+                    <path
+                      d="M85,8 L88,12 L82,18 L78,16 L72,22 L68,20 L62,26 L58,24 L54,30 L50,32 L46,28 L42,32 L40,38 L36,42 L32,40 L28,46 L24,50 L22,56 L18,62 L16,68 L14,76 L12,84 L10,92 L10,100 L12,108 L14,114 L18,120 L22,126 L26,130 L30,136 L34,142 L36,150 L38,158 L40,164 L42,170 L46,176 L50,180 L54,184 L58,188 L62,192 L66,196 L70,198 L74,196 L76,192 L78,188 L80,184 L82,180 L84,176 L86,172 L88,168 L90,172 L92,176 L94,172 L96,168 L98,164 L100,160 L102,164 L104,168 L108,172 L112,170 L114,166 L116,162 L118,158 L122,154 L126,150 L130,146 L134,142 L138,138 L142,134 L146,128 L150,122 L154,116 L156,110 L158,104 L158,96 L156,88 L154,82 L152,76 L148,70 L144,66 L140,62 L138,56 L140,50 L144,46 L148,42 L152,38 L156,34 L158,28 L154,24 L150,22 L146,26 L142,28 L138,24 L134,20 L130,18 L126,14 L122,10 L118,8 L114,6 L110,8 L106,10 L102,8 L98,6 L94,8 L90,10 L86,8 Z
+                      M140,60 L144,56 L148,52 L152,48 L156,44 L158,38 L160,44 L162,50 L164,56 L162,62 L158,66 L154,70 L150,72 L146,68 L142,64 Z
+                      M155,30 L158,26 L162,24 L166,26 L168,30 L166,34 L162,36 L158,34 Z"
+                      fill="white"
+                      stroke="#1a1a1a"
+                      strokeWidth="4"
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                    />
+                    {/* Tricolor stripes — saffron */}
+                    <path d="M68,105 Q78,100 88,103 Q98,106 108,102" stroke="#C9A961" strokeWidth="5" strokeLinecap="round" fill="none"/>
+                    {/* White stripe */}
+                    <path d="M68,115 Q78,110 88,113 Q98,116 108,112" stroke="#aaaaaa" strokeWidth="5" strokeLinecap="round" fill="none"/>
+                    {/* Green stripe */}
+                    <path d="M68,125 Q78,120 88,123 Q98,126 108,122" stroke="#6B8E7F" strokeWidth="5" strokeLinecap="round" fill="none"/>
+                  </svg>
+                ),
                 title: "MADE IN INDIA",
                 desc: "State-of-the-art facility with world-class machinery.",
               },
               {
-                icon: <svg className="w-10 h-10 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" /></svg>,
+                icon: (
+                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 64 64">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M48 20 C48 12 40 8 32 8 C24 8 16 12 16 20 C16 28 22 32 22 32 L42 32 C42 32 48 28 48 20Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M26 32 L26 38 L38 38 L38 32" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M22 38 L42 38" />
+                    <path strokeLinecap="round" d="M32 8 L32 14 M32 22 L32 26" />
+                    <circle cx="32" cy="18" r="2" fill="currentColor" />
+                  </svg>
+                ),
                 title: "END-TO-END SOLUTIONS",
                 desc: "Complete lighting solutions for every project scale.",
               },
               {
-                icon: <svg className="w-10 h-10 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>,
+                icon: (
+                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 64 64">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M32 12 C32 12 44 16 50 24 C56 32 54 44 46 50 C38 56 26 56 18 50 C10 44 8 32 14 24 C20 16 32 12 32 12Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M20 20 C24 18 28 22 32 20 C36 18 40 22 44 20" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 34 C20 32 26 36 32 34 C38 32 44 36 48 34" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M32 12 L32 52 M14 32 L50 32" />
+                  </svg>
+                ),
                 title: "SUSTAINABLE FUTURE",
                 desc: "Eco-friendly materials for a greener tomorrow.",
               },
@@ -2632,10 +2707,6 @@ export default function Home() {
 
           {/* Top label */}
           <div className="text-center mb-6">
-            <span className="inline-flex items-center gap-2 bg-[#373A36]/10 border border-[#373A36]/20 text-[#373A36] text-[10px] tracking-[0.3em] uppercase px-5 py-2 rounded-full font-semibold mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C9A961] animate-pulse" />
-              Join Our Network
-            </span>
 
           </div>
 
@@ -2690,7 +2761,7 @@ export default function Home() {
 
                 {/* Right: Form */}
                 <div className="lg:w-3/5 p-10 md:p-14">
-                  <h4 className="text-3xl md:text-4xl font-light text-[#373A36] mb-8" style={{ fontFamily: "'Lora', serif" }}>
+                  <h4 className="text-3xl md:text-4xl font-serif font-light tracking-widest text-[#373A36] mb-8">
                     Become a <strong className="font-bold">Distributor</strong>
                   </h4>
 
@@ -2783,12 +2854,6 @@ export default function Home() {
 
             {/* LEFT */}
             <div className="lg:w-[42%] w-full">
-              {/* Label */}
-              <div className="inline-flex items-center gap-2 bg-[#C9A961]/10 border border-[#C9A961]/30 px-4 py-1.5 rounded-full mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C9A961] animate-pulse" />
-                <span className="text-[#C9A961] text-[10px] tracking-[0.3em] uppercase font-semibold">1000+ Stores Across India</span>
-              </div>
-
               {/* Heading */}
               <h2 className="text-[#373A36] text-5xl md:text-6xl font-light leading-tight mb-3" style={{ fontFamily: "'Lora', serif" }}>
                 Find Your<br />
@@ -2982,23 +3047,8 @@ export default function Home() {
               </ul>
             </div>
 
-            {/* Col 4 — Glowing CTA card + Certifications */}
+            {/* Col 4 — Certifications */}
             <div className="flex flex-col gap-6">
-              <div className="relative rounded-2xl overflow-hidden border border-white/10 p-6"
-                style={{ background: 'linear-gradient(135deg, rgba(201,169,97,0.12) 0%, rgba(255,255,255,0.03) 100%)' }}>
-                <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-20 -translate-y-8 translate-x-8"
-                  style={{ background: 'radial-gradient(circle, #C9A961 0%, transparent 70%)' }} />
-                <svg className="w-10 h-10 text-[#C9A961] mb-4" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-                  <path d="M9 21h6M12 3a6 6 0 0 1 6 6c0 2.22-1.21 4.16-3 5.2V17H9v-2.8A6 6 0 0 1 6 9a6 6 0 0 1 6-6z" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <h5 className="text-white font-serif text-lg mb-2">Light Up Your Space</h5>
-                <p className="text-white/50 text-xs leading-relaxed mb-4">Explore our full range of premium LED solutions crafted for every environment.</p>
-                <a href="#shop-by-category"
-                  className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#C9A961] hover:text-white transition-colors duration-200">
-                  Explore Products
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                </a>
-              </div>
               <div>
                 <h4 className="text-[10px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-4">Certifications</h4>
                 <div className="flex flex-wrap gap-2">
