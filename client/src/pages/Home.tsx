@@ -60,57 +60,116 @@ const testimonials = [
 type B2BCard = { img: string; title: string; location: string; objectPosition: string };
 
 function B2BCarousel({ cards }: { cards: B2BCard[] }) {
+  const [active, setActive] = useState(0);
+  const [prev, setPrev] = useState<number | null>(null);
+  const [direction, setDirection] = useState<'next' | 'prev'>('next');
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const goTo = (idx: number, dir: 'next' | 'prev') => {
+    setPrev(active);
+    setDirection(dir);
+    setActive(idx);
+  };
+
+  const next = () => goTo((active + 1) % cards.length, 'next');
+  const prevSlide = () => goTo((active - 1 + cards.length) % cards.length, 'prev');
+
+  useEffect(() => {
+    timerRef.current = setTimeout(next, 4000);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [active]);
+
   return (
-    <div className="relative w-full bg-white py-10" style={{ overflow: 'hidden' }}>
+    <div className="relative w-full bg-white overflow-hidden" style={{ height: '580px' }}>
       <style>{`
-        .b2b-swiper { padding: 40px 0 60px !important; }
-        .b2b-swiper .swiper-slide { width: 72% !important; height: 550px; }
-        .b2b-swiper .swiper-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .b2b-swiper .swiper-slide:not(.swiper-slide-active) { filter: blur(3px) brightness(0.6); transition: filter 0.5s ease; }
-        .b2b-swiper .swiper-slide-active { filter: blur(0px) brightness(1); transition: filter 0.5s ease; }
-        .b2b-swiper .swiper-pagination-bullet { background: #373A36; opacity: 0.2; width: 8px; height: 4px; border-radius: 9999px; transition: all 0.4s; }
-        .b2b-swiper .swiper-pagination-bullet-active { background: #C9A961; opacity: 1; width: 40px; }
-        .b2b-swiper .swiper-button-prev,
-        .b2b-swiper .swiper-button-next { width: 40px; height: 40px; background: rgba(255,255,255,0.85); border-radius: 9999px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); top: 50%; transform: translateY(-60%); }
-        .b2b-swiper .swiper-button-prev::after,
-        .b2b-swiper .swiper-button-next::after { font-size: 14px; color: #373A36; font-weight: 700; }
-        .b2b-swiper .swiper-button-prev { left: 16px; }
-        .b2b-swiper .swiper-button-next { right: 16px; }
+        @keyframes kenburns {
+          0%   { transform: scale(1.08) translateX(0px); }
+          100% { transform: scale(1.18) translateX(-20px); }
+        }
+        @keyframes fadeSlideNext {
+          0%   { opacity: 0; transform: translateX(60px); }
+          100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeSlidePrev {
+          0%   { opacity: 0; transform: translateX(-60px); }
+          100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes titleReveal {
+          0%   { opacity: 0; transform: translateY(24px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        .b2b-slide-next { animation: fadeSlideNext 0.7s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+        .b2b-slide-prev { animation: fadeSlidePrev 0.7s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+        .b2b-kenburns   { animation: kenburns 4.5s ease-out forwards; }
+        .b2b-title      { animation: titleReveal 0.8s 0.3s ease-out forwards; opacity: 0; }
       `}</style>
-      <Swiper
-        className="b2b-swiper"
-        modules={[EffectCoverflow, Pagination, Navigation]}
-        effect="coverflow"
-        grabCursor
-        centeredSlides
-        slidesPerView="auto"
-        loop
-        coverflowEffect={{
-          rotate: 40,
-          stretch: 0,
-          depth: 200,
-          modifier: 1,
-          slideShadows: true,
-        }}
-        pagination={{ clickable: true }}
-        navigation
-      >
-        {cards.map((card, i) => (
-          <SwiperSlide key={i}>
-            <div className="relative w-full h-full overflow-hidden shadow-2xl">
-              <img src={card.img} alt={card.title} style={{ objectPosition: card.objectPosition }} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-                <h3 className="text-white text-xl md:text-3xl font-serif font-light leading-tight mb-3">{card.title}</h3>
-                <div className="flex items-center gap-4">
-                  <div className="h-px w-12 bg-[#6B8E7F]" />
-                  <p className="text-white/60 text-xs md:text-sm tracking-[0.2em] uppercase">{card.location}</p>
-                </div>
+
+      {/* Slides */}
+      {cards.map((card, i) => (
+        <div
+          key={i}
+          className={`absolute inset-0 ${i === active ? (direction === 'next' ? 'b2b-slide-next' : 'b2b-slide-prev') : 'opacity-0 pointer-events-none'}`}
+          style={{ zIndex: i === active ? 2 : 1 }}
+        >
+          {/* Image with Ken Burns */}
+          <div className="absolute inset-0 overflow-hidden">
+            <img
+              src={card.img}
+              alt={card.title}
+              className={`w-full h-full object-cover ${i === active ? 'b2b-kenburns' : ''}`}
+              style={{ objectPosition: card.objectPosition }}
+            />
+          </div>
+
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
+
+          {/* Content */}
+          <div className="absolute bottom-0 left-0 right-0 px-12 pb-16">
+            <div className={`${i === active ? 'b2b-title' : 'opacity-0'}`}>
+              <h3 className="text-white text-3xl md:text-5xl font-serif font-light leading-tight mb-4">
+                {card.title}
+              </h3>
+              <div className="flex items-center gap-4">
+                <div className="h-px w-16 bg-[#C9A961]" />
+                <p className="text-white/70 text-xs tracking-[0.3em] uppercase">{card.location}</p>
               </div>
             </div>
-          </SwiperSlide>
+          </div>
+        </div>
+      ))}
+
+      {/* Prev / Next buttons */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button
+        onClick={next}
+        className="absolute right-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+      {/* Dot indicators */}
+      <div className="absolute bottom-6 right-12 z-10 flex gap-2">
+        {cards.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => goTo(i, i > active ? 'next' : 'prev')}
+            className="transition-all duration-400"
+            style={{
+              width: i === active ? '32px' : '8px',
+              height: '4px',
+              borderRadius: '9999px',
+              background: i === active ? '#C9A961' : 'rgba(255,255,255,0.4)',
+            }}
+          />
         ))}
-      </Swiper>
+      </div>
     </div>
   );
 }
@@ -806,7 +865,7 @@ export default function Home() {
       title: "Company Profile",
       heading: "Made in India",
       description:
-        "MAGIK is a trusted pan-India brand offering innovative solutions for Home, Office, Industry, Retail, and Hospitality sectors. With 10+ years of experience, 1000+ distributors, and a production capacity of 1 lakh+ products per day, MAGIK delivers quality products backed by advanced manufacturing and strict quality standards.",
+        "MAGIK is a trusted pan-India brand delivering innovative lighting solutions for Home, Office, Industry, Retail, and Hospitality sectors. With 10+ years of experience, 1000+ distributors, and a production capacity of 1 lakh+ products per day, every product is backed by advanced manufacturing and strict quality standards.",
       image: "/centuryhousehdimage.png",
     },
     {
