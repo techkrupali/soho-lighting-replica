@@ -320,11 +320,11 @@ function InstagramReels() {
     scrollRef.current?.scrollBy({ left: dir === 'right' ? 320 : -320, behavior: 'smooth' });
   };
   return (
-    <section className="py-16 px-4 bg-[#F7F7F0] overflow-hidden">
-      <div className="container mx-auto">
+    <section className="py-16 pl-4 md:pl-12 lg:pl-20 bg-[#F7F7F0] overflow-hidden">
+      <div className="w-full">
         <div className="flex flex-col lg:flex-row gap-10 items-start">
           {/* Left Text */}
-          <div className="lg:w-72 flex-shrink-0 flex flex-col items-start text-left pt-4">
+          <div className="lg:w-80 flex-shrink-0 flex flex-col items-start text-left pt-4 pr-4">
             <h2 className="text-3xl md:text-5xl font-serif font-light text-[#373A36] mb-2 tracking-widest leading-tight">
               Stay Inspired with us on <strong className="font-bold">Instagram</strong>
             </h2>
@@ -340,19 +340,19 @@ function InstagramReels() {
             </a>
           </div>
           {/* Reels Carousel */}
-          <div className="flex-1 min-w-0 relative">
-            <button onClick={() => scroll('left')} className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white hover:bg-[#E8E8E0] flex items-center justify-center transition-all border border-[#E8E8E0]">
-              <svg className="w-4 h-4 text-[#373A36]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+          <div className="flex-1 min-w-0 relative w-full">
+            <button onClick={() => scroll('left')} className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center transition-all shadow-lg border border-[#E8E8E0]">
+              <svg className="w-5 h-5 text-[#373A36]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" /></svg>
             </button>
-            <button onClick={() => scroll('right')} className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white hover:bg-[#E8E8E0] flex items-center justify-center transition-all border border-[#E8E8E0]">
-              <svg className="w-4 h-4 text-[#373A36]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            <button onClick={() => scroll('right')} className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center transition-all shadow-lg border border-[#E8E8E0]">
+              <svg className="w-5 h-5 text-[#373A36]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
             </button>
-            <div ref={scrollRef} className="flex gap-3 overflow-x-auto scroll-smooth" style={{ scrollbarWidth: 'none' }}>
+            <div ref={scrollRef} className="flex gap-3 overflow-x-auto scroll-smooth pr-12 lg:pr-20 pb-4" style={{ scrollbarWidth: 'none' }}>
               {reels.map((url) => {
                 const id = getReelId(url);
                 return (
                   <a key={id} href={url} target="_blank" rel="noopener noreferrer"
-                    className="flex-shrink-0 relative rounded-2xl overflow-hidden block"
+                    className="flex-shrink-0 relative rounded-2xl overflow-hidden block shadow-sm hover:shadow-xl transition-shadow duration-300"
                     style={{ width: 220, height: 390 }}
                   >
                     <div className="absolute" style={{ top: '80%', left: '50%', transform: 'translate(-50%, -50%)' }}>
@@ -2599,13 +2599,7 @@ export default function Home() {
               },
               {
                 icon: (
-                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 64 64">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M48 20 C48 12 40 8 32 8 C24 8 16 12 16 20 C16 28 22 32 22 32 L42 32 C42 32 48 28 48 20Z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M26 32 L26 38 L38 38 L38 32" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M22 38 L42 38" />
-                    <path strokeLinecap="round" d="M32 8 L32 14 M32 22 L32 26" />
-                    <circle cx="32" cy="18" r="2" fill="currentColor" />
-                  </svg>
+                  <img src="/end-to-end.png" alt="End-to-End Solutions" className="w-20 h-20 object-contain" />
                 ),
                 title: "END-TO-END SOLUTIONS",
                 desc: "Complete lighting solutions for every project scale.",
@@ -2696,7 +2690,7 @@ export default function Home() {
           <div className="split-panel flex-1 relative" style={{ minHeight: '560px' }}>
             <div className="absolute inset-0 w-full h-full">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3684.125!2d88.35!3d22.57!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1717850000000!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m12!1m3!1d15000000!2d78.9629!3d20.5937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1717850000000!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
