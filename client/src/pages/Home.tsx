@@ -885,29 +885,37 @@ export default function Home() {
       <GlobalStyles />
       
       {/* Header */}
-      <header className={`fixed top-0 left-0 right-0 z-50 bg-white transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || menuOpen ? 'bg-white shadow-sm' : 'bg-transparent'} ${!isVisible && scrolled && !menuOpen ? '-translate-y-full' : 'translate-y-0'}`}>
 
         {/* Top row: Logo center, icons right */}
         <div className="hidden md:flex items-center px-8 pt-5 pb-2 relative">
 
           {/* Center: Magik Logo */}
           <div className="absolute left-1/2 -translate-x-1/2">
-            <img src="/companylogo-2.png" alt="Magik Lights" className="h-16 w-auto object-contain" />
+            <img 
+              src={scrolled || menuOpen ? "/companylogo-2.png" : "/Magik PNG Logo White.png"} 
+              alt="Magik Lights" 
+              className="h-16 w-auto object-contain transition-all duration-300" 
+            />
           </div>
 
           {/* Right: icons + CenturyPly */}
           <div className="ml-auto flex items-center gap-4">
             <button className="p-1.5 hover:opacity-70 transition-opacity">
-              <Search size={20} className="text-[#373A36]" />
+              <Search size={20} className={scrolled || menuOpen ? "text-[#373A36]" : "text-white"} />
             </button>
             <button className="p-1.5 hover:opacity-70 transition-opacity">
-              <User size={20} className="text-[#373A36]" />
+              <User size={20} className={scrolled || menuOpen ? "text-[#373A36]" : "text-white"} />
             </button>
             <button className="p-1.5 hover:opacity-70 transition-opacity">
-              <ShoppingCart size={20} className="text-[#373A36]" />
+              <ShoppingCart size={20} className={scrolled || menuOpen ? "text-[#373A36]" : "text-white"} />
             </button>
-            <div className="w-px h-6 bg-[#E8E8E0]" />
-            <img src="/blackcentury.png" alt="Century Ply" className="h-9 w-auto object-contain" />
+            <div className={`w-px h-6 transition-colors duration-300 ${scrolled || menuOpen ? "bg-[#E8E8E0]" : "bg-white/20"}`} />
+            <img 
+              src={scrolled || menuOpen ? "/blackcentury.png" : "/Century Ply Logo white.png"} 
+              alt="Century Ply" 
+              className="h-9 w-auto object-contain transition-all duration-300" 
+            />
           </div>
         </div>
 
@@ -916,7 +924,7 @@ export default function Home() {
           <nav className="flex items-center justify-center gap-10 pb-4 pt-6">
             {["HOME", "ABOUT US", "PRODUCTS", "CONTACT US", "MORE"].map((item) => (
               <a key={item} href="#"
-                className="text-sm font-semibold tracking-widest text-[#373A36] hover:text-[#6B8E7F] transition-colors duration-200"
+                className={`text-sm font-semibold tracking-widest transition-colors duration-200 ${scrolled || menuOpen ? 'text-[#373A36] hover:text-[#6B8E7F]' : 'text-white hover:text-white/70'}`}
               >
                 {item}
               </a>
@@ -927,11 +935,15 @@ export default function Home() {
         {/* Mobile top row */}
         <div className="md:hidden flex items-center justify-between px-4 py-3">
           <button onClick={() => setMenuOpen(!menuOpen)} className="p-2">
-            <Menu size={24} className="text-[#373A36]" />
+            <Menu size={24} className={scrolled || menuOpen ? "text-[#373A36]" : "text-white"} />
           </button>
-          <img src="/companylogo-2.png" alt="Magik Lights" className="h-10 w-auto object-contain" />
+          <img 
+            src={scrolled || menuOpen ? "/companylogo-2.png" : "/Magik PNG Logo White.png"} 
+            alt="Magik Lights" 
+            className="h-10 w-auto object-contain transition-all duration-300" 
+          />
           <button className="p-1.5">
-            <ShoppingCart size={20} className="text-[#373A36]" />
+            <ShoppingCart size={20} className={scrolled || menuOpen ? "text-[#373A36]" : "text-white"} />
           </button>
         </div>
 
