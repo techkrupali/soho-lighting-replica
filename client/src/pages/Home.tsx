@@ -2692,29 +2692,35 @@ export default function Home() {
 
           {/* LEFT — Store Locator */}
           <div className="split-panel flex-1 relative" style={{ minHeight: '560px' }}>
-            <img
-              src="/indorr lighting2.png"
-              alt="Store Locator"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+            <div className="absolute inset-0 w-full h-full">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3684.125!2d88.35!3d22.57!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1717850000000!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
             <div
-              className="split-overlay absolute inset-0"
-              style={{ background: 'rgba(0,0,0,0.45)' }}
+              className="split-overlay absolute inset-0 pointer-events-none"
+              style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)' }}
             />
             {/* Vertical divider line */}
             <div className="hidden md:block absolute right-0 top-[10%] bottom-[10%] w-px bg-white/20 z-10" />
 
-            <div className="absolute inset-0 flex flex-col justify-end p-10 md:p-14 z-10">
+            <div className="absolute inset-0 flex flex-col justify-end p-10 md:p-14 z-10 pointer-events-none">
               <h2
                 className="text-white text-3xl md:text-5xl font-serif font-light leading-tight mb-4 text-left tracking-widest"
               >
                 Store <strong className="font-bold">Locator</strong>
               </h2>
 
-              <div>
+              <div className="pointer-events-auto">
                 <a
                   href="#"
-                  className="split-btn inline-flex items-center gap-3 border border-white text-white text-xs tracking-[0.2em] uppercase font-semibold px-7 py-3.5 rounded-full"
+                  className="split-btn inline-flex items-center gap-3 border border-white text-white text-xs tracking-[0.2em] uppercase font-semibold px-7 py-3.5 rounded-full hover:bg-white hover:text-[#373A36] transition-all duration-300"
                 >
                   Find a Store
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
