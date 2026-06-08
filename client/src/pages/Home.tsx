@@ -1365,7 +1365,7 @@ export default function Home() {
             <p className="text-white text-xs md:text-sm tracking-widest uppercase mb-4">
               FRESH IDEAS TO LIGHT YOUR SPACE
             </p>
-            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-6 text-center tracking-widest">
+            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-6 text-left tracking-widest">
               <strong className="font-bold">Kitchen</strong>
             </h2>
             <button 
@@ -1716,7 +1716,7 @@ export default function Home() {
             <p className="text-white text-xs md:text-sm tracking-widest uppercase mb-4">
               FRESH IDEAS TO LIGHT YOUR SPACE
             </p>
-            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-6 text-center tracking-widest">
+            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-6 text-left tracking-widest">
               <strong className="font-bold">Bathroom</strong>
             </h2>
             <button 
@@ -2031,7 +2031,7 @@ export default function Home() {
             <p className="text-white text-xs md:text-sm tracking-widest uppercase mb-4">
               FRESH IDEAS TO LIGHT YOUR SPACE
             </p>
-            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-6 text-center tracking-widest">
+            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-6 text-left tracking-widest">
               Living <strong className="font-bold">Room</strong>
             </h2>
             <button 
@@ -2343,7 +2343,7 @@ export default function Home() {
             <p className="text-white text-xs md:text-sm tracking-widest uppercase mb-4">
               FRESH IDEAS TO LIGHT YOUR SPACE
             </p>
-            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-6 text-center tracking-widest">
+            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-6 text-left tracking-widest">
               <strong className="font-bold">Bedroom</strong>
             </h2>
             <button 
