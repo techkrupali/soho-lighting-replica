@@ -200,7 +200,7 @@ function MagikBlog() {
               {/* Title */}
               <h3
                 className="text-[#1a1a1a] leading-snug mb-3 tracking-wide uppercase"
-                style={{ fontFamily: "'Lora', serif", fontWeight: 400, fontSize: '1.05rem', letterSpacing: '0.04em' }}
+                style={{ fontFamily: "'Lora', serif", fontWeight: 700, fontSize: '1.05rem', letterSpacing: '0.04em' }}
               >
                 {post.title}
               </h3>
@@ -320,25 +320,27 @@ function InstagramReels() {
     scrollRef.current?.scrollBy({ left: dir === 'right' ? 320 : -320, behavior: 'smooth' });
   };
   return (
-    <section className="py-16 px-6 bg-[#F7F7F0]">
+    <section className="py-16 px-4 bg-[#F7F7F0] overflow-hidden">
       <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row gap-10 items-start">
           {/* Left Text */}
-          <div className="lg:w-64 flex-shrink-0 lg:pt-4 flex flex-col items-start">
-            <h2 className="text-3xl md:text-5xl font-serif font-light text-[#373A36] mb-2 text-left tracking-widest">Stay Inspired with us on <strong className="font-bold">Instagram</strong></h2>
+          <div className="lg:w-72 flex-shrink-0 flex flex-col items-start text-left pt-4">
+            <h2 className="text-3xl md:text-5xl font-serif font-light text-[#373A36] mb-2 tracking-widest leading-tight">
+              Stay Inspired with us on <strong className="font-bold">Instagram</strong>
+            </h2>
             <div className="h-1 w-16 bg-[#6B8E7F] rounded-full mb-6" />
             <a
               href="https://www.instagram.com/magiklighting?igsh=ZDNpYnRmZGtxa3N3"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-[#373A36] text-[#373A36] px-5 py-2.5 rounded-full text-sm hover:bg-[#373A36] hover:text-white transition-all duration-200 mb-8"
+              className="inline-flex items-center gap-2 border border-[#373A36] text-[#373A36] px-6 py-2.5 rounded-full text-sm hover:bg-[#373A36] hover:text-white transition-all duration-200 mb-8"
             >
               <InstagramIcon size={16} color="currentColor" />
               Follow us
             </a>
           </div>
           {/* Reels Carousel */}
-          <div className="flex-1 relative">
+          <div className="flex-1 min-w-0 relative">
             <button onClick={() => scroll('left')} className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white hover:bg-[#E8E8E0] flex items-center justify-center transition-all border border-[#E8E8E0]">
               <svg className="w-4 h-4 text-[#373A36]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
             </button>
