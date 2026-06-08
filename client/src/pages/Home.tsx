@@ -68,7 +68,7 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
         .proj-card:hover img { transform: scale(1.06); }
         .proj-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 45%, transparent 100%); transition: background 0.4s ease; z-index: 1; }
         .proj-card:hover .proj-overlay { background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.45) 55%, transparent 100%); }
-        .proj-content { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 20px 24px; }
+        .proj-content { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 20px 24px 28px 24px; }
         .proj-content h3 { color: white; font-family: 'Lora', serif; font-weight: 300; line-height: 1.35; transition: color 0.3s ease; margin: 0; }
         .proj-card:hover .proj-content h3 { color: #C9A961; }
         .proj-loc { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
@@ -76,7 +76,7 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
         .proj-line { height: 1px; width: 20px; background: #C9A961; flex-shrink: 0; }
       `}</style>
 
-      <div className="flex flex-col md:flex-row gap-3 p-4">
+      <div className="flex flex-col md:flex-row gap-3 p-4 pb-8">
 
         {/* BIG LEFT card */}
         <div className="proj-card md:w-[50%] flex-shrink-0" style={{ height: '640px' }}>
@@ -177,9 +177,8 @@ function MagikBlog() {
       <div className="container mx-auto px-6 md:px-12">
 
         {/* Header — matches photo style */}
-        <h2 className="text-center text-2xl md:text-3xl tracking-[0.25em] uppercase text-[#373A36] mb-4"
-            style={{ fontFamily: "'Lora', serif", fontWeight: 300 }}>
-          Lighting <strong style={{ fontWeight: 700 }}>Insights</strong>
+        <h2 className="text-2xl md:text-3xl font-serif font-light text-[#373A36] mb-4 text-center tracking-widest uppercase">
+          Lighting <strong className="font-bold">Insights</strong>
         </h2>
         <div className="flex justify-center mb-10">
           <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
@@ -290,13 +289,13 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
 
 function MagikClients() {
   return (
-    <section className="py-20 bg-[#F5F0E8] overflow-hidden relative -mt-10 md:-mt-16 rounded-t-[40px] md:rounded-t-[80px] z-20">
+    <section className="py-20 bg-[#F5F0E8] overflow-hidden relative z-20">
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-14">
           <p className="text-[#C9A961] text-xs tracking-widest uppercase mb-3">In Good Company</p>
-          <h2 className="text-4xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] mb-4">
-            Brands We <strong className="font-bold">Illuminate With</strong>
-          </h2>
+          <h2 className="text-3xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] mb-4 text-center leading-tight">
+              Brands We <strong className="font-bold">Illuminate With</strong>
+            </h2>
           <div className="flex justify-center mb-4">
             <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
           </div>
@@ -325,8 +324,8 @@ function InstagramReels() {
       <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row gap-10 items-start">
           {/* Left Text */}
-          <div className="lg:w-64 flex-shrink-0 lg:pt-4">
-            <h2 className="text-[#373A36] text-5xl font-serif leading-tight mb-3">Stay inspired with us on Instagram</h2>
+          <div className="lg:w-64 flex-shrink-0 lg:pt-4 flex flex-col items-start">
+            <h2 className="text-3xl md:text-5xl font-serif font-light text-[#373A36] mb-2 text-left tracking-widest">Stay Inspired with us on <strong className="font-bold">Instagram</strong></h2>
             <div className="h-1 w-16 bg-[#6B8E7F] rounded-full mb-6" />
             <a
               href="https://www.instagram.com/magiklighting?igsh=ZDNpYnRmZGtxa3N3"
@@ -406,9 +405,9 @@ function ClientLove() {
     <section className="py-10 pb-16 bg-[#F7F7F0] overflow-hidden">
       <div className="container mx-auto px-4 mb-10 text-center">
         <p className="text-[#C9A961] text-xs tracking-widest uppercase font-sans mb-1">Client Love</p>
-        <h2 className="text-3xl md:text-4xl font-serif font-light tracking-widest text-[#373A36]">
-          Customer <strong className="font-bold">Voices</strong>
-        </h2>
+          <h2 className="text-3xl md:text-4xl font-serif font-light text-[#373A36] mb-4 text-center tracking-widest">
+            Customer <strong className="font-bold">Voices</strong>
+          </h2>
         <div className="flex justify-center mt-3 mb-4">
           <div className="h-1 w-16 bg-[#6B8E7F] rounded-full" />
         </div>
@@ -511,7 +510,7 @@ function CorporateVideos() {
       <div className="container mx-auto">
         <div className="mb-6 text-center">
           <p className="text-[#6B8E7F] text-xs tracking-widest uppercase font-sans mb-1">Watch & Explore</p>
-          <h2 className="text-[#373A36] text-3xl md:text-4xl font-bold font-serif uppercase tracking-wide">Corporate Videos</h2>
+          <h2 className="text-3xl md:text-4xl font-serif font-light text-[#373A36] mb-2 text-center tracking-widest uppercase">Corporate <strong className="font-bold">Videos</strong></h2>
           <div className="flex justify-center mt-3">
             <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
           </div>
@@ -1354,8 +1353,8 @@ export default function Home() {
             <p className="text-white text-xs md:text-sm tracking-widest uppercase mb-4">
               FRESH IDEAS TO LIGHT YOUR SPACE
             </p>
-            <h2 className="text-white text-5xl md:text-7xl font-light mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Kitchen
+            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-6 text-center tracking-widest">
+              <strong className="font-bold">Kitchen</strong>
             </h2>
             <button 
               onClick={() => setShowSpaceModal(true)}
@@ -1705,8 +1704,8 @@ export default function Home() {
             <p className="text-white text-xs md:text-sm tracking-widest uppercase mb-4">
               FRESH IDEAS TO LIGHT YOUR SPACE
             </p>
-            <h2 className="text-white text-5xl md:text-7xl font-light mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Bathroom
+            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-6 text-center tracking-widest">
+              <strong className="font-bold">Bathroom</strong>
             </h2>
             <button 
               onClick={() => setShowSpaceModal(true)}
@@ -2020,8 +2019,8 @@ export default function Home() {
             <p className="text-white text-xs md:text-sm tracking-widest uppercase mb-4">
               FRESH IDEAS TO LIGHT YOUR SPACE
             </p>
-            <h2 className="text-white text-5xl md:text-7xl font-light mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Living Room
+            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-6 text-center tracking-widest">
+              Living <strong className="font-bold">Room</strong>
             </h2>
             <button 
               onClick={() => setShowSpaceModal(true)}
@@ -2332,8 +2331,8 @@ export default function Home() {
             <p className="text-white text-xs md:text-sm tracking-widest uppercase mb-4">
               FRESH IDEAS TO LIGHT YOUR SPACE
             </p>
-            <h2 className="text-white text-5xl md:text-7xl font-light mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Bedroom
+            <h2 className="text-white text-3xl md:text-5xl font-serif font-light mb-6 text-center tracking-widest">
+              <strong className="font-bold">Bedroom</strong>
             </h2>
             <button 
               onClick={() => setShowSpaceModal(true)}
@@ -2453,7 +2452,7 @@ export default function Home() {
                   {/* Content */}
                   <div className="relative z-10 text-center">
                     <div className="flex items-center justify-center mb-3">
-                      <h3 className="text-4xl md:text-5xl font-light text-[#C9A961] tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+                      <h3 className="text-4xl md:text-5xl font-light text-[#C9A961] tracking-tight" style={{ fontFamily: "'Lora', serif" }}>
                         <span className="counter-number">0</span>
                         <span className="counter-suffix">{stat.suffix}</span>
                       </h3>
@@ -2471,7 +2470,7 @@ export default function Home() {
       </section>
 
       {/* About Us */}
-      <section className="relative h-[650px] md:h-[90vh] overflow-hidden mt-16">
+      <section className="relative h-[650px] md:h-[90vh] overflow-hidden">
         <img
           src="/centuryhouse33.png"
           alt="About Us"
@@ -2483,9 +2482,9 @@ export default function Home() {
         {/* Left: Dynamic Text — image style layout */}
         <div className="absolute inset-0 flex items-start" style={{ paddingLeft: "5%", paddingRight: "50%", paddingTop: "4%" }}>
           <div key={activeAbout} className="animate-fadeSlideIn">
-            <h2 className="text-white leading-tight mb-3"
-                style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 700 }}>
-              <span style={{ fontWeight: 300 }}>ABOUT </span>Magik Lights
+            <h2 className="text-white leading-tight mb-3 text-center tracking-widest"
+                style={{ fontFamily: "'Lora', serif", fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 300 }}>
+              ABOUT <strong style={{ fontWeight: 700 }}>Magik Lights</strong>
             </h2>
             
             <div className="text-white/90 leading-relaxed" style={{ maxWidth: "520px" }}>
@@ -2510,7 +2509,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <p className="text-[#C9A961] text-sm tracking-widest uppercase mb-3">Our Advantage</p>
-            <h2 className="text-3xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] leading-tight">
+            <h2 className="text-3xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] text-center leading-tight">
               Why Choose <strong className="font-bold">Magik Lights</strong>
             </h2>
             <div className="flex justify-center mt-4">
@@ -2652,8 +2651,8 @@ export default function Home() {
       <section className="pt-2 pb-0 bg-white">
         {/* Header */}
         <div className="mb-0 pt-8 text-center container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] mb-2 leading-tight">
-            Projects We've Illuminated
+          <h2 className="text-3xl md:text-5xl font-serif font-light tracking-widest text-[#373A36] mb-2 text-center leading-tight">
+            Projects We've <strong className="font-bold">Illuminated</strong>
           </h2>
           <div className="flex justify-center mb-4">
             <div className="h-1 w-16 bg-[#6B8E7F] rounded-full"></div>
@@ -2713,14 +2712,11 @@ export default function Home() {
 
             <div className="absolute inset-0 flex flex-col justify-end p-10 md:p-14 z-10">
               <h2
-                className="text-white text-4xl md:text-5xl font-light leading-tight mb-4"
-                style={{ fontFamily: "'Lora', serif" }}
+                className="text-white text-3xl md:text-5xl font-serif font-light leading-tight mb-4 text-left tracking-widest"
               >
-                Store Locator
+                Store <strong className="font-bold">Locator</strong>
               </h2>
-              <p className="text-white/70 text-sm leading-relaxed mb-8 max-w-xs">
-                Find your nearest Magik Lights authorised dealer or experience centre across India.
-              </p>
+
               <div>
                 <a
                   href="#"
@@ -2736,25 +2732,19 @@ export default function Home() {
           {/* RIGHT — Become a Distributor */}
           <div className="split-panel flex-1 relative" style={{ minHeight: '560px' }}>
             <img
-              src="/magiklight factory.JPG.jpg"
+              src="/become distributor.jpg"
               alt="Become a Distributor"
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div
-              className="split-overlay absolute inset-0"
-              style={{ background: 'rgba(20,18,14,0.58)' }}
-            />
+
 
             <div className="absolute inset-0 flex flex-col justify-end p-10 md:p-14 z-10">
               <h2
-                className="text-white text-4xl md:text-5xl font-light leading-tight mb-4"
-                style={{ fontFamily: "'Lora', serif" }}
+                className="text-white text-3xl md:text-5xl font-serif font-light leading-tight mb-4 text-left tracking-widest"
               >
                 Become a <strong className="font-bold">Distributor</strong>
               </h2>
-              <p className="text-white/70 text-sm leading-relaxed mb-8 max-w-xs">
-                Partner with Eastern India's fastest growing lighting brand. High ROI, 750+ products, full support.
-              </p>
+
               <div>
                 <a
                   href="#"
@@ -2776,205 +2766,96 @@ export default function Home() {
       {/* Instagram Reels */}
       <InstagramReels />
 
-      {/* Find a Store — Redesigned Light */}
-      <section className="w-full relative overflow-hidden bg-[#EEF3F1]" style={{ minHeight: '520px' }}>
-        {/* Ambient glow blobs */}
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-[#C9A961]/10 blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-[#6B8E7F]/10 blur-[100px] pointer-events-none" />
-
-        {/* Subtle dot-grid texture */}
-        <div className="absolute inset-0 opacity-[0.4] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #C9A961 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
-
-        <div className="relative z-10 container mx-auto px-6 py-8 md:py-10">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-
-            {/* LEFT */}
-            <div className="lg:w-[42%] w-full">
-              {/* Heading */}
-              <h2 className="text-[#373A36] text-5xl md:text-6xl font-light leading-tight mb-3" style={{ fontFamily: "'Lora', serif" }}>
-                Find Your<br />
-                <span className="text-[#C9A961]">Nearest</span> Store
-              </h2>
-              <div className="h-px w-16 bg-[#6B8E7F] mb-8" />
-
-              {/* City pills */}
-              <div className="flex flex-wrap gap-2 mb-8">
-                {['Kolkata', 'Mumbai', 'Delhi', 'Bangalore', 'Nagpur', 'Hyderabad'].map((city) => (
-                  <button key={city}
-                    className="px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide border border-[#E8E8E0] text-[#373A36]/60 hover:border-[#C9A961] hover:text-[#C9A961] transition-all duration-200 bg-white hover:bg-[#C9A961]/10"
-                  >
-                    {city}
-                  </button>
-                ))}
-              </div>
-
-              {/* Search bar */}
-              <div className="relative flex items-center bg-white border border-[#E8E8E0] rounded-2xl overflow-hidden shadow-md hover:border-[#C9A961]/60 transition-all duration-300">
-                <svg className="w-4 h-4 text-[#C9A961] ml-5 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-                </svg>
-                <input
-                  type="text"
-                  placeholder="Enter city or pincode…"
-                  className="flex-1 bg-transparent text-[#373A36] px-4 py-4 text-sm focus:outline-none placeholder:text-[#aaa]"
-                />
-                <button className="m-1.5 bg-[#373A36] hover:bg-[#C9A961] text-white px-6 py-3 rounded-xl text-xs font-black tracking-widest uppercase transition-all duration-200 hover:scale-105">
-                  Locate
-                </button>
-              </div>
-
-
-            </div>
-
-            {/* RIGHT — Map */}
-            <div className="lg:w-[58%] w-full">
-              <div className="relative group">
-                {/* Soft border frame */}
-                <div className="absolute -inset-px rounded-3xl bg-gradient-to-br from-[#C9A961]/30 via-[#6B8E7F]/15 to-[#C9A961]/10 blur-sm" />
-                <div className="relative rounded-3xl overflow-hidden border border-[#E8E8E0] shadow-xl" style={{ height: '420px' }}>
-                  <iframe
-                    title="Magik Store Locator"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.072223403328!2d88.361309315403!3d22.576404985181285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02764f6974241d%3A0xc3f12467a840e5a6!2sMagik%20Lighting!5e0!3m2!1sen!2sin!4v1652610000000!5m2!1sen!2sin&markers=color:red%7C22.5764,88.3636"
-                    width="100%" height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-                  />
-                  {/* Top overlay bar */}
-                  <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white/40 to-transparent pointer-events-none" />
-                  {/* Bottom overlay bar */}
-                  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white/40 to-transparent pointer-events-none" />
-                  {/* Custom map point markers */}
-                  {[
-                    { top: '38%', left: '52%', label: 'Kolkata HQ' },
-                    { top: '28%', left: '30%', label: 'Patna' },
-                    { top: '55%', left: '68%', label: 'Bhubaneswar' },
-                    { top: '20%', left: '58%', label: 'Siliguri' },
-                  ].map((pin) => (
-                    <div key={pin.label} className="absolute pointer-events-none" style={{ top: pin.top, left: pin.left, transform: 'translate(-50%, -100%)' }}>
-                      <div className="flex flex-col items-center">
-                        <div className="bg-white rounded-full px-2 py-0.5 text-[9px] font-bold text-[#373A36] shadow mb-1 whitespace-nowrap">{pin.label}</div>
-                        <img src="/map point.png" alt="store" className="w-7 h-7 object-contain drop-shadow-lg" />
-                      </div>
-                    </div>
-                  ))}
-                  {/* Floating badge */}
-                  <div className="absolute top-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur-md border border-[#E8E8E0] px-3 py-1.5 rounded-full shadow-sm">
-                    <span className="w-2 h-2 rounded-full bg-[#C9A961] animate-pulse" />
-                    <span className="text-[#373A36] text-[10px] font-semibold tracking-widest uppercase">Live Map</span>
-                  </div>
-                  {/* Bottom store badge */}
-                  <div className="absolute bottom-4 right-4 bg-[#C9A961] text-white px-4 py-2 rounded-xl text-xs font-black tracking-wide shadow-lg">
-                    📍 Magik Lights, Kolkata
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
-      <footer className="relative bg-[#1a1c18] text-white overflow-hidden">
+      <footer className="relative bg-[#111210] text-white overflow-hidden">
 
-        {/* Decorative glow orbs */}
-        <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[260px] rounded-full opacity-20"
-          style={{ background: 'radial-gradient(ellipse at center, #C9A961 0%, transparent 70%)' }} />
-        <div className="pointer-events-none absolute top-0 left-0 w-[300px] h-[300px] rounded-full opacity-10"
-          style={{ background: 'radial-gradient(ellipse at center, #C9A961 0%, transparent 70%)' }} />
-        <div className="pointer-events-none absolute bottom-0 right-0 w-[400px] h-[300px] rounded-full opacity-10"
-          style={{ background: 'radial-gradient(ellipse at center, #C9A961 0%, transparent 70%)' }} />
-
-        {/* Top accent line */}
+        {/* Top gold gradient line */}
         <div className="w-full h-px" style={{ background: 'linear-gradient(90deg, transparent 0%, #C9A961 30%, #fff8e7 50%, #C9A961 70%, transparent 100%)' }} />
 
-        {/* Main grid */}
-        <div className="relative container mx-auto px-6 pb-14">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 border-t border-white/10 pt-12">
+        {/* Logo + tagline banner */}
+        <div className="border-b border-white/8 py-12">
+          <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex flex-col items-center md:items-start gap-2">
+              <img src="/companylogo-2.png" alt="Magik Lights" className="h-16 w-auto object-contain brightness-0 invert" />
+              <p className="text-white/40 text-xs tracking-[0.25em] uppercase">Illuminating Excellence Since 2014</p>
+            </div>
+            <div className="flex flex-wrap justify-center md:justify-end gap-3">
+              {[
+                { label: 'Facebook', href: 'https://facebook.com', icon: <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg> },
+                { label: 'Instagram', href: 'https://instagram.com/magiklighting', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" /></svg> },
+                { label: 'YouTube', href: 'https://youtube.com', icon: <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" /><polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" /></svg> },
+                { label: 'LinkedIn', href: 'https://linkedin.com', icon: <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg> },
+              ].map((s) => (
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
+                  className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-white/50 hover:text-[#C9A961] hover:border-[#C9A961] transition-all duration-300">
+                  {s.icon}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
 
-            {/* Col 1 — Brand + Contact + Social */}
-            <div className="md:col-span-1 flex flex-col gap-7">
-              <p className="text-white/50 text-sm leading-relaxed font-sans">
-                Premium LED solutions engineered for brilliance — from residential warmth to industrial power.
-              </p>
-              <div>
-                <h4 className="text-[10px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-4">Get In Touch</h4>
-                <ul className="space-y-3 text-sm text-white/70">
-                  <li className="flex items-start gap-2.5">
-                    <svg className="w-4 h-4 mt-0.5 shrink-0 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                    <span>Info@magiklights.com</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <svg className="w-4 h-4 mt-0.5 shrink-0 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                    <span>helpdesk@magiklights.com</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <svg className="w-4 h-4 mt-0.5 shrink-0 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
-                    <span>Toll Free: 18003451345</span>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-[10px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-4">Follow Us</h4>
-                <div className="flex gap-2.5 flex-wrap">
-                  {[
-                    { label: 'Facebook', href: 'https://facebook.com', icon: <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg> },
-                    { label: 'Instagram', href: 'https://instagram.com/magiklighting', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" /></svg> },
-                    { label: 'YouTube', href: 'https://youtube.com', icon: <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" /><polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" /></svg> },
-                    { label: 'LinkedIn', href: 'https://linkedin.com', icon: <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg> },
-                    { label: 'Twitter', href: 'https://twitter.com', icon: <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg> },
-                  ].map((s) => (
-                    <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
-                      className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-[#C9A961] hover:border-[#C9A961] hover:shadow-[0_0_12px_rgba(201,169,97,0.4)] transition-all duration-300">
-                      {s.icon}
-                    </a>
-                  ))}
-                </div>
-              </div>
+        {/* Main grid */}
+        <div className="container mx-auto px-6 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+
+            {/* Col 1 — Contact */}
+            <div className="flex flex-col gap-6">
+              <h4 className="text-[11px] tracking-[0.3em] font-bold text-[#C9A961] uppercase">Contact Us</h4>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
+                    <svg className="w-3.5 h-3.5 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  </div>
+                  <div>
+                    <p className="text-white/30 text-[10px] tracking-widest uppercase mb-1">Email</p>
+                    <p className="text-white/70 text-sm">Info@magiklights.com</p>
+                    <p className="text-white/70 text-sm">helpdesk@magiklights.com</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
+                    <svg className="w-3.5 h-3.5 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+                  </div>
+                  <div>
+                    <p className="text-white/30 text-[10px] tracking-widest uppercase mb-1">Toll Free</p>
+                    <p className="text-white/70 text-sm">18003451345</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
+                    <svg className="w-3.5 h-3.5 text-[#C9A961]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  </div>
+                  <div>
+                    <p className="text-white/30 text-[10px] tracking-widest uppercase mb-1">Address</p>
+                    <p className="text-white/70 text-sm leading-relaxed">Kolkata, West Bengal,<br />India — 700001</p>
+                  </div>
+                </li>
+              </ul>
             </div>
 
-            {/* Col 2 — Footer Links */}
+            {/* Col 2 — Quick Links */}
             <div>
-              <h4 className="text-[10px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-6">Quick Links</h4>
+              <h4 className="text-[11px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-6">Quick Links</h4>
               <ul className="space-y-3">
-                {[
-                  { label: 'Home', href: '#' },
-                  { label: 'About Us', href: '#' },
-                  { label: 'Shop By Category', href: '#shop-by-category' },
-                  { label: 'Contact Us', href: '#' },
-                  { label: 'Brochures', href: '#' },
-                  { label: 'Ledpedia', href: '#' },
-                  { label: 'Become a Distributor', href: '#' },
-                  { label: 'News & Media', href: '#' },
-                  { label: 'Gallery', href: '#' },
-                  { label: 'Blogs', href: '#' },
-                  { label: 'Career', href: '#' },
-                ].map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href}
-                      className="group flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-200">
+                {['Home', 'About Us', 'Shop By Category', 'Contact Us', 'Brochures', 'Ledpedia', 'Become a Distributor', 'News & Media', 'Gallery', 'Blogs', 'Career'].map((link) => (
+                  <li key={link}>
+                    <a href="#" className="group flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors duration-200">
                       <span className="w-0 group-hover:w-3 h-px bg-[#C9A961] transition-all duration-300 shrink-0" />
-                      {link.label}
+                      {link}
                     </a>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Col 3 — Shop By Category */}
+            {/* Col 3 — Categories */}
             <div>
-              <h4 className="text-[10px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-6">Shop By Category</h4>
+              <h4 className="text-[11px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-6">Shop By Category</h4>
               <ul className="space-y-3">
-                {[
-                  'Panel & Spotlight', 'Outdoor Lights', 'Table Lamps', 'Lamps',
-                  'Batten', 'Accessories', 'Street Lighting', 'Solar Lighting',
-                  'Area Lighting', 'Industrial Lighting', 'Landscape Lighting',
-                  'Retail Lighting', 'Indoor Lighting', 'Architectural Lighting',
-                  'Smart Lighting', 'Wire',
-                ].map((cat) => (
+                {['Panel & Spotlight', 'Outdoor Lights', 'Table Lamps', 'Batten', 'Street Lighting', 'Solar Lighting', 'Industrial Lighting', 'Architectural Lighting', 'Smart Lighting', 'Landscape Lighting', 'Wire'].map((cat) => (
                   <li key={cat}>
-                    <a href="#shop-by-category"
-                      className="group flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-200">
+                    <a href="#shop-by-category" className="group flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors duration-200">
                       <span className="w-0 group-hover:w-3 h-px bg-[#C9A961] transition-all duration-300 shrink-0" />
                       {cat}
                     </a>
@@ -2983,14 +2864,27 @@ export default function Home() {
               </ul>
             </div>
 
-            {/* Col 4 — Certifications */}
-            <div className="flex flex-col gap-6">
+            {/* Col 4 — Newsletter + Certifications */}
+            <div className="flex flex-col gap-8">
               <div>
-                <h4 className="text-[10px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-4">Certifications</h4>
+                <h4 className="text-[11px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-4">Newsletter</h4>
+                <p className="text-white/40 text-xs leading-relaxed mb-4">Get the latest lighting trends and product updates.</p>
+                <div className="flex gap-0 rounded-xl overflow-hidden border border-white/10">
+                  <input
+                    type="email"
+                    placeholder="Your email"
+                    className="flex-1 bg-white/5 text-white text-xs px-4 py-3 placeholder:text-white/25 focus:outline-none"
+                  />
+                  <button className="bg-[#C9A961] hover:bg-[#b8983a] text-[#111210] text-xs font-bold px-4 tracking-wider transition-colors duration-200">
+                    →
+                  </button>
+                </div>
+              </div>
+              <div>
+                <h4 className="text-[11px] tracking-[0.3em] font-bold text-[#C9A961] uppercase mb-4">Certifications</h4>
                 <div className="flex flex-wrap gap-2">
                   {['BIS Certified', 'ISO 9001', 'Energy Star', 'RoHS'].map((badge) => (
-                    <span key={badge}
-                      className="text-[10px] tracking-wider uppercase px-3 py-1.5 rounded-full border border-white/20 text-white/50 font-medium">
+                    <span key={badge} className="text-[10px] tracking-wider uppercase px-3 py-1.5 rounded-full border border-white/15 text-white/40 font-medium">
                       {badge}
                     </span>
                   ))}
@@ -3002,16 +2896,16 @@ export default function Home() {
         </div>
 
         {/* Bottom bar */}
-        <div className="relative border-t border-white/10">
-          <div className="container mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-xs text-white/40 tracking-wide">
+        <div className="border-t border-white/8">
+          <div className="container mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="text-xs text-white/30 tracking-wide">
               © 2026 Magik LED Pvt. Ltd. All rights reserved.
             </p>
-            <div className="flex items-center gap-5 text-xs text-white/40">
+            <div className="flex items-center gap-5 text-xs text-white/30">
               <a href="#" className="hover:text-[#C9A961] transition-colors duration-200">Terms of Use</a>
-              <span className="w-px h-3 bg-white/20" />
+              <span className="w-px h-3 bg-white/15" />
               <a href="#" className="hover:text-[#C9A961] transition-colors duration-200">Privacy Policy</a>
-              <span className="w-px h-3 bg-white/20" />
+              <span className="w-px h-3 bg-white/15" />
               <a href="#" className="hover:text-[#C9A961] transition-colors duration-200">Sitemap</a>
             </div>
           </div>
