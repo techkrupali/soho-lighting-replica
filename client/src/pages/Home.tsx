@@ -2533,7 +2533,7 @@ export default function Home() {
             {[
               {
                 icon: (
-                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 64 64">
+                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 64 64">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M32 6 L52 14 L52 32 C52 44 42 54 32 58 C22 54 12 44 12 32 L12 14 Z" />
                   </svg>
                 ),
@@ -2542,9 +2542,9 @@ export default function Home() {
               },
               {
                 icon: (
-                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 64 64">
+                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 64 64">
                     <circle cx="32" cy="26" r="14" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M22 40 C18 42 14 46 14 52 L50 52 C50 46 46 42 42 40" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M22 40 C18 42 14 46 14 52 L50 52 C50 46 42 42 42 40" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M50 22 C52 18 56 18 56 22 C56 28 50 30 50 30 L50 22" />
                     <circle cx="50" cy="34" r="2" fill="currentColor" />
                   </svg>
@@ -2555,12 +2555,12 @@ export default function Home() {
               },
               {
                 icon: (
-                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 64 64">
+                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 64 64">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M18 10 L46 10 L50 18 L50 46 C50 48 48 50 46 50 L18 50 C16 50 14 48 14 46 L14 18 Z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M14 18 L50 18" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M26 10 L26 18 M38 10 L38 18" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M22 30 L30 30 M34 30 L42 30 M22 38 L30 38 M34 38 L42 38" />
-                    <circle cx="48" cy="48" r="8" fill="white" stroke="currentColor" />
+                    <circle cx="48" cy="48" r="8" stroke="currentColor" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M44 48 L47 51 L52 45" />
                   </svg>
                 ),
@@ -2590,32 +2590,14 @@ export default function Home() {
             {[
               {
                 icon: (
-                  <svg className="w-20 h-20" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {/* India map outline */}
-                    <path
-                      d="M85,8 L88,12 L82,18 L78,16 L72,22 L68,20 L62,26 L58,24 L54,30 L50,32 L46,28 L42,32 L40,38 L36,42 L32,40 L28,46 L24,50 L22,56 L18,62 L16,68 L14,76 L12,84 L10,92 L10,100 L12,108 L14,114 L18,120 L22,126 L26,130 L30,136 L34,142 L36,150 L38,158 L40,164 L42,170 L46,176 L50,180 L54,184 L58,188 L62,192 L66,196 L70,198 L74,196 L76,192 L78,188 L80,184 L82,180 L84,176 L86,172 L88,168 L90,172 L92,176 L94,172 L96,168 L98,164 L100,160 L102,164 L104,168 L108,172 L112,170 L114,166 L116,162 L118,158 L122,154 L126,150 L130,146 L134,142 L138,138 L142,134 L146,128 L150,122 L154,116 L156,110 L158,104 L158,96 L156,88 L154,82 L152,76 L148,70 L144,66 L140,62 L138,56 L140,50 L144,46 L148,42 L152,38 L156,34 L158,28 L154,24 L150,22 L146,26 L142,28 L138,24 L134,20 L130,18 L126,14 L122,10 L118,8 L114,6 L110,8 L106,10 L102,8 L98,6 L94,8 L90,10 L86,8 Z
-                      M140,60 L144,56 L148,52 L152,48 L156,44 L158,38 L160,44 L162,50 L164,56 L162,62 L158,66 L154,70 L150,72 L146,68 L142,64 Z
-                      M155,30 L158,26 L162,24 L166,26 L168,30 L166,34 L162,36 L158,34 Z"
-                      fill="white"
-                      stroke="#1a1a1a"
-                      strokeWidth="4"
-                      strokeLinejoin="round"
-                      strokeLinecap="round"
-                    />
-                    {/* Tricolor stripes — saffron */}
-                    <path d="M68,105 Q78,100 88,103 Q98,106 108,102" stroke="#C9A961" strokeWidth="5" strokeLinecap="round" fill="none"/>
-                    {/* White stripe */}
-                    <path d="M68,115 Q78,110 88,113 Q98,116 108,112" stroke="#aaaaaa" strokeWidth="5" strokeLinecap="round" fill="none"/>
-                    {/* Green stripe */}
-                    <path d="M68,125 Q78,120 88,123 Q98,126 108,122" stroke="#6B8E7F" strokeWidth="5" strokeLinecap="round" fill="none"/>
-                  </svg>
+                  <img src="/india.png" alt="Made in India" className="w-20 h-20 object-contain brightness-90 contrast-125" />
                 ),
                 title: "MADE IN INDIA",
                 desc: "State-of-the-art facility with world-class machinery.",
               },
               {
                 icon: (
-                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 64 64">
+                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 64 64">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M48 20 C48 12 40 8 32 8 C24 8 16 12 16 20 C16 28 22 32 22 32 L42 32 C42 32 48 28 48 20Z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M26 32 L26 38 L38 38 L38 32" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M22 38 L42 38" />
@@ -2628,7 +2610,7 @@ export default function Home() {
               },
               {
                 icon: (
-                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="1" viewBox="0 0 64 64">
+                  <svg className="w-20 h-20 text-[#373A36]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 64 64">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M32 12 C32 12 44 16 50 24 C56 32 54 44 46 50 C38 56 26 56 18 50 C10 44 8 32 14 24 C20 16 32 12 32 12Z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M20 20 C24 18 28 22 32 20 C36 18 40 22 44 20" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16 34 C20 32 26 36 32 34 C38 32 44 36 48 34" />
@@ -2925,7 +2907,6 @@ export default function Home() {
       </footer>
 
       {/* WhatsApp + Quick Enquiry */}
-      <QuickEnquiry />
     </div>
   );
 }
