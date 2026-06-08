@@ -69,7 +69,7 @@ function B2BCarousel({ cards }: { cards: B2BCard[] }) {
         .proj-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 45%, transparent 100%); transition: background 0.4s ease; z-index: 1; }
         .proj-card:hover .proj-overlay { background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.45) 55%, transparent 100%); }
         .proj-content { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 20px 24px 28px 24px; }
-        .proj-content h3 { color: white; font-family: 'Lora', serif; font-weight: 300; line-height: 1.35; transition: color 0.3s ease; margin: 0; }
+        .proj-content h3 { color: white; font-family: 'Lora', serif; font-weight: 700; line-height: 1.35; transition: color 0.3s ease; margin: 0; }
         .proj-card:hover .proj-content h3 { color: #C9A961; }
         .proj-loc { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
         .proj-loc span { color: rgba(201,169,97,0.9); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 600; }
